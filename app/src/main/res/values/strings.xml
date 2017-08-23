@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">库存管理系统</string>
+    <array name="state">
+        <item>在用</item>
+        <item>闲置可用</item>
+        <item>闲置可租</item>
+        <item>闲置可售</item>
+    </array>
+</resources>

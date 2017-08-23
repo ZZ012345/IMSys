@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="50dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <ImageView
+                android:src="@drawable/password_modify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="请修改密码"
+                android:textSize="25dip"
+                android:textColor="@color/black" />
+
+            <!-- Old Password Label -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/wrapper_oldpassword_modify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/input_oldpassword_modify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="原密码" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Password1 Label -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/wrapper_password1_modify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/input_password1_modify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="新密码" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Password2 Label -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/wrapper_password2_modify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/input_password2_modify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="确认新密码" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <ProgressBar
+                android:id="@+id/progressbar_modify_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/button_submit_modify_pass"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="10dp"
+                android:padding="12dp"
+                android:text="提交" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/button_cancel_modify_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="24dp"
+                android:text="取消" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menu_userinfo"
+            android:title="个人信息" />
+
+        <item
+            android:id="@+id/menu_matsto"
+            android:title="材料库" />
+
+        <item
+            android:id="@+id/menu_matin"
+            android:title="        入库" />
+
+        <item
+            android:id="@+id/menu_matin_record"
+            android:title="        入库记录查询" />
+
+        <item
+            android:id="@+id/menu_matout"
+            android:title="        出库" />
+
+        <item
+            android:id="@+id/menu_matout_record"
+            android:title="        出库记录查询" />
+
+        <item
+            android:id="@+id/menu_matsearch"
+            android:title="        按条件查找" />
+
+        <item
+            android:id="@+id/menu_logout"
+            android:title="登出" />
+
+    </group>
+
+</menu>
