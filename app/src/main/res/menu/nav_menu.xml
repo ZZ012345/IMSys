@@ -30,7 +30,7 @@
 
         <item
             android:id="@+id/menu_matsearch"
-            android:title="        按条件查找" />
+            android:title="        查找" />
 
         <item
             android:id="@+id/menu_logout"

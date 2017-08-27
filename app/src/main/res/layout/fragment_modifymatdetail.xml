@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="标号(必填)" />
+                    android:hint="标号*" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -199,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:digits="0123456789."
-                    android:hint="单位原值(必填)" />
+                    android:hint="单位原值*" />
 
             </android.support.design.widget.TextInputLayout>
 

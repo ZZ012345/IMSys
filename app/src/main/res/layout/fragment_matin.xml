@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="标号(必填)" />
+                    android:hint="标号*" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -205,7 +205,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:digits="0123456789."
-                    android:hint="单位原值(必填)" />
+                    android:hint="单位原值*" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -240,7 +240,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:digits="0123456789-"
-                    android:hint="入库时间(必填)" />
+                    android:hint="入库时间*" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -257,7 +257,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="操作人员(必填)" />
+                    android:hint="操作人员*" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -275,7 +275,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:digits="0123456789."
-                    android:hint="入库量(必填)" />
+                    android:hint="入库量*" />
 
             </android.support.design.widget.TextInputLayout>
 

@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.menu_matsearch:
                         replaceFragment(new MatSearchFragment());
-                        toolbar.setTitle("按条件查找材料库");
+                        toolbar.setTitle("材料查找");
                         lastClickOn = 6;
                         break;
                     case R.id.menu_logout:
