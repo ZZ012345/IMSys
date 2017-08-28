@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,9 @@ public class UserinfoFragment extends Fragment {
         textTelephone = (TextView) view.findViewById(R.id.text_telephone_info);
         textCompany = (TextView) view.findViewById(R.id.text_company_info);
         textAddress = (TextView) view.findViewById(R.id.text_address_info);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
+        toolbar.setTitle("个人信息");
 
         progressBar.setVisibility(View.VISIBLE); //显示进度条
         wrapperInfo.setVisibility(View.GONE); //隐藏个人信息

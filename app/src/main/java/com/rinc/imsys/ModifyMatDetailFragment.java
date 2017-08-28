@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +82,9 @@ public class ModifyMatDetailFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matdetail_modify);
         submitButton = (Button) view.findViewById(R.id.button_submit_matdetail_modify);
         cancelButton = (Button) view.findViewById(R.id.button_cancel_matdetail_modify);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
+        toolbar.setTitle("修改库存品详细信息");
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);

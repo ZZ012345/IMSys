@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,9 @@ public class MatOutRecFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matoutrec);
         textNotExist = (TextView) view.findViewById(R.id.text_notexist_matoutrec);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_matoutrec);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
+        toolbar.setTitle("材料出库记录查询");
 
         searchId.setVisibility(View.VISIBLE);
         searchImage.setVisibility(View.VISIBLE);

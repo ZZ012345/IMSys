@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +84,9 @@ public class MatDetailFragment extends Fragment {
         backButton = (Button) view.findViewById(R.id.button_back_matdetail);
         modifyButton = (Button) view.findViewById(R.id.button_modify_matdetail);
         deleteButton = (Button) view.findViewById(R.id.button_delete_matdetail);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
+        toolbar.setTitle("库存品详细信息");
 
         //加载之前已经获取的所有库存品信息，所以不需要再次发送网络请求
         progressBar.setVisibility(View.GONE);

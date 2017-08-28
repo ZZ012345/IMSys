@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,9 @@ public class FillUserinfoFragment extends Fragment {
         textAddress = (EditText) view.findViewById(R.id.input_address_fill);
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar_fill);
         submitButton = (Button) view.findViewById(R.id.button_submit_fill);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
+        toolbar.setTitle("填写个人信息");
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);

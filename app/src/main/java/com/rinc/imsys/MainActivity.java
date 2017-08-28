@@ -65,37 +65,30 @@ public class MainActivity extends BaseActivity {
                 switch (item.getItemId()) {
                     case R.id.menu_userinfo:
                         replaceFragment(new UserinfoFragment());
-                        toolbar.setTitle("个人信息");
                         lastClickOn = 0;
                         break;
                     case R.id.menu_matsto:
                         replaceFragment(new MatStorageFragment());
-                        toolbar.setTitle("材料库");
                         lastClickOn = 1;
                         break;
                     case R.id.menu_matin:
                         replaceFragment(new MatInFragment());
-                        toolbar.setTitle("材料入库");
                         lastClickOn = 2;
                         break;
                     case R.id.menu_matin_record:
                         replaceFragment(new MatInRecFragment());
-                        toolbar.setTitle("材料入库记录查询");
                         lastClickOn = 3;
                         break;
                     case R.id.menu_matout:
                         replaceFragment(new MatOutFragment());
-                        toolbar.setTitle("材料出库");
                         lastClickOn = 4;
                         break;
                     case R.id.menu_matout_record:
                         replaceFragment(new MatOutRecFragment());
-                        toolbar.setTitle("材料出库记录查询");
                         lastClickOn = 5;
                         break;
                     case R.id.menu_matsearch:
                         replaceFragment(new MatSearchFragment());
-                        toolbar.setTitle("材料查找");
                         lastClickOn = 6;
                         break;
                     case R.id.menu_logout:

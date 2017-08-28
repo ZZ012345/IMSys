@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,9 @@ public class MatSearchFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressbar_matsearch);
         searchButton = view.findViewById(R.id.button_search_matsearch);
 
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
+        toolbar.setTitle("材料查找");
+
         progressBar.setVisibility(View.GONE);
         searchButton.setVisibility(View.VISIBLE);
 
@@ -80,7 +84,7 @@ public class MatSearchFragment extends Fragment {
 
                 if (id.length() == 0 && type.length() == 0 && band.length() == 0 && original.length() == 0 &&
                         position.length() == 0 && yearstart.length() == 0 && yearend.length() == 0) {
-                    Toast.makeText(getActivity(), "搜索条件不能为空！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "查找条件不能为空！", Toast.LENGTH_SHORT).show();
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
                     searchButton.setVisibility(View.GONE);

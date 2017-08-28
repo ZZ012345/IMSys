@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,9 @@ public class ModifyPassFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar_modify_pass);
         submitButton = (Button) view.findViewById(R.id.button_submit_modify_pass);
         cancelButton = (Button) view.findViewById(R.id.button_cancel_modify_pass);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
+        toolbar.setTitle("修改密码");
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);

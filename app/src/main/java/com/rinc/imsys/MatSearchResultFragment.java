@@ -27,8 +27,6 @@ public class MatSearchResultFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    private Button backButton;
-
     private List<MaterialStock> mlist = new ArrayList<>();
 
     @Nullable
@@ -37,7 +35,6 @@ public class MatSearchResultFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_matsearchresult, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_matsearchresult);
-        backButton = (Button) view.findViewById(R.id.button_back_matsearchresult);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
         toolbar.setTitle("查找结果");
@@ -75,25 +72,29 @@ public class MatSearchResultFragment extends Fragment {
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        MaterialStockAdapter materialStockAdapter = new MaterialStockAdapter(mlist);
-        recyclerView.setAdapter(materialStockAdapter);
-        materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view1, int position) {
-                //传递对象
-                MatDetailFragment matDetailFragment = new MatDetailFragment();
-                MaterialStock materialStock = mlist.get(position);
-                Bundle args = new Bundle();
-                args.putSerializable("stock", materialStock);
-                matDetailFragment.setArguments(args);
-                replaceFragment(matDetailFragment);
-            }
-        });
-
+        EnhancedMaterialStockAdapter enhancedMaterialStockAdapter = new EnhancedMaterialStockAdapter(mlist);
+        recyclerView.setAdapter(enhancedMaterialStockAdapter);
+        View footer = LayoutInflater.from(getActivity()).inflate(R.layout.button_item, recyclerView, false);
+        Button backButton = footer.findViewById(R.id.back_button_matsearchresult);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view1) {
+            public void onClick(View view) {
                 replaceFragment(new MatSearchFragment());
+            }
+        });
+        enhancedMaterialStockAdapter.setFooterView(footer);
+        enhancedMaterialStockAdapter.setOnItemClickListener(new EnhancedMaterialStockAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view1, int position) {
+                if (position != mlist.size()) {
+                    //非返回键，传递对象
+                    MatDetailFragment matDetailFragment = new MatDetailFragment();
+                    MaterialStock materialStock = mlist.get(position);
+                    Bundle args = new Bundle();
+                    args.putSerializable("stock", materialStock);
+                    matDetailFragment.setArguments(args);
+                    replaceFragment(matDetailFragment);
+                }
             }
         });
 

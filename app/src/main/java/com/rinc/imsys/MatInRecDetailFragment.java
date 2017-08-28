@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,9 @@ public class MatInRecDetailFragment extends Fragment {
         textUnit = (TextView) view.findViewById(R.id.text_unit_matinrecdetail);
         textDescription = (TextView) view.findViewById(R.id.text_description_matinrecdetail);
         backButton = (Button) view.findViewById(R.id.button_back_matinrecdetail);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
+        toolbar.setTitle("入库记录详细信息");
 
         //加载之前已经获取的所有入库记录信息
         final MaterialInRecord materialInRecord = (MaterialInRecord) getArguments().getSerializable("MatInRecord");

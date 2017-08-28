@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,9 @@ public class MatStorageFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matstorage);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_matstorage);
         textNotExist = (TextView) view.findViewById(R.id.text_notexist_matstorage);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
+        toolbar.setTitle("材料库库存品信息");
 
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);
