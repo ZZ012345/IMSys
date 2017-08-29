@@ -17,6 +17,7 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
+            <!--
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,6 +25,7 @@
                 android:text="请修改库存品详细信息"
                 android:textSize="25dip"
                 android:textColor="@color/black" />
+                -->
 
             <!-- MaterialID -->
             <android.support.design.widget.TextInputLayout
@@ -199,7 +201,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:digits="0123456789."
-                    android:hint="单位原值*" />
+                    android:hint="单位原值" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -224,7 +226,8 @@
                 android:id="@+id/progressbar_matdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_submit_matdetail_modify"

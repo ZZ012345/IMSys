@@ -58,9 +58,14 @@ public class MatSearchResultFragment extends Fragment {
                 } else {
                     year = jsonObject.getString("materialYear");
                 }
+                String unit;
+                if (jsonObject.get("materialUnit") == JSONObject.NULL) {
+                    unit = "";
+                } else {
+                    unit = jsonObject.getString("materialUnit");
+                }
                 String state = jsonObject.getString("materialState");
                 String position = jsonObject.getString("materialPosition");
-                String unit = jsonObject.getString("materialUnit");
                 String description = jsonObject.getString("description");
                 String num = jsonObject.getString("materialNum");
                 MaterialStock materialStock = new MaterialStock(databaseid, id, type, storestate, mark, band,
@@ -92,6 +97,7 @@ public class MatSearchResultFragment extends Fragment {
                     MaterialStock materialStock = mlist.get(position);
                     Bundle args = new Bundle();
                     args.putSerializable("stock", materialStock);
+                    args.putInt("lastfragment", 2);
                     matDetailFragment.setArguments(args);
                     replaceFragment(matDetailFragment);
                 }

@@ -70,7 +70,7 @@ public class MatOutRecFragment extends Fragment {
 
         searchImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view1) {
                 hideKeyboard();
 
                 String textSeach = searchId.getText().toString();
@@ -113,12 +113,18 @@ public class MatOutRecFragment extends Fragment {
                                         } else {
                                             materialYear = jsonMaterial.getString("materialYear");
                                         }
+                                        String materialUnit;
+                                        if (jsonMaterial.get("materialUnit") == JSONObject.NULL) {
+                                            materialUnit = "";
+                                        } else {
+                                            materialUnit = jsonMaterial.getString("materialUnit");
+                                        }
                                         MaterialStock materialStock = new MaterialStock(jsonMaterial.getInt("id"), jsonMaterial.getString("materialID"),
                                                 jsonMaterial.getString("materialType"), jsonMaterial.getString("materialStoreState"),
                                                 jsonMaterial.getString("materialMark"), jsonMaterial.getString("materialBand"),
                                                 jsonMaterial.getString("materialOriginal"), materialYear,
                                                 jsonMaterial.getString("materialState"), jsonMaterial.getString("materialPosition"),
-                                                jsonMaterial.getString("materialUnit"), jsonMaterial.getString("description"),
+                                                materialUnit, jsonMaterial.getString("description"),
                                                 jsonMaterial.getString("materialNum"));
                                         int owner = jsonMaterial.getInt("owner");
                                         MaterialOutRecord materialOutRecord = new MaterialOutRecord(recordId, outputDateTime, user, operator, outputNum, leftNum, materialStock, owner);

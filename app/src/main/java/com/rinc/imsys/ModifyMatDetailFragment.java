@@ -210,12 +210,14 @@ public class ModifyMatDetailFragment extends Fragment {
                 final TextInputLayout wrapperUnit = (TextInputLayout) view.findViewById(R.id.wrapper_unit_matdetail_modify);
                 final String unit = textUnit.getText().toString();
                 LogUtil.d("Mat Detail Modify unit", unit);
-                if (unit.length() == 0) {
+                /*if (unit.length() == 0) {
                     wrapperUnit.setError("不能为空！");
                 } else {
                     wrapperUnit.setErrorEnabled(false);
                     unitValid = true;
-                }
+                }*/
+                wrapperUnit.setErrorEnabled(false);
+                unitValid = true;
 
                 if (!(idValid && typeValid && markValid && bandValid && originalValid &&
                         stateValid && positionValid && unitValid)) {
@@ -263,6 +265,7 @@ public class ModifyMatDetailFragment extends Fragment {
                                                                     storestate, mark, band, original, year, state, position, unit, description, materialStock.getNum());
                                                             Bundle args = new Bundle();
                                                             args.putSerializable("stock", materialStock1);
+                                                            args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                                                             matDetailFragment.setArguments(args);
                                                             replaceFragment(matDetailFragment);
                                                         }
@@ -306,8 +309,14 @@ public class ModifyMatDetailFragment extends Fragment {
                                                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                                            //回到所有库存品信息碎片
-                                                            replaceFragment(new MatStorageFragment());
+                                                            int lastfragment = getArguments().getInt("lastfragment");
+                                                            if (lastfragment == 1) {
+                                                                //由所有库存品信息碎片跳转而来
+                                                                replaceFragment(new MatStorageFragment());
+                                                            } else if (lastfragment == 2) {
+                                                                //由查找结果碎片跳转而来
+                                                                replaceFragment(new MatSearchFragment());
+                                                            }
                                                         }
                                                     });
                                                     builder.show();
@@ -387,6 +396,9 @@ public class ModifyMatDetailFragment extends Fragment {
                                     getActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
+                                            progressBar.setVisibility(View.GONE);
+                                            submitButton.setVisibility(View.VISIBLE);
+                                            cancelButton.setVisibility(View.VISIBLE);
                                             Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -403,6 +415,7 @@ public class ModifyMatDetailFragment extends Fragment {
                 MatDetailFragment matDetailFragment = new MatDetailFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("stock", materialStock);
+                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 matDetailFragment.setArguments(args);
                 replaceFragment(matDetailFragment);
             }

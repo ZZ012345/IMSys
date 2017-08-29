@@ -49,7 +49,7 @@ public class MatStorageFragment extends Fragment {
         textNotExist = (TextView) view.findViewById(R.id.text_notexist_matstorage);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("材料库库存品信息");
+        toolbar.setTitle("所有库存品信息");
 
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);
@@ -91,7 +91,12 @@ public class MatStorageFragment extends Fragment {
                             }
                             String state = jsonObject.getString("materialState");
                             String position = jsonObject.getString("materialPosition");
-                            String unit = jsonObject.getString("materialUnit");
+                            String unit;
+                            if (jsonObject.get("materialUnit") == JSONObject.NULL) {
+                                unit = "";
+                            } else {
+                                unit = jsonObject.getString("materialUnit");
+                            }
                             String description = jsonObject.getString("description");
                             String num = jsonObject.getString("materialNum");
                             MaterialStock materialStock = new MaterialStock(databaseid, id, type, storestate, mark, band,
@@ -118,6 +123,7 @@ public class MatStorageFragment extends Fragment {
                                         MaterialStock materialStock = mlist.get(position);
                                         Bundle args = new Bundle();
                                         args.putSerializable("stock", materialStock);
+                                        args.putInt("lastfragment", 1);
                                         matDetailFragment.setArguments(args);
                                         replaceFragment(matDetailFragment);
                                     }

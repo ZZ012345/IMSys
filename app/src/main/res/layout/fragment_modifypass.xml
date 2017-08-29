@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal" />
 
+            <!--
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,13 +32,14 @@
                 android:text="请修改密码"
                 android:textSize="25dip"
                 android:textColor="@color/black" />
+                -->
 
             <!-- Old Password Label -->
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/wrapper_oldpassword_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="8dp"
                 app:passwordToggleEnabled="true">
 

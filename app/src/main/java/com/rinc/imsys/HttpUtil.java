@@ -130,7 +130,11 @@ public class HttpUtil {
             }
             jsonMaterial.put("materialState", state);
             jsonMaterial.put("materialPosition", position);
-            jsonMaterial.put("materialUnit", unit);
+            if (unit.length() != 0) {
+                jsonMaterial.put("materialUnit", unit);
+            } else {
+                jsonMaterial.put("materialUnit", JSONObject.NULL);
+            }
             jsonMaterial.put("description", description);
             jsonAll.put("inputMaterial", jsonMaterial);
             jsonAll.put("inputDateTime", datetime);
@@ -177,7 +181,11 @@ public class HttpUtil {
             }
             jsonMaterial.put("materialState", state);
             jsonMaterial.put("materialPosition", position);
-            jsonMaterial.put("materialUnit", unit);
+            if (unit.length() != 0) {
+                jsonMaterial.put("materialUnit", unit);
+            } else {
+                jsonMaterial.put("materialUnit", JSONObject.NULL);
+            }
             jsonMaterial.put("description", description);
         } catch (Exception e) {
             e.printStackTrace();

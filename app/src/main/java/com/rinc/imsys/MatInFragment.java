@@ -207,12 +207,14 @@ public class MatInFragment extends Fragment {
                 final TextInputLayout wrapperUnit = (TextInputLayout) view.findViewById(R.id.wrapper_unit_matin);
                 final String unit = textUnit.getText().toString();
                 LogUtil.d("Mat in unit", unit);
-                if (unit.length() == 0) {
+                /*if (unit.length() == 0) {
                     wrapperUnit.setError("不能为空！");
                 } else {
                     wrapperUnit.setErrorEnabled(false);
                     unitValid = true;
-                }
+                }*/
+                wrapperUnit.setErrorEnabled(false);
+                unitValid = true;
 
                 //检查入库时间是否合法
                 final TextInputLayout wrapperDatetime = (TextInputLayout) view.findViewById(R.id.wrapper_datetime_matin);

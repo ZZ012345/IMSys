@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal" />
 
+            <!--
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,13 +31,14 @@
                 android:text="请填写详细个人信息"
                 android:textSize="25dip"
                 android:textColor="@color/black" />
+                -->
 
             <!-- Telephone Label -->
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/wrapper_tel_fill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText

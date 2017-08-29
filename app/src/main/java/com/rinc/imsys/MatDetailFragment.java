@@ -112,7 +112,14 @@ public class MatDetailFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                replaceFragment(new MatStorageFragment());
+                int lastfragment = getArguments().getInt("lastfragment");
+                if (lastfragment == 1) {
+                    //由所有库存品信息碎片跳转而来
+                    replaceFragment(new MatStorageFragment());
+                } else if (lastfragment == 2) {
+                    //由查找结果碎片跳转而来
+                    replaceFragment(new MatSearchFragment());
+                }
             }
         });
 
@@ -123,6 +130,7 @@ public class MatDetailFragment extends Fragment {
                 ModifyMatDetailFragment modifyMatDetailFragment = new ModifyMatDetailFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("stock", materialStock);
+                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 modifyMatDetailFragment.setArguments(args);
                 replaceFragment(modifyMatDetailFragment);
             }
@@ -151,7 +159,14 @@ public class MatDetailFragment extends Fragment {
                                         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
-                                                replaceFragment(new MatStorageFragment());
+                                                int lastfragment = getArguments().getInt("lastfragment");
+                                                if (lastfragment == 1) {
+                                                    //由所有库存品信息碎片跳转而来
+                                                    replaceFragment(new MatStorageFragment());
+                                                } else if (lastfragment == 2) {
+                                                    //由查找结果碎片跳转而来
+                                                    replaceFragment(new MatSearchFragment());
+                                                }
                                             }
                                         });
                                         builder.show();
