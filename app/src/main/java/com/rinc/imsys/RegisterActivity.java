@@ -151,8 +151,8 @@ public class RegisterActivity extends BaseActivity {
                                         HttpUtil.header = keyString; //保存token
                                         User.username = username; //保存用户名
                                         //此时用户已经登录，跳转到主页
-                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                         ActivityCollector.finishAll();
+                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     } else { //注册失败
                                         final List<Integer> errorType = new ArrayList<Integer>();

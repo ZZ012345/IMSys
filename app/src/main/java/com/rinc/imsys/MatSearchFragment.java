@@ -69,6 +69,15 @@ public class MatSearchFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
         searchButton.setVisibility(View.VISIBLE);
 
+        //填充搜索界面
+        textId.setText(SearchRecord.id);
+        textType.setText(SearchRecord.type);
+        textBand.setText(SearchRecord.band);
+        textOriginal.setText(SearchRecord.original);
+        textPosition.setText(SearchRecord.position);
+        textYearstart.setText(SearchRecord.yearstart);
+        textYearend.setText(SearchRecord.yearend);
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -88,6 +97,9 @@ public class MatSearchFragment extends Fragment {
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
                     searchButton.setVisibility(View.GONE);
+
+                    //保存搜索记录
+                    SearchRecord.setRecord(id, type, band, original, position, yearstart, yearend);
 
                     HttpUtil.searchMat(id, type, band, original, position, yearstart, yearend, new okhttp3.Callback() {
                         @Override

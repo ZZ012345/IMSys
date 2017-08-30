@@ -33,6 +33,10 @@
             android:title="        查找" />
 
         <item
+            android:id="@+id/menu_qrmake"
+            android:title="        生成二维码" />
+
+        <item
             android:id="@+id/menu_logout"
             android:title="登出" />
 

@@ -92,7 +92,7 @@ public class UserinfoFragment extends Fragment {
                                     modifyInfoButton.setVisibility(View.VISIBLE);
                                     modifyPassButton.setVisibility(View.VISIBLE);
                                     progressBar.setVisibility(View.GONE);
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    /*AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                     builder.setTitle("提示");
                                     builder.setMessage("该账号已被强制登出，请重新登录！");
                                     builder.setCancelable(false);
@@ -101,12 +101,15 @@ public class UserinfoFragment extends Fragment {
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             User.clear();
                                             HttpUtil.header = null;
+                                            SearchRecord.clearRecord();
                                             ActivityCollector.finishAll();
                                             Intent intent = new Intent(getActivity(), LoginActivity.class);
                                             getActivity().startActivity(intent);
                                         }
                                     });
-                                    builder.show();
+                                    builder.show();*/
+                                    Intent intent = new Intent("com.rinc.imsys.FORCE_OFFLINE");
+                                    getActivity().sendBroadcast(intent);
                                 }
                             });
                         }

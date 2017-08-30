@@ -55,11 +55,14 @@ public class BaseActivity extends AppCompatActivity {
         public void onReceive(final Context context, Intent intent) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("提示");
-            builder.setMessage("该账号已被强制登出，请重新登录");
+            builder.setMessage("该账号已被强制登出，请重新登录！");
             builder.setCancelable(false);
             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    User.clear();
+                    HttpUtil.header = null;
+                    SearchRecord.clearRecord();
                     ActivityCollector.finishAll();
                     Intent intent = new Intent(context, LoginActivity.class);
                     context.startActivity(intent);

@@ -91,6 +91,10 @@ public class MainActivity extends BaseActivity {
                         replaceFragment(new MatSearchFragment());
                         lastClickOn = 6;
                         break;
+                    case R.id.menu_qrmake:
+                        replaceFragment(new QRMakeFragment());
+                        lastClickOn = 7;
+                        break;
                     case R.id.menu_logout:
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                         dialog.setTitle("提示");
@@ -107,6 +111,7 @@ public class MainActivity extends BaseActivity {
                                         //清空数据并退回登录界面
                                         User.clear();
                                         HttpUtil.header = null;
+                                        SearchRecord.clearRecord();
                                         ActivityCollector.finishAll();
                                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                                         startActivity(intent);
@@ -117,6 +122,7 @@ public class MainActivity extends BaseActivity {
                                         //服务器没有响应，同样清空数据并退回登录界面
                                         User.clear();
                                         HttpUtil.header = null;
+                                        SearchRecord.clearRecord();
                                         ActivityCollector.finishAll();
                                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                                         startActivity(intent);
@@ -148,6 +154,9 @@ public class MainActivity extends BaseActivity {
                                         break;
                                     case 6:
                                         navView.setCheckedItem(R.id.menu_matsearch);
+                                        break;
+                                    case 7:
+                                        navView.setCheckedItem(R.id.menu_qrmake);
                                         break;
                                     default:
                                 }
