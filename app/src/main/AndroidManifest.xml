@@ -3,6 +3,7 @@
     package="com.rinc.imsys">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApplication"
@@ -33,6 +34,12 @@
         <activity
             android:name=".MainActivity"
             android:label="主页"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".SimpleScannerActivity"
+            android:label="扫描二维码"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 

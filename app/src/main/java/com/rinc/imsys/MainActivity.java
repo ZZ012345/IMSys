@@ -1,23 +1,29 @@
 package com.rinc.imsys;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -29,6 +35,8 @@ public class MainActivity extends BaseActivity {
     private DrawerLayout drawerLayout;
 
     private Toolbar toolbar;
+
+    private MenuItem scanItem;
 
     private NavigationView navView;
 
@@ -64,36 +72,54 @@ public class MainActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_userinfo:
+                        scanItem.setVisible(false);
                         replaceFragment(new UserinfoFragment());
                         lastClickOn = 0;
                         break;
                     case R.id.menu_matsto:
+                        scanItem.setVisible(false);
                         replaceFragment(new MatStorageFragment());
                         lastClickOn = 1;
                         break;
                     case R.id.menu_matin:
+                        scanItem.setVisible(true);
                         replaceFragment(new MatInFragment());
                         lastClickOn = 2;
                         break;
                     case R.id.menu_matin_record:
+                        scanItem.setVisible(false);
                         replaceFragment(new MatInRecFragment());
                         lastClickOn = 3;
                         break;
                     case R.id.menu_matout:
+                        scanItem.setVisible(true);
                         replaceFragment(new MatOutFragment());
                         lastClickOn = 4;
                         break;
                     case R.id.menu_matout_record:
+                        scanItem.setVisible(false);
                         replaceFragment(new MatOutRecFragment());
                         lastClickOn = 5;
                         break;
                     case R.id.menu_matsearch:
+                        scanItem.setVisible(false);
                         replaceFragment(new MatSearchFragment());
                         lastClickOn = 6;
                         break;
-                    case R.id.menu_qrmake:
-                        replaceFragment(new QRMakeFragment());
+                    case R.id.menu_partsto:
+                        scanItem.setVisible(false);
+                        replaceFragment(new PartStorageFragment());
                         lastClickOn = 7;
+                        break;
+                    case R.id.menu_equisto:
+                        scanItem.setVisible(false);
+                        replaceFragment(new EquiStorageFragment());
+                        lastClickOn = 8;
+                        break;
+                    case R.id.menu_qrmake:
+                        scanItem.setVisible(false);
+                        replaceFragment(new QRMakeFragment());
+                        lastClickOn = 9;
                         break;
                     case R.id.menu_logout:
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
@@ -156,6 +182,12 @@ public class MainActivity extends BaseActivity {
                                         navView.setCheckedItem(R.id.menu_matsearch);
                                         break;
                                     case 7:
+                                        navView.setCheckedItem(R.id.menu_partsto);
+                                        break;
+                                    case 8:
+                                        navView.setCheckedItem(R.id.menu_equisto);
+                                        break;
+                                    case 9:
                                         navView.setCheckedItem(R.id.menu_qrmake);
                                         break;
                                     default:
@@ -196,14 +228,45 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        scanItem = menu.findItem(R.id.scan);
+        scanItem.setVisible(false); //默认隐藏扫描二维码按钮
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 break;
+            case R.id.scan:
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    //未授予相机权限
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+                    LogUtil.d("QR scan", "no permission of camera");
+                } else {
+                    Intent intent = new Intent(this, SimpleScannerActivity.class);
+                    startActivityForResult(intent, 1);
+                }
+                break;
             default:
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    String returnData = data.getStringExtra("data_return");
+                    LogUtil.d("QR scan return", returnData);
+                }
+                break;
+            default:
+        }
     }
 
     @Override
@@ -226,5 +289,18 @@ public class MainActivity extends BaseActivity {
         transaction.replace(R.id.frame_main, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(this, SimpleScannerActivity.class);
+                    startActivityForResult(intent, 1);
+                } else {
+                    Toast.makeText(this, "请授予相机权限以使用二维码扫描", Toast.LENGTH_SHORT).show();
+                }
+        }
     }
 }

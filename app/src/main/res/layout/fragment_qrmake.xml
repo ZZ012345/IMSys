@@ -10,4 +10,10 @@
         android:layout_height="wrap_content"
         android:text="生成" />
 
+    <ImageView
+        android:id="@+id/image_qrmake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
 </LinearLayout>

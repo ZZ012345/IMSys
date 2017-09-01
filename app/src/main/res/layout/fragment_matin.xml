@@ -13,20 +13,22 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="50dp"
+            android:paddingTop="20dp"
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
+            <!--
             <ImageView
                 android:src="@drawable/in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal" />
+                -->
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="5dp"
                 android:text="请填写入库信息"
                 android:textSize="25dip"
                 android:textColor="@color/black" />
