@@ -10,6 +10,7 @@ import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class SimpleScannerActivity extends BaseScannerActivity implements ZXingScannerView.ResultHandler {
+
     private ZXingScannerView mScannerView;
 
     @Override
@@ -18,7 +19,7 @@ public class SimpleScannerActivity extends BaseScannerActivity implements ZXingS
         setContentView(R.layout.activity_simplescanner);
         setupToolbar();
 
-        ViewGroup contentFrame = (ViewGroup) findViewById(R.id.content_frame);
+        ViewGroup contentFrame = (ViewGroup) findViewById(R.id.content_scanner);
         mScannerView = new ZXingScannerView(this);
         contentFrame.addView(mScannerView);
     }
@@ -38,8 +39,8 @@ public class SimpleScannerActivity extends BaseScannerActivity implements ZXingS
 
     @Override
     public void handleResult(Result rawResult) {
-        Toast.makeText(this, "Contents = " + rawResult.getText() +
-                ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Contents = " + rawResult.getText() +
+        //        ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_LONG).show();
 
         // Note:
         // * Wait 2 seconds to resume the preview.

@@ -79,6 +79,24 @@ public class MatOutFragment extends Fragment {
         String today = year + "-" + month + "-" + day;
         textDateTime.setText(today);
 
+        if (getArguments() != null) {
+            //从扫描二维码界面返回
+            String info = getArguments().getString("info");
+            try {
+                JSONObject jsonObject = new JSONObject(info);
+                String stockType = jsonObject.getString("stockType");
+                String idScan = jsonObject.getString("id");
+
+                if (stockType.equals("material")) {
+                    textId.setText(idScan);
+                } else {
+                    Toast.makeText(getActivity(), "非材料库二维码！", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {

@@ -4,16 +4,358 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/button_qrmake"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="生成" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fitsSystemWindows="true">
 
-    <ImageView
-        android:id="@+id/image_qrmake"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="选择仓库"
+                android:textSize="18dip" />
+
+            <Spinner
+                android:id="@+id/spinner_qrmake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <LinearLayout
+                android:id="@+id/layout_qrmake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- MaterialID -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_id_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp">
+
+                    <EditText
+                        android:id="@+id/input_id_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="标号*"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Type -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_type_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_type_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="类型"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Mark -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_mark_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_mark_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="型号"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Hour -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_hour_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_hour_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="工作小时"
+                        android:digits="0123456789"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Band -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_band_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_band_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="品牌"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Original -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_original_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_original_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="原产地"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Year -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_year_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_year_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789-"
+                        android:hint="年份"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- State -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_state_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_state_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="状态"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Position -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_position_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_position_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="位置"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Unit -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_unit_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_unit_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789."
+                        android:hint="单位原值"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Name -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_name_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_name_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="名称"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Company -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_company_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_company_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="制造企业"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- MachineName -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_machinename_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_machinename_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="整机名称"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- MachineType -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_machinetype_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_machinetype_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="整机型号"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- MachineBand -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_machineband_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_machineband_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="整机品牌"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Condition -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_condition_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_condition_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="储存条件"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Vulnerability -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_vul_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_vul_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="易损性"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Description -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wrapper_description_qrmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/input_description_qrmake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="备注"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/button_qrmake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:text="生成" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

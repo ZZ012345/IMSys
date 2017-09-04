@@ -44,6 +44,12 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".QRCodeActivity"
+            android:label="生成二维码结果"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

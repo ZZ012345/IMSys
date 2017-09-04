@@ -261,8 +261,22 @@ public class MainActivity extends BaseActivity {
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
+                    //从二维码扫描界面返回
                     String returnData = data.getStringExtra("data_return");
                     LogUtil.d("QR scan return", returnData);
+                    Bundle args = new Bundle();
+                    args.putString("info", returnData);
+
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
+                    if (fragment instanceof MatInFragment) {
+                        MatInFragment matInFragment = new MatInFragment();
+                        matInFragment.setArguments(args);
+                        replaceFragment(matInFragment);
+                    } else if (fragment instanceof MatOutFragment) {
+                        MatOutFragment matOutFragment = new MatOutFragment();
+                        matOutFragment.setArguments(args);
+                        replaceFragment(matOutFragment);
+                    }
                 }
                 break;
             default:
@@ -288,7 +302,7 @@ public class MainActivity extends BaseActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_main, fragment);
         transaction.addToBackStack(null);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     @Override

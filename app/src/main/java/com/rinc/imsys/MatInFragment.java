@@ -107,6 +107,42 @@ public class MatInFragment extends Fragment {
         String today = year + "-" + month + "-" + day;
         textDateTime.setText(today);
 
+        if (getArguments() != null) {
+            //从扫描二维码界面返回
+            String info = getArguments().getString("info");
+            try {
+                JSONObject jsonObject = new JSONObject(info);
+                String stockType = jsonObject.getString("stockType");
+                String idScan = jsonObject.getString("id");
+                String typeScan = jsonObject.getString("type");
+                String markScan = jsonObject.getString("mark");
+                String bandScan = jsonObject.getString("band");
+                String originalScan = jsonObject.getString("original");
+                String yearScan = jsonObject.getString("year");
+                String stateScan = jsonObject.getString("state");
+                String positionScan = jsonObject.getString("position");
+                String unitScan = jsonObject.getString("unit");
+                String descriptionScan = jsonObject.getString("description");
+
+                if (stockType.equals("material")) {
+                    textId.setText(idScan);
+                    textType.setText(typeScan);
+                    textMark.setText(markScan);
+                    textBand.setText(bandScan);
+                    textOriginal.setText(originalScan);
+                    textYear.setText(yearScan);
+                    textState.setText(stateScan);
+                    textPosition.setText(positionScan);
+                    textUnit.setText(unitScan);
+                    textDescription.setText(descriptionScan);
+                } else {
+                    Toast.makeText(getActivity(), "非材料库二维码！", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
