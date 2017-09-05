@@ -83,7 +83,7 @@ public class MatSearchResultFragment extends Fragment {
         Button backButton = footer.findViewById(R.id.back_button_matsearchresult);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view1) {
                 replaceFragment(new MatSearchFragment());
             }
         });

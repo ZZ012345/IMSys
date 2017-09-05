@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -290,6 +291,10 @@ public class QRMakeFragment extends Fragment {
                 String year = textYear.getText().toString();
                 String unit = textUnit.getText().toString();
                 String description = textDescription.getText().toString();
+
+                if (!(idValid && typeValid && markValid && bandValid && originalValid && stateValid && positionValid)) {
+                    Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                }
 
                 if (idValid && typeValid && markValid && bandValid && originalValid && stateValid && positionValid) {
                     int stockType = spinner.getSelectedItemPosition();

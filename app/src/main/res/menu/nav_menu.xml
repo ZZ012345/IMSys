@@ -6,46 +6,56 @@
 
         <item
             android:id="@+id/menu_userinfo"
+            android:icon="@drawable/menu_user"
             android:title="个人信息" />
 
         <item
-            android:id="@+id/menu_matsto"
+            android:id="@+id/menu_mat"
+            android:icon="@drawable/menu_mat"
             android:title="材料库" />
 
         <item
+            android:id="@+id/menu_matsto"
+            android:title="所有库存品信息" />
+
+        <item
             android:id="@+id/menu_matin"
-            android:title="        入库" />
+            android:title="入库" />
 
         <item
             android:id="@+id/menu_matin_record"
-            android:title="        入库记录查询" />
+            android:title="入库记录查询" />
 
         <item
             android:id="@+id/menu_matout"
-            android:title="        出库" />
+            android:title="出库" />
 
         <item
             android:id="@+id/menu_matout_record"
-            android:title="        出库记录查询" />
+            android:title="出库记录查询" />
 
         <item
             android:id="@+id/menu_matsearch"
-            android:title="        查找" />
+            android:title="查找" />
 
         <item
             android:id="@+id/menu_partsto"
+            android:icon="@drawable/menu_part"
             android:title="零件库" />
 
         <item
             android:id="@+id/menu_equisto"
+            android:icon="@drawable/menu_equi"
             android:title="设备库" />
 
         <item
             android:id="@+id/menu_qrmake"
+            android:icon="@drawable/menu_qr"
             android:title="生成二维码" />
 
         <item
             android:id="@+id/menu_logout"
+            android:icon="@drawable/menu_logout"
             android:title="登出" />
 
     </group>

@@ -40,7 +40,21 @@ public class MainActivity extends BaseActivity {
 
     private NavigationView navView;
 
-    private int lastClickOn = 0; //用于标记登出前滑动菜单栏点击的位置
+    private Menu menu;
+
+    private MenuItem menuMatsto;
+
+    private MenuItem menuMatin;
+
+    private MenuItem menuMatinrec;
+
+    private MenuItem menuMatout;
+
+    private MenuItem menuMatoutrec;
+
+    private MenuItem menuMatsearch;
+
+    private int lastClickOn = 0; //用于标记上次点击的菜单位置
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +78,22 @@ public class MainActivity extends BaseActivity {
         TextView headerUsername = (TextView) header.findViewById(R.id.username_header);
         headerUsername.setText(User.username);
 
+        menu = navView.getMenu();
+        menuMatsto = menu.getItem(2);
+        menuMatin = menu.getItem(3);
+        menuMatinrec = menu.getItem(4);
+        menuMatout = menu.getItem(5);
+        menuMatoutrec = menu.getItem(6);
+        menuMatsearch = menu.getItem(7);
+
+        //菜单默认收起
+        menuMatsto.setVisible(false);
+        menuMatin.setVisible(false);
+        menuMatinrec.setVisible(false);
+        menuMatout.setVisible(false);
+        menuMatoutrec.setVisible(false);
+        menuMatsearch.setVisible(false);
+
         replaceFragment(new UserinfoFragment()); //加载个人信息碎片
 
         navView.setCheckedItem(R.id.menu_userinfo);
@@ -73,53 +103,63 @@ public class MainActivity extends BaseActivity {
                 switch (item.getItemId()) {
                     case R.id.menu_userinfo:
                         scanItem.setVisible(false);
-                        replaceFragment(new UserinfoFragment());
                         lastClickOn = 0;
+                        replaceFragment(new UserinfoFragment());
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.menu_mat:
+                        //根据所有库存品信息菜单是否可见展开或收起菜单
+                        setMatMenuVisible(!menuMatsto.isVisible());
                         break;
                     case R.id.menu_matsto:
                         scanItem.setVisible(false);
-                        replaceFragment(new MatStorageFragment());
                         lastClickOn = 1;
+                        replaceFragment(new MatStorageFragment());
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matin:
                         scanItem.setVisible(true);
-                        replaceFragment(new MatInFragment());
                         lastClickOn = 2;
+                        replaceFragment(new MatInFragment());
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matin_record:
                         scanItem.setVisible(false);
-                        replaceFragment(new MatInRecFragment());
                         lastClickOn = 3;
+                        replaceFragment(new MatInRecFragment());
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matout:
                         scanItem.setVisible(true);
-                        replaceFragment(new MatOutFragment());
                         lastClickOn = 4;
+                        replaceFragment(new MatOutFragment());
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matout_record:
                         scanItem.setVisible(false);
-                        replaceFragment(new MatOutRecFragment());
                         lastClickOn = 5;
+                        replaceFragment(new MatOutRecFragment());
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matsearch:
                         scanItem.setVisible(false);
-                        replaceFragment(new MatSearchFragment());
                         lastClickOn = 6;
+                        replaceFragment(new MatSearchFragment());
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_partsto:
                         scanItem.setVisible(false);
-                        replaceFragment(new PartStorageFragment());
-                        lastClickOn = 7;
+                        //replaceFragment(new PartStorageFragment());
                         break;
                     case R.id.menu_equisto:
                         scanItem.setVisible(false);
-                        replaceFragment(new EquiStorageFragment());
-                        lastClickOn = 8;
+                        //replaceFragment(new EquiStorageFragment());
                         break;
                     case R.id.menu_qrmake:
                         scanItem.setVisible(false);
+                        lastClickOn = 7;
                         replaceFragment(new QRMakeFragment());
-                        lastClickOn = 9;
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_logout:
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
@@ -159,46 +199,14 @@ public class MainActivity extends BaseActivity {
                         dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                switch (lastClickOn) {
-                                    case 0:
-                                        navView.setCheckedItem(R.id.menu_userinfo);
-                                        break;
-                                    case 1:
-                                        navView.setCheckedItem(R.id.menu_matsto);
-                                        break;
-                                    case 2:
-                                        navView.setCheckedItem(R.id.menu_matin);
-                                        break;
-                                    case 3:
-                                        navView.setCheckedItem(R.id.menu_matin_record);
-                                        break;
-                                    case 4:
-                                        navView.setCheckedItem(R.id.menu_matout);
-                                        break;
-                                    case 5:
-                                        navView.setCheckedItem(R.id.menu_matout_record);
-                                        break;
-                                    case 6:
-                                        navView.setCheckedItem(R.id.menu_matsearch);
-                                        break;
-                                    case 7:
-                                        navView.setCheckedItem(R.id.menu_partsto);
-                                        break;
-                                    case 8:
-                                        navView.setCheckedItem(R.id.menu_equisto);
-                                        break;
-                                    case 9:
-                                        navView.setCheckedItem(R.id.menu_qrmake);
-                                        break;
-                                    default:
-                                }
+
                             }
                         });
                         dialog.show();
+                        drawerLayout.closeDrawers();
                         break;
                     default:
                 }
-                drawerLayout.closeDrawers();
                 return true;
             }
         });
@@ -217,7 +225,51 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onDrawerClosed(View drawerView) {
-
+                switch (lastClickOn) {
+                    case 0:
+                        navView.setCheckedItem(R.id.menu_userinfo);
+                        break;
+                    case 1:
+                        if (!menuMatsto.isVisible()) {
+                            setMatMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_matsto);
+                        break;
+                    case 2:
+                        if (!menuMatsto.isVisible()) {
+                            setMatMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_matin);
+                        break;
+                    case 3:
+                        if (!menuMatsto.isVisible()) {
+                            setMatMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_matin_record);
+                        break;
+                    case 4:
+                        if (!menuMatsto.isVisible()) {
+                            setMatMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_matout);
+                        break;
+                    case 5:
+                        if (!menuMatsto.isVisible()) {
+                            setMatMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_matout_record);
+                        break;
+                    case 6:
+                        if (!menuMatsto.isVisible()) {
+                            setMatMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_matsearch);
+                        break;
+                    case 7:
+                        navView.setCheckedItem(R.id.menu_qrmake);
+                        break;
+                    default:
+                }
             }
 
             @Override
@@ -225,6 +277,24 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+    }
+
+    public void setMatMenuVisible(boolean isVisible) {
+        if (isVisible) {
+            menuMatsto.setVisible(true);
+            menuMatin.setVisible(true);
+            menuMatinrec.setVisible(true);
+            menuMatout.setVisible(true);
+            menuMatoutrec.setVisible(true);
+            menuMatsearch.setVisible(true);
+        } else {
+            menuMatsto.setVisible(false);
+            menuMatin.setVisible(false);
+            menuMatinrec.setVisible(false);
+            menuMatout.setVisible(false);
+            menuMatoutrec.setVisible(false);
+            menuMatsearch.setVisible(false);
+        }
     }
 
     @Override

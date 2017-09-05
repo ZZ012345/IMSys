@@ -17,7 +17,7 @@
             android:paddingRight="24dp">
 
             <ImageView
-                android:src="@drawable/detail"
+                android:src="@drawable/detail_mat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" />
