@@ -49,7 +49,7 @@ public class MatStorageFragment extends Fragment {
         textNotExist = (TextView) view.findViewById(R.id.text_notexist_matstorage);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("所有库存品信息");
+        toolbar.setTitle("材料库库存品信息");
 
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);

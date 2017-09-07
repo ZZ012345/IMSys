@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class MainActivity extends BaseActivity {
 
     private Menu menu;
 
+    private MenuItem menuMat;
+
     private MenuItem menuMatsto;
 
     private MenuItem menuMatin;
@@ -53,6 +56,24 @@ public class MainActivity extends BaseActivity {
     private MenuItem menuMatoutrec;
 
     private MenuItem menuMatsearch;
+
+    private ImageView imageMat;
+
+    private MenuItem menuPart;
+
+    private MenuItem menuPartsto;
+
+    private MenuItem menuPartin;
+
+    private MenuItem menuPartinrec;
+
+    private MenuItem menuPartout;
+
+    private MenuItem menuPartoutrec;
+
+    private MenuItem menuPartsearch;
+
+    private ImageView imagePart;
 
     private int lastClickOn = 0; //用于标记上次点击的菜单位置
 
@@ -79,12 +100,25 @@ public class MainActivity extends BaseActivity {
         headerUsername.setText(User.username);
 
         menu = navView.getMenu();
+        menuMat = menu.getItem(1);
         menuMatsto = menu.getItem(2);
         menuMatin = menu.getItem(3);
         menuMatinrec = menu.getItem(4);
         menuMatout = menu.getItem(5);
         menuMatoutrec = menu.getItem(6);
         menuMatsearch = menu.getItem(7);
+        View viewMat = menuMat.getActionView();
+        imageMat = (ImageView) viewMat.findViewById(R.id.image_menu_mat);
+
+        menuPart = menu.getItem(8);
+        menuPartsto = menu.getItem(9);
+        menuPartin = menu.getItem(10);
+        menuPartinrec = menu.getItem(11);
+        menuPartout = menu.getItem(12);
+        menuPartoutrec = menu.getItem(13);
+        menuPartsearch = menu.getItem(14);
+        View viewPart = menuPart.getActionView();
+        imagePart = (ImageView) viewPart.findViewById(R.id.image_menu_part);
 
         //菜单默认收起
         menuMatsto.setVisible(false);
@@ -93,6 +127,15 @@ public class MainActivity extends BaseActivity {
         menuMatout.setVisible(false);
         menuMatoutrec.setVisible(false);
         menuMatsearch.setVisible(false);
+        imageMat.setImageResource(R.drawable.menu_left);
+
+        menuPartsto.setVisible(false);
+        menuPartin.setVisible(false);
+        menuPartinrec.setVisible(false);
+        menuPartout.setVisible(false);
+        menuPartoutrec.setVisible(false);
+        menuPartsearch.setVisible(false);
+        imagePart.setImageResource(R.drawable.menu_left);
 
         replaceFragment(new UserinfoFragment()); //加载个人信息碎片
 
@@ -147,9 +190,15 @@ public class MainActivity extends BaseActivity {
                         replaceFragment(new MatSearchFragment());
                         drawerLayout.closeDrawers();
                         break;
+                    case R.id.menu_part:
+                        //根据所有库存品信息菜单是否可见展开或收起菜单
+                        setPartMenuVisible(!menuPartsto.isVisible());
+                        break;
                     case R.id.menu_partsto:
                         scanItem.setVisible(false);
-                        //replaceFragment(new PartStorageFragment());
+                        lastClickOn = 7;
+                        replaceFragment(new PartStorageFragment());
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_equisto:
                         scanItem.setVisible(false);
@@ -157,7 +206,7 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.menu_qrmake:
                         scanItem.setVisible(false);
-                        lastClickOn = 7;
+                        lastClickOn = 19;
                         replaceFragment(new QRMakeFragment());
                         drawerLayout.closeDrawers();
                         break;
@@ -266,6 +315,12 @@ public class MainActivity extends BaseActivity {
                         navView.setCheckedItem(R.id.menu_matsearch);
                         break;
                     case 7:
+                        if (!menuPartsto.isVisible()) {
+                            setPartMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_partsto);
+                        break;
+                    case 19:
                         navView.setCheckedItem(R.id.menu_qrmake);
                         break;
                     default:
@@ -287,6 +342,7 @@ public class MainActivity extends BaseActivity {
             menuMatout.setVisible(true);
             menuMatoutrec.setVisible(true);
             menuMatsearch.setVisible(true);
+            imageMat.setImageResource(R.drawable.menu_down);
         } else {
             menuMatsto.setVisible(false);
             menuMatin.setVisible(false);
@@ -294,6 +350,27 @@ public class MainActivity extends BaseActivity {
             menuMatout.setVisible(false);
             menuMatoutrec.setVisible(false);
             menuMatsearch.setVisible(false);
+            imageMat.setImageResource(R.drawable.menu_left);
+        }
+    }
+
+    public void setPartMenuVisible(boolean isVisible) {
+        if (isVisible) {
+            menuPartsto.setVisible(true);
+            menuPartin.setVisible(true);
+            menuPartinrec.setVisible(true);
+            menuPartout.setVisible(true);
+            menuPartoutrec.setVisible(true);
+            menuPartsearch.setVisible(true);
+            imagePart.setImageResource(R.drawable.menu_down);
+        } else {
+            menuPartsto.setVisible(false);
+            menuPartin.setVisible(false);
+            menuPartinrec.setVisible(false);
+            menuPartout.setVisible(false);
+            menuPartoutrec.setVisible(false);
+            menuPartsearch.setVisible(false);
+            imagePart.setImageResource(R.drawable.menu_left);
         }
     }
 

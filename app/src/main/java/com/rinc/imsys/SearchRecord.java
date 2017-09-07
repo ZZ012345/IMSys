@@ -5,7 +5,7 @@ package com.rinc.imsys;
  */
 
 public class SearchRecord {
-    //用于存储上次的搜索记录，以便在回到搜索界面时自动填充
+    //该类用于存储上次的搜索记录，以便在回到搜索界面时自动填充
     public static String id = "";
 
     public static String type = "";
@@ -20,9 +20,6 @@ public class SearchRecord {
 
     public static String yearend = "";
 
-    //用于在关闭滑动菜单栏时判断当前应该点击的菜单项
-    public static int lastpage = 1;
-
     public static void clearRecord() {
         id = "";
         type = "";
@@ -31,7 +28,6 @@ public class SearchRecord {
         position = "";
         yearstart = "";
         yearend = "";
-        lastpage = 1;
     }
 
     public static void setRecord(String id1, String type1, String band1, String original1,

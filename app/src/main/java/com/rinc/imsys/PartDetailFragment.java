@@ -23,14 +23,14 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by zhouzhi on 2017/8/18.
+ * Created by ZhouZhi on 2017/9/7.
  */
 
-public class MatDetailFragment extends Fragment {
+public class PartDetailFragment extends Fragment {
 
     private ProgressBar progressBar;
 
-    private LinearLayout wrapperMatDetail;
+    private LinearLayout wrapperPartDetail;
 
     private TextView textId;
 
@@ -54,6 +54,20 @@ public class MatDetailFragment extends Fragment {
 
     private TextView textUnit;
 
+    private TextView textName;
+
+    private TextView textCompany;
+
+    private TextView textMachineName;
+
+    private TextView textMachineType;
+
+    private TextView textMachineBand;
+
+    private TextView textCondition;
+
+    private TextView textVulnerability;
+
     private TextView textDescription;
 
     private Button backButton;
@@ -65,28 +79,35 @@ public class MatDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_matdetail, container, false);
+        View view = inflater.inflate(R.layout.fragment_partdetail, container, false);
 
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matdetail);
-        wrapperMatDetail = (LinearLayout) view.findViewById(R.id.wrapper_matdetail);
-        textId = (TextView) view.findViewById(R.id.text_id_matdetail);
-        textType = (TextView) view.findViewById(R.id.text_type_matdetail);
-        textNum = (TextView) view.findViewById(R.id.text_num_matdetail);
-        textStorestate = (TextView) view.findViewById(R.id.text_storestate_matdetail);
-        textMark = (TextView) view.findViewById(R.id.text_mark_matdetail);
-        textBand = (TextView) view.findViewById(R.id.text_band_matdetail);
-        textOriginal = (TextView) view.findViewById(R.id.text_original_matdetail);
-        textYear = (TextView) view.findViewById(R.id.text_year_matdetail);
-        textState = (TextView) view.findViewById(R.id.text_state_matdetail);
-        textPosition = (TextView) view.findViewById(R.id.text_position_matdetail);
-        textUnit = (TextView) view.findViewById(R.id.text_unit_matdetail);
-        textDescription = (TextView) view.findViewById(R.id.text_description_matdetail);
-        backButton = (Button) view.findViewById(R.id.button_back_matdetail);
-        modifyButton = (Button) view.findViewById(R.id.button_modify_matdetail);
-        deleteButton = (Button) view.findViewById(R.id.button_delete_matdetail);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_partdetail);
+        wrapperPartDetail = (LinearLayout) view.findViewById(R.id.wrapper_partdetail);
+        textId = (TextView) view.findViewById(R.id.text_id_partdetail);
+        textType = (TextView) view.findViewById(R.id.text_type_partdetail);
+        textNum = (TextView) view.findViewById(R.id.text_num_partdetail);
+        textStorestate = (TextView) view.findViewById(R.id.text_storestate_partdetail);
+        textMark = (TextView) view.findViewById(R.id.text_mark_partdetail);
+        textBand = (TextView) view.findViewById(R.id.text_band_partdetail);
+        textOriginal = (TextView) view.findViewById(R.id.text_original_partdetail);
+        textYear = (TextView) view.findViewById(R.id.text_year_partdetail);
+        textState = (TextView) view.findViewById(R.id.text_state_partdetail);
+        textPosition = (TextView) view.findViewById(R.id.text_position_partdetail);
+        textUnit = (TextView) view.findViewById(R.id.text_unit_partdetail);
+        textName = (TextView) view.findViewById(R.id.text_name_partdetail);
+        textCompany = (TextView) view.findViewById(R.id.text_company_partdetail);
+        textMachineName = (TextView) view.findViewById(R.id.text_machinename_partdetail);
+        textMachineType = (TextView) view.findViewById(R.id.text_machinetype_partdetail);
+        textMachineBand = (TextView) view.findViewById(R.id.text_machineband_partdetail);
+        textCondition = (TextView) view.findViewById(R.id.text_condition_partdetail);
+        textVulnerability = (TextView) view.findViewById(R.id.text_vul_partdetail);
+        textDescription = (TextView) view.findViewById(R.id.text_description_partdetail);
+        backButton = (Button) view.findViewById(R.id.button_back_partdetail);
+        modifyButton = (Button) view.findViewById(R.id.button_modify_partdetail);
+        deleteButton = (Button) view.findViewById(R.id.button_delete_partdetail);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("材料详细信息");
+        toolbar.setTitle("零件详细信息");
 
         //加载之前已经获取的所有库存品信息，所以不需要再次发送网络请求
         progressBar.setVisibility(View.GONE);
@@ -94,20 +115,27 @@ public class MatDetailFragment extends Fragment {
         modifyButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
 
-        final MaterialStock materialStock = (MaterialStock) getArguments().getSerializable("stock");
+        final PartStock partStock = (PartStock) getArguments().getSerializable("stock");
 
-        textId.setText(String.valueOf(materialStock.getId()));
-        textType.setText(materialStock.getType());
-        textNum.setText(materialStock.getNum());
-        textStorestate.setText(materialStock.getStorestate());
-        textMark.setText(materialStock.getMark());
-        textBand.setText(materialStock.getBand());
-        textOriginal.setText(materialStock.getOriginal());
-        textYear.setText(materialStock.getYear());
-        textState.setText(materialStock.getState());
-        textPosition.setText(materialStock.getPosition());
-        textUnit.setText(materialStock.getUnit());
-        textDescription.setText(materialStock.getDescription());
+        textId.setText(String.valueOf(partStock.getId()));
+        textType.setText(partStock.getType());
+        textNum.setText(partStock.getNum());
+        textStorestate.setText(partStock.getStorestate());
+        textMark.setText(partStock.getMark());
+        textBand.setText(partStock.getBand());
+        textOriginal.setText(partStock.getOriginal());
+        textYear.setText(partStock.getYear());
+        textState.setText(partStock.getState());
+        textPosition.setText(partStock.getPosition());
+        textUnit.setText(partStock.getUnit());
+        textName.setText(partStock.getName());
+        textCompany.setText(partStock.getCompany());
+        textMachineName.setText(partStock.getMachineName());
+        textMachineType.setText(partStock.getMachineType());
+        textMachineBand.setText(partStock.getMachineBand());
+        textCondition.setText(partStock.getCondition());
+        textVulnerability.setText(partStock.getVulnerability());
+        textDescription.setText(partStock.getDescription());
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,10 +143,10 @@ public class MatDetailFragment extends Fragment {
                 int lastfragment = getArguments().getInt("lastfragment");
                 if (lastfragment == 1) {
                     //由所有库存品信息碎片跳转而来
-                    replaceFragment(new MatStorageFragment());
+                    replaceFragment(new PartStorageFragment());
                 } else if (lastfragment == 2) {
                     //由查找结果碎片跳转而来
-                    replaceFragment(new MatSearchFragment());
+
                 }
             }
         });
@@ -127,12 +155,12 @@ public class MatDetailFragment extends Fragment {
             @Override
             public void onClick(View view1) {
                 //传递对象
-                ModifyMatDetailFragment modifyMatDetailFragment = new ModifyMatDetailFragment();
+                ModifyPartDetailFragment modifyPartDetailFragment = new ModifyPartDetailFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("stock", materialStock);
+                args.putSerializable("stock", partStock);
                 args.putInt("lastfragment", getArguments().getInt("lastfragment"));
-                modifyMatDetailFragment.setArguments(args);
-                replaceFragment(modifyMatDetailFragment);
+                modifyPartDetailFragment.setArguments(args);
+                replaceFragment(modifyPartDetailFragment);
             }
         });
 
@@ -146,7 +174,7 @@ public class MatDetailFragment extends Fragment {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        HttpUtil.deleteMatDetail(materialStock.getId(), new okhttp3.Callback() {
+                        HttpUtil.deletePartDetail(partStock.getId(), new okhttp3.Callback() {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 getActivity().runOnUiThread(new Runnable() {
@@ -162,10 +190,10 @@ public class MatDetailFragment extends Fragment {
                                                 int lastfragment = getArguments().getInt("lastfragment");
                                                 if (lastfragment == 1) {
                                                     //由所有库存品信息碎片跳转而来
-                                                    replaceFragment(new MatStorageFragment());
+                                                    replaceFragment(new PartStorageFragment());
                                                 } else if (lastfragment == 2) {
                                                     //由查找结果碎片跳转而来
-                                                    replaceFragment(new MatSearchFragment());
+
                                                 }
                                             }
                                         });
@@ -177,7 +205,7 @@ public class MatDetailFragment extends Fragment {
                             @Override
                             public void onFailure(Call call, IOException e) {
                                 e.printStackTrace();
-                                LogUtil.d("Delete Mat Detail", "failed");
+                                LogUtil.d("Delete Part Detail", "failed");
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {

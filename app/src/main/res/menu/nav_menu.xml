@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group
         android:checkableBehavior="single">
@@ -12,11 +13,13 @@
         <item
             android:id="@+id/menu_mat"
             android:icon="@drawable/menu_mat"
+            app:actionLayout="@layout/custom_menu_mat"
+            android:checkable="false"
             android:title="材料库" />
 
         <item
             android:id="@+id/menu_matsto"
-            android:title="所有库存品信息" />
+            android:title="库存品信息" />
 
         <item
             android:id="@+id/menu_matin"
@@ -39,13 +42,40 @@
             android:title="查找" />
 
         <item
-            android:id="@+id/menu_partsto"
+            android:id="@+id/menu_part"
             android:icon="@drawable/menu_part"
+            app:actionLayout="@layout/custom_menu_part"
+            android:checkable="false"
             android:title="零件库" />
+
+        <item
+            android:id="@+id/menu_partsto"
+            android:title="库存品信息" />
+
+        <item
+            android:id="@+id/menu_partin"
+            android:title="入库" />
+
+        <item
+            android:id="@+id/menu_partin_record"
+            android:title="入库记录查询" />
+
+        <item
+            android:id="@+id/menu_partout"
+            android:title="出库" />
+
+        <item
+            android:id="@+id/menu_partout_record"
+            android:title="出库记录查询" />
+
+        <item
+            android:id="@+id/menu_partsearch"
+            android:title="查找" />
 
         <item
             android:id="@+id/menu_equisto"
             android:icon="@drawable/menu_equi"
+            android:checkable="false"
             android:title="设备库" />
 
         <item

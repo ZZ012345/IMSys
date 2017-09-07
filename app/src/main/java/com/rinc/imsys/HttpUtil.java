@@ -163,7 +163,7 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void modifyMatDetail(String Oldid, String id, String type, String storestate, String mark,
+    public static void modifyMatDetail(String oldid, String id, String type, String storestate, String mark,
                                        String band, String original, String year, String state,
                                        String position, String unit, String description, okhttp3.Callback callback) {
         JSONObject jsonMaterial = new JSONObject();
@@ -193,7 +193,7 @@ public class HttpUtil {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = RequestBody.create(JSON, jsonMaterial.toString());
         Request request = new Request.Builder()
-                .url(serverAddr + "api/material/" + Oldid + "/")
+                .url(serverAddr + "api/material/" + oldid + "/")
                 .addHeader("Authorization", "Token " + header)
                 .put(requestBody)
                 .build();
@@ -262,6 +262,70 @@ public class HttpUtil {
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Authorization", "Token " + header)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void getPartStorage(okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/part/")
+                .addHeader("Authorization", "Token " + header)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void modifyPartDetail(String oldid, String id, String type, String storestate, String mark,
+                                        String band, String original, String year, String state, String position,
+                                        String unit, String name, String company, String machineName, String machineType,
+                                        String machineBand, String condition, String vulnerability, String description, okhttp3.Callback callback) {
+        JSONObject jsonPart = new JSONObject();
+        try {
+            jsonPart.put("partID", id);
+            jsonPart.put("partType", type);
+            jsonPart.put("partStoreState", storestate);
+            jsonPart.put("partMark", mark);
+            jsonPart.put("partBand", band);
+            jsonPart.put("partOriginal", original);
+            if (year.length() != 0) {
+                jsonPart.put("partYear", year);
+            } else {
+                jsonPart.put("partYear", JSONObject.NULL);
+            }
+            jsonPart.put("partState", state);
+            jsonPart.put("partPosition", position);
+            if (unit.length() != 0) {
+                jsonPart.put("partUnit", unit);
+            } else {
+                jsonPart.put("partUnit", JSONObject.NULL);
+            }
+            jsonPart.put("partName", name);
+            jsonPart.put("partCompany", company);
+            jsonPart.put("partMachineName", machineName);
+            jsonPart.put("partMachineType", machineType);
+            jsonPart.put("partMachineBand", machineBand);
+            jsonPart.put("partCondition", condition);
+            jsonPart.put("partVulnerability", vulnerability);
+            jsonPart.put("description", description);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = RequestBody.create(JSON, jsonPart.toString());
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/part/" + oldid + "/")
+                .addHeader("Authorization", "Token " + header)
+                .put(requestBody)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void deletePartDetail(String id, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/part/" + id + "/")
+                .addHeader("Authorization", "Token " + header)
+                .delete()
                 .build();
         client.newCall(request).enqueue(callback);
     }
