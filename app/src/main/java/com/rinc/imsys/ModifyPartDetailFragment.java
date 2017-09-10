@@ -424,7 +424,7 @@ public class ModifyPartDetailFragment extends Fragment {
                                                                 replaceFragment(new PartStorageFragment());
                                                             } else if (lastfragment == 2) {
                                                                 //由查找结果碎片跳转而来
-
+                                                                replaceFragment(new PartSearchFragment());
                                                             }
                                                         }
                                                     });

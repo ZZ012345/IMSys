@@ -6,38 +6,71 @@ package com.rinc.imsys;
 
 public class SearchRecord {
     //该类用于存储上次的搜索记录，以便在回到搜索界面时自动填充
-    public static String id = "";
+    public static String id_mat = "";
 
-    public static String type = "";
+    public static String type_mat = "";
 
-    public static String band = "";
+    public static String band_mat = "";
 
-    public static String original = "";
+    public static String original_mat = "";
 
-    public static String position = "";
+    public static String position_mat = "";
 
-    public static String yearstart = "";
+    public static String yearstart_mat = "";
 
-    public static String yearend = "";
+    public static String yearend_mat = "";
+
+    public static String id_part = "";
+
+    public static String type_part = "";
+
+    public static String band_part = "";
+
+    public static String original_part = "";
+
+    public static String position_part = "";
+
+    public static String yearstart_part = "";
+
+    public static String yearend_part = "";
 
     public static void clearRecord() {
-        id = "";
-        type = "";
-        band = "";
-        original = "";
-        position = "";
-        yearstart = "";
-        yearend = "";
+        id_mat = "";
+        type_mat = "";
+        band_mat = "";
+        original_mat = "";
+        position_mat = "";
+        yearstart_mat = "";
+        yearend_mat = "";
+
+        id_part = "";
+        type_part = "";
+        band_part = "";
+        original_part = "";
+        position_part = "";
+        yearstart_part = "";
+        yearend_part = "";
     }
 
-    public static void setRecord(String id1, String type1, String band1, String original1,
-                                 String position1, String yearstart1, String yearend1) {
-        id = id1;
-        type = type1;
-        band = band1;
-        original = original1;
-        position = position1;
-        yearstart = yearstart1;
-        yearend = yearend1;
+    public static void setMatRecord(String id, String type, String band, String original,
+                                 String position, String yearstart, String yearend) {
+        id_mat = id;
+        type_mat = type;
+        band_mat = band;
+        original_mat = original;
+        position_mat = position;
+        yearstart_mat = yearstart;
+        yearend_mat = yearend;
+    }
+
+    public static void setPartRecord(String id, String type, String band, String original,
+                                    String position, String yearstart, String yearend) {
+        id_part = id;
+        type_part = type;
+        band_part = band;
+        original_part = original;
+        position_part = position;
+        yearstart_part = yearstart;
+        yearend_part = yearend;
     }
 }

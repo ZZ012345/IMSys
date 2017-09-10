@@ -58,14 +58,14 @@ public class MatSearchResultFragment extends Fragment {
                 } else {
                     year = jsonObject.getString("materialYear");
                 }
+                String state = jsonObject.getString("materialState");
+                String position = jsonObject.getString("materialPosition");
                 String unit;
                 if (jsonObject.get("materialUnit") == JSONObject.NULL) {
                     unit = "";
                 } else {
                     unit = jsonObject.getString("materialUnit");
                 }
-                String state = jsonObject.getString("materialState");
-                String position = jsonObject.getString("materialPosition");
                 String description = jsonObject.getString("description");
                 String num = jsonObject.getString("materialNum");
                 MaterialStock materialStock = new MaterialStock(databaseid, id, type, storestate, mark, band,
@@ -80,7 +80,7 @@ public class MatSearchResultFragment extends Fragment {
         EnhancedMaterialStockAdapter enhancedMaterialStockAdapter = new EnhancedMaterialStockAdapter(mlist);
         recyclerView.setAdapter(enhancedMaterialStockAdapter);
         View footer = LayoutInflater.from(getActivity()).inflate(R.layout.button_item, recyclerView, false);
-        Button backButton = footer.findViewById(R.id.back_button_matsearchresult);
+        Button backButton = footer.findViewById(R.id.back_button_searchresult);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {

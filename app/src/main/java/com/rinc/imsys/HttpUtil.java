@@ -329,4 +329,18 @@ public class HttpUtil {
                 .build();
         client.newCall(request).enqueue(callback);
     }
+
+    public static void searchPart(String id, String type, String band, String original, String position,
+                                 String yearstart, String yearend, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        String url = serverAddr + "api/part/search?" + "partID=" + id + "&partType=" + type +
+                "&partBand=" + band + "&partOriginal=" + original + "&partPosition=" + position +
+                "&partYearstart=" + yearstart + "&partYearend=" + yearend;
+        LogUtil.d("Part Search url", url);
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Token " + header)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
 }

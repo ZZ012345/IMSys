@@ -200,6 +200,12 @@ public class MainActivity extends BaseActivity {
                         replaceFragment(new PartStorageFragment());
                         drawerLayout.closeDrawers();
                         break;
+                    case R.id.menu_partsearch:
+                        scanItem.setVisible(false);
+                        lastClickOn = 12;
+                        replaceFragment(new PartSearchFragment());
+                        drawerLayout.closeDrawers();
+                        break;
                     case R.id.menu_equisto:
                         scanItem.setVisible(false);
                         //replaceFragment(new EquiStorageFragment());
@@ -319,6 +325,12 @@ public class MainActivity extends BaseActivity {
                             setPartMenuVisible(true);
                         }
                         navView.setCheckedItem(R.id.menu_partsto);
+                        break;
+                    case 12:
+                        if (!menuPartsto.isVisible()) {
+                            setPartMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_partsearch);
                         break;
                     case 19:
                         navView.setCheckedItem(R.id.menu_qrmake);
