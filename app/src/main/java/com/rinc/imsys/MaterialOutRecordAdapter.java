@@ -15,19 +15,58 @@ import java.util.List;
 
 public class MaterialOutRecordAdapter extends RecyclerView.Adapter<MaterialOutRecordAdapter.ViewHolder> implements View.OnClickListener {
 
-    private List<MaterialOutRecord> mrlist;
+    public static final int TYPE_HEADER = 0;
+
+    public static final int TYPE_FOOTER = 1;
+
+    public static final int TYPE_NORMAL = 2;
+
+    private List<MaterialOutRecord> mlist;
 
     private MaterialOutRecordAdapter.OnItemClickListener mOnItemClickListener = null;
 
-    public MaterialOutRecordAdapter(List<MaterialOutRecord> mrlist) {
-        this.mrlist = mrlist;
+    private View mHeaderView;
+
+    private View mFooterView;
+
+    public MaterialOutRecordAdapter(List<MaterialOutRecord> mlist) {
+        this.mlist = mlist;
     }
 
     public static interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public View getHeaderView() {
+        return mHeaderView;
+    }
+
+    public void setHeaderView(View headerView) {
+        mHeaderView = headerView;
+        notifyItemInserted(0);
+    }
+
+    public View getFooterView() {
+        return mFooterView;
+    }
+
+    public void setFooterView(View footerView) {
+        mFooterView = footerView;
+        notifyItemInserted(getItemCount() - 1);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0 && mHeaderView != null) {
+            return TYPE_HEADER;
+        }
+        if (position == getItemCount() - 1 && mFooterView != null) {
+            return TYPE_FOOTER;
+        }
+        return TYPE_NORMAL;
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView textTime;
         TextView textOperator;
         TextView textId;
@@ -50,6 +89,14 @@ public class MaterialOutRecordAdapter extends RecyclerView.Adapter<MaterialOutRe
 
     @Override
     public MaterialOutRecordAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        if (mHeaderView != null && viewType == TYPE_HEADER) {
+            mHeaderView.setOnClickListener(this);
+            return new MaterialOutRecordAdapter.ViewHolder(mHeaderView);
+        }
+        if (mFooterView != null && viewType == TYPE_FOOTER) {
+            mFooterView.setOnClickListener(this);
+            return new MaterialOutRecordAdapter.ViewHolder(mFooterView);
+        }
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.materialoutrecord_item, parent, false);
         MaterialOutRecordAdapter.ViewHolder viewHolder = new MaterialOutRecordAdapter.ViewHolder(view);
         view.setOnClickListener(this);
@@ -58,14 +105,27 @@ public class MaterialOutRecordAdapter extends RecyclerView.Adapter<MaterialOutRe
 
     @Override
     public void onBindViewHolder(MaterialOutRecordAdapter.ViewHolder holder, int position) {
-        MaterialOutRecord materialOutRecord = mrlist.get(position);
-        holder.textTime.setText(materialOutRecord.getOutputDateTime());
-        holder.textOperator.setText(materialOutRecord.getOperator());
-        holder.textId.setText(materialOutRecord.getMaterialStock().getId());
-        holder.textNum.setText(materialOutRecord.getOutputNum());
-        holder.textLeftnum.setText(materialOutRecord.getLeftNum());
-        holder.textUser.setText(materialOutRecord.getUser());
-        holder.itemView.setTag(position);
+        if (getItemViewType(position) == TYPE_NORMAL) {
+            if (holder != null) {
+                MaterialOutRecord materialOutRecord;
+                if (mHeaderView != null) {
+                    materialOutRecord = mlist.get(position - 1);
+                } else {
+                    materialOutRecord = mlist.get(position);
+                }
+                holder.textTime.setText(materialOutRecord.getOutputDateTime());
+                holder.textOperator.setText(materialOutRecord.getOperator());
+                holder.textId.setText(materialOutRecord.getMaterialStock().getId());
+                holder.textNum.setText(materialOutRecord.getOutputNum());
+                holder.textLeftnum.setText(materialOutRecord.getLeftNum());
+                holder.textUser.setText(materialOutRecord.getUser());
+                holder.itemView.setTag(position);
+            }
+        } else {
+            if (holder != null) {
+                holder.itemView.setTag(position);
+            }
+        }
     }
 
     @Override
@@ -81,7 +141,14 @@ public class MaterialOutRecordAdapter extends RecyclerView.Adapter<MaterialOutRe
 
     @Override
     public int getItemCount() {
-        return mrlist.size();
+        if (mHeaderView == null && mFooterView == null) {
+            return mlist.size();
+        } else if (mHeaderView == null) {
+            return mlist.size() + 1;
+        } else if (mFooterView == null) {
+            return mlist.size() + 1;
+        } else {
+            return mlist.size() + 2;
+        }
     }
-
 }

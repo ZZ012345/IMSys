@@ -17,22 +17,144 @@
             android:paddingRight="24dp">
 
             <ImageView
-                android:src="@drawable/detail_part"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" />
-
-            <ProgressBar
-                android:id="@+id/progressbar_partdetail"
+                android:src="@drawable/detail_rec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp" />
 
             <LinearLayout
-                android:id="@+id/wrapper_partdetail"
+                android:id="@+id/wrapper_partoutrecdetail"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <!-- OutputDateTime -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="出库时间"
+                    android:textSize="20dip" />
+
+                <TextView
+                    android:id="@+id/text_outputdatetime_partoutrecdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="25dp"
+                    android:text=""
+                    android:textSize="20dip"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFE4E1" />
+
+                <!-- Operator -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="操作人员"
+                    android:textSize="20dip" />
+
+                <TextView
+                    android:id="@+id/text_operator_partoutrecdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="25dp"
+                    android:text=""
+                    android:textSize="20dip"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFE4E1" />
+
+                <!-- OutputNum -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="出库数量"
+                    android:textSize="20dip" />
+
+                <TextView
+                    android:id="@+id/text_outputnum_partoutrecdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="25dp"
+                    android:text=""
+                    android:textSize="20dip"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFE4E1" />
+
+                <!-- LeftNum -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="剩余数量"
+                    android:textSize="20dip" />
+
+                <TextView
+                    android:id="@+id/text_leftnum_partoutrecdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="25dp"
+                    android:text=""
+                    android:textSize="20dip"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFE4E1" />
+
+                <!-- User -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="零件去向"
+                    android:textSize="20dip" />
+
+                <TextView
+                    android:id="@+id/text_user_partoutrecdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="25dp"
+                    android:text=""
+                    android:textSize="20dip"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFE4E1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:textSize="22dip"
+                    android:text="出库零件信息"/>
 
                 <!-- Id -->
                 <TextView
@@ -43,7 +165,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_id_partdetail"
+                    android:id="@+id/text_id_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -67,7 +189,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_type_partdetail"
+                    android:id="@+id/text_type_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -87,11 +209,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="数量"
+                    android:text="当前数量"
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_num_partdetail"
+                    android:id="@+id/text_num_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -115,7 +237,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_storestate_partdetail"
+                    android:id="@+id/text_storestate_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -139,7 +261,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_mark_partdetail"
+                    android:id="@+id/text_mark_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -163,7 +285,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_band_partdetail"
+                    android:id="@+id/text_band_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -187,7 +309,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_original_partdetail"
+                    android:id="@+id/text_original_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -211,7 +333,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_year_partdetail"
+                    android:id="@+id/text_year_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -235,7 +357,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_state_partdetail"
+                    android:id="@+id/text_state_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -259,7 +381,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_position_partdetail"
+                    android:id="@+id/text_position_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -283,7 +405,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_unit_partdetail"
+                    android:id="@+id/text_unit_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -307,7 +429,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_name_partdetail"
+                    android:id="@+id/text_name_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -331,7 +453,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_company_partdetail"
+                    android:id="@+id/text_company_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -355,7 +477,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_machinename_partdetail"
+                    android:id="@+id/text_machinename_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -379,7 +501,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_machinetype_partdetail"
+                    android:id="@+id/text_machinetype_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -403,7 +525,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_machineband_partdetail"
+                    android:id="@+id/text_machineband_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -427,7 +549,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_condition_partdetail"
+                    android:id="@+id/text_condition_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -451,7 +573,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_vul_partdetail"
+                    android:id="@+id/text_vul_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -475,7 +597,7 @@
                     android:textSize="20dip" />
 
                 <TextView
-                    android:id="@+id/text_description_partdetail"
+                    android:id="@+id/text_description_partoutrecdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -493,40 +615,12 @@
             </LinearLayout>
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_back_partdetail"
+                android:id="@+id/button_back_partoutrecdetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="15dp"
                 android:text="返回" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_modify_partdetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="修改" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_delete_partdetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="删除" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_in_partdetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="查询入库记录" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_out_partdetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:text="查询出库记录" />
 
         </LinearLayout>
 

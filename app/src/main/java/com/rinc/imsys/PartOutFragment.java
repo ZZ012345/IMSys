@@ -31,10 +31,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by zhouzhi on 2017/8/18.
+ * Created by ZhouZhi on 2017/9/11.
  */
 
-public class MatOutFragment extends Fragment {
+public class PartOutFragment extends Fragment {
 
     private EditText textId;
 
@@ -53,18 +53,18 @@ public class MatOutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_matout, container, false);
+        final View view = inflater.inflate(R.layout.fragment_partout, container, false);
 
-        textId = (EditText) view.findViewById(R.id.input_id_matout);
-        textDateTime = (EditText) view.findViewById(R.id.input_date_matout);
-        textUser = (EditText) view.findViewById(R.id.input_user_matout);
-        textOperator = (EditText) view.findViewById(R.id.input_operator_matout);
-        textNum = (EditText) view.findViewById(R.id.input_num_matout);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matout);
-        submitButton = (Button) view.findViewById(R.id.button_submit_matout);
+        textId = (EditText) view.findViewById(R.id.input_id_partout);
+        textDateTime = (EditText) view.findViewById(R.id.input_date_partout);
+        textUser = (EditText) view.findViewById(R.id.input_user_partout);
+        textOperator = (EditText) view.findViewById(R.id.input_operator_partout);
+        textNum = (EditText) view.findViewById(R.id.input_num_partout);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_partout);
+        submitButton = (Button) view.findViewById(R.id.button_submit_partout);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("材料出库");
+        toolbar.setTitle("零件出库");
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
@@ -87,10 +87,10 @@ public class MatOutFragment extends Fragment {
                 String stockType = jsonObject.getString("stockType");
                 String idScan = jsonObject.getString("id");
 
-                if (stockType.equals("material")) {
+                if (stockType.equals("part")) {
                     textId.setText(idScan);
                 } else {
-                    Toast.makeText(getActivity(), "非材料库二维码！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "非零件库二维码！", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -110,9 +110,9 @@ public class MatOutFragment extends Fragment {
                 boolean numValid = false;
 
                 //检查标号是否合法
-                TextInputLayout wrapperId = (TextInputLayout) view.findViewById(R.id.wrapper_id_matout);
+                TextInputLayout wrapperId = (TextInputLayout) view.findViewById(R.id.wrapper_id_partout);
                 String id = textId.getText().toString();
-                LogUtil.d("Mat out id", id);
+                LogUtil.d("Part out id", id);
                 if (id.length() == 0) {
                     wrapperId.setError("不能为空！");
                 } else if (id.length() > 100) {
@@ -123,9 +123,9 @@ public class MatOutFragment extends Fragment {
                 }
 
                 //检查出库时间是否合法
-                final TextInputLayout wrapperDatetime = (TextInputLayout) view.findViewById(R.id.wrapper_datetime_matout);
+                final TextInputLayout wrapperDatetime = (TextInputLayout) view.findViewById(R.id.wrapper_datetime_partout);
                 String datetime = textDateTime.getText().toString();
-                LogUtil.d("Mat out datetime", datetime);
+                LogUtil.d("Part out datetime", datetime);
                 if (datetime.length() == 0) {
                     wrapperDatetime.setError("不能为空！");
                 } else {
@@ -134,9 +134,9 @@ public class MatOutFragment extends Fragment {
                 }
 
                 //检查去向是否合法
-                TextInputLayout wrapperUser = (TextInputLayout) view.findViewById(R.id.wrapper_user_matout);
+                TextInputLayout wrapperUser = (TextInputLayout) view.findViewById(R.id.wrapper_user_partout);
                 String user = textUser.getText().toString();
-                LogUtil.d("Mat out user", user);
+                LogUtil.d("Part out user", user);
                 if (user.length() == 0) {
                     wrapperUser.setError("不能为空！");
                 } else if (user.length() > 100) {
@@ -147,9 +147,9 @@ public class MatOutFragment extends Fragment {
                 }
 
                 //检查操作人员是否合法
-                TextInputLayout wrapperOperator = (TextInputLayout) view.findViewById(R.id.wrapper_operator_matout);
+                TextInputLayout wrapperOperator = (TextInputLayout) view.findViewById(R.id.wrapper_operator_partout);
                 String operator = textOperator.getText().toString();
-                LogUtil.d("Mat out operator", operator);
+                LogUtil.d("Part out operator", operator);
                 if (operator.length() == 0) {
                     wrapperOperator.setError("不能为空！");
                 } else if (operator.length() > 100) {
@@ -160,9 +160,9 @@ public class MatOutFragment extends Fragment {
                 }
 
                 //检查出库量是否合法
-                final TextInputLayout wrapperNum = (TextInputLayout) view.findViewById(R.id.wrapper_num_matout);
+                final TextInputLayout wrapperNum = (TextInputLayout) view.findViewById(R.id.wrapper_num_partout);
                 String num = textNum.getText().toString();
-                LogUtil.d("Mat out num", num);
+                LogUtil.d("Part out num", num);
                 if (num.length() == 0) {
                     wrapperNum.setError("不能为空！");
                 } else {
@@ -174,12 +174,12 @@ public class MatOutFragment extends Fragment {
                     submitButton.setVisibility(View.GONE);
                     progressBar.setVisibility(View.VISIBLE);
 
-                    HttpUtil.materialOut(id, datetime, user, operator, num, new okhttp3.Callback() {
+                    HttpUtil.partOut(id, datetime, user, operator, num, new okhttp3.Callback() {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             try {
                                 String responseData = response.body().string();
-                                LogUtil.d("Mat out json", responseData);
+                                LogUtil.d("Part out json", responseData);
                                 JSONObject jsonObject = new JSONObject(responseData);
                                 if (jsonObject.has("id")) {
                                     //出库成功
@@ -195,7 +195,7 @@ public class MatOutFragment extends Fragment {
                                             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    replaceFragment(new MatOutFragment());
+                                                    replaceFragment(new PartOutFragment());
                                                 }
                                             });
                                             builder.show();
@@ -213,7 +213,7 @@ public class MatOutFragment extends Fragment {
                                                 submitButton.setVisibility(View.VISIBLE);
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                                 builder.setTitle("提示");
-                                                builder.setMessage("出库失败，该材料不存在！");
+                                                builder.setMessage("出库失败，该零件不存在！");
                                                 builder.setCancelable(false);
                                                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                     @Override
@@ -225,7 +225,7 @@ public class MatOutFragment extends Fragment {
                                             }
                                         });
                                     }
-                                    if (jsonObject.has("materialNum")) {
+                                    if (jsonObject.has("partNum")) {
                                         //库存余量不足
                                         getActivity().runOnUiThread(new Runnable() {
                                             @Override
@@ -252,26 +252,14 @@ public class MatOutFragment extends Fragment {
                                     }
                                     if (jsonObject.has("outputNum")) {
                                         String numErr = jsonObject.getString("outputNum");
-                                        LogUtil.d("Mat out error num", numErr);
-                                        if (numErr.equals("[\"A valid number is required.\"]")) {
-                                            //非数字
+                                        LogUtil.d("Part out error num", numErr);
+                                        if (numErr.equals("[\"A valid integer is required.\"]")) {
+                                            //非整数
                                             errorType.add(2);
                                         }
-                                        if (numErr.equals("[\"Ensure that there are no more than 8 digits in total.\"]")) {
-                                            //数字不能超过8位
+                                        if (numErr.equals("[\"Ensure this value is less than or equal to 2147483647.\"]")) {
+                                            //数字过大
                                             errorType.add(3);
-                                        }
-                                        if (numErr.equals("[\"Ensure that there are no more than 6 digits before the decimal point.\"]")) {
-                                            //小数点前不能超过6位
-                                            errorType.add(4);
-                                        }
-                                        if (numErr.equals("[\"Ensure that there are no more than 2 decimal places.\"]")) {
-                                            //小数点后不能超过2位
-                                            errorType.add(5);
-                                        }
-                                        if (numErr.equals("[\"String value too large.\"]")) {
-                                            //字符串值过大，按数字不能超过8位处理
-                                            errorType.add(6);
                                         }
                                     }
 
@@ -286,16 +274,10 @@ public class MatOutFragment extends Fragment {
                                                 wrapperDatetime.setError("格式错误，正确格式如2000-01-01！");
                                             }
                                             if (errorType.contains(2)) {
-                                                wrapperNum.setError("该输入非数字！");
+                                                wrapperNum.setError("该输入非整数！");
                                             }
-                                            if (errorType.contains(3) || errorType.contains(6)) {
-                                                wrapperNum.setError("数字不能超过8位！");
-                                            }
-                                            if (errorType.contains(4)) {
-                                                wrapperNum.setError("小数点前不能超过6位！");
-                                            }
-                                            if (errorType.contains(5)) {
-                                                wrapperNum.setError("小数点后不能超过2位！");
+                                            if (errorType.contains(3)) {
+                                                wrapperNum.setError("数字不能大于2147483647！");
                                             }
                                         }
                                     });
@@ -308,7 +290,7 @@ public class MatOutFragment extends Fragment {
                         @Override
                         public void onFailure(Call call, IOException e) {
                             e.printStackTrace();
-                            LogUtil.d("Mat out", "failed");
+                            LogUtil.d("Part out", "failed");
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

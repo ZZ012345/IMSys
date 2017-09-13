@@ -219,6 +219,10 @@ public class ModifyPartDetailFragment extends Fragment {
                     originalValid = true;
                 }
 
+                //检查年份是否合法
+                final TextInputLayout wrapperYear = (TextInputLayout) view.findViewById(R.id.wrapper_year_partdetail_modify);
+                wrapperYear.setErrorEnabled(false);
+
                 //检查状态是否合法
                 TextInputLayout wrapperState = (TextInputLayout) view.findViewById(R.id.wrapper_state_partdetail_modify);
                 final String state = textState.getText().toString();
@@ -330,8 +334,6 @@ public class ModifyPartDetailFragment extends Fragment {
                         machineTypeValid && machineBandValid && conditionValid && vulnerabilityValid)) {
                     Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
                 }
-
-                final TextInputLayout wrapperYear = (TextInputLayout) view.findViewById(R.id.wrapper_year_partdetail_modify);
 
                 if (idValid && typeValid && markValid && bandValid && originalValid && stateValid &&
                         positionValid && unitValid && nameValid && companyValid && machineNameValid &&

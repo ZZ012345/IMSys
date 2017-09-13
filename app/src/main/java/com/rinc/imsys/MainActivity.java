@@ -49,11 +49,7 @@ public class MainActivity extends BaseActivity {
 
     private MenuItem menuMatin;
 
-    private MenuItem menuMatinrec;
-
     private MenuItem menuMatout;
-
-    private MenuItem menuMatoutrec;
 
     private MenuItem menuMatsearch;
 
@@ -65,11 +61,7 @@ public class MainActivity extends BaseActivity {
 
     private MenuItem menuPartin;
 
-    private MenuItem menuPartinrec;
-
     private MenuItem menuPartout;
-
-    private MenuItem menuPartoutrec;
 
     private MenuItem menuPartsearch;
 
@@ -100,42 +92,26 @@ public class MainActivity extends BaseActivity {
         headerUsername.setText(User.username);
 
         menu = navView.getMenu();
+
         menuMat = menu.getItem(1);
         menuMatsto = menu.getItem(2);
         menuMatin = menu.getItem(3);
-        menuMatinrec = menu.getItem(4);
-        menuMatout = menu.getItem(5);
-        menuMatoutrec = menu.getItem(6);
-        menuMatsearch = menu.getItem(7);
+        menuMatout = menu.getItem(4);
+        menuMatsearch = menu.getItem(5);
         View viewMat = menuMat.getActionView();
         imageMat = (ImageView) viewMat.findViewById(R.id.image_menu_mat);
 
-        menuPart = menu.getItem(8);
-        menuPartsto = menu.getItem(9);
-        menuPartin = menu.getItem(10);
-        menuPartinrec = menu.getItem(11);
-        menuPartout = menu.getItem(12);
-        menuPartoutrec = menu.getItem(13);
-        menuPartsearch = menu.getItem(14);
+        menuPart = menu.getItem(6);
+        menuPartsto = menu.getItem(7);
+        menuPartin = menu.getItem(8);
+        menuPartout = menu.getItem(9);
+        menuPartsearch = menu.getItem(10);
         View viewPart = menuPart.getActionView();
         imagePart = (ImageView) viewPart.findViewById(R.id.image_menu_part);
 
         //菜单默认收起
-        menuMatsto.setVisible(false);
-        menuMatin.setVisible(false);
-        menuMatinrec.setVisible(false);
-        menuMatout.setVisible(false);
-        menuMatoutrec.setVisible(false);
-        menuMatsearch.setVisible(false);
-        imageMat.setImageResource(R.drawable.menu_left);
-
-        menuPartsto.setVisible(false);
-        menuPartin.setVisible(false);
-        menuPartinrec.setVisible(false);
-        menuPartout.setVisible(false);
-        menuPartoutrec.setVisible(false);
-        menuPartsearch.setVisible(false);
-        imagePart.setImageResource(R.drawable.menu_left);
+        setMatMenuVisible(false);
+        setPartMenuVisible(false);
 
         replaceFragment(new UserinfoFragment()); //加载个人信息碎片
 
@@ -166,27 +142,15 @@ public class MainActivity extends BaseActivity {
                         replaceFragment(new MatInFragment());
                         drawerLayout.closeDrawers();
                         break;
-                    case R.id.menu_matin_record:
-                        scanItem.setVisible(false);
-                        lastClickOn = 3;
-                        replaceFragment(new MatInRecFragment());
-                        drawerLayout.closeDrawers();
-                        break;
                     case R.id.menu_matout:
                         scanItem.setVisible(true);
-                        lastClickOn = 4;
+                        lastClickOn = 3;
                         replaceFragment(new MatOutFragment());
-                        drawerLayout.closeDrawers();
-                        break;
-                    case R.id.menu_matout_record:
-                        scanItem.setVisible(false);
-                        lastClickOn = 5;
-                        replaceFragment(new MatOutRecFragment());
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matsearch:
                         scanItem.setVisible(false);
-                        lastClickOn = 6;
+                        lastClickOn = 4;
                         replaceFragment(new MatSearchFragment());
                         drawerLayout.closeDrawers();
                         break;
@@ -196,13 +160,25 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.menu_partsto:
                         scanItem.setVisible(false);
-                        lastClickOn = 7;
+                        lastClickOn = 5;
                         replaceFragment(new PartStorageFragment());
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.menu_partin:
+                        scanItem.setVisible(true);
+                        lastClickOn = 6;
+                        replaceFragment(new PartInFragment());
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.menu_partout:
+                        scanItem.setVisible(true);
+                        lastClickOn = 7;
+                        replaceFragment(new PartOutFragment());
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_partsearch:
                         scanItem.setVisible(false);
-                        lastClickOn = 12;
+                        lastClickOn = 8;
                         replaceFragment(new PartSearchFragment());
                         drawerLayout.closeDrawers();
                         break;
@@ -212,7 +188,7 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.menu_qrmake:
                         scanItem.setVisible(false);
-                        lastClickOn = 19;
+                        lastClickOn = 13;
                         replaceFragment(new QRMakeFragment());
                         drawerLayout.closeDrawers();
                         break;
@@ -300,39 +276,39 @@ public class MainActivity extends BaseActivity {
                         if (!menuMatsto.isVisible()) {
                             setMatMenuVisible(true);
                         }
-                        navView.setCheckedItem(R.id.menu_matin_record);
+                        navView.setCheckedItem(R.id.menu_matout);
                         break;
                     case 4:
                         if (!menuMatsto.isVisible()) {
                             setMatMenuVisible(true);
                         }
-                        navView.setCheckedItem(R.id.menu_matout);
-                        break;
-                    case 5:
-                        if (!menuMatsto.isVisible()) {
-                            setMatMenuVisible(true);
-                        }
-                        navView.setCheckedItem(R.id.menu_matout_record);
-                        break;
-                    case 6:
-                        if (!menuMatsto.isVisible()) {
-                            setMatMenuVisible(true);
-                        }
                         navView.setCheckedItem(R.id.menu_matsearch);
                         break;
-                    case 7:
+                    case 5:
                         if (!menuPartsto.isVisible()) {
                             setPartMenuVisible(true);
                         }
                         navView.setCheckedItem(R.id.menu_partsto);
                         break;
-                    case 12:
+                    case 6:
+                        if (!menuPartsto.isVisible()) {
+                            setPartMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_partin);
+                        break;
+                    case 7:
+                        if (!menuPartsto.isVisible()) {
+                            setPartMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_partout);
+                        break;
+                    case 8:
                         if (!menuPartsto.isVisible()) {
                             setPartMenuVisible(true);
                         }
                         navView.setCheckedItem(R.id.menu_partsearch);
                         break;
-                    case 19:
+                    case 13:
                         navView.setCheckedItem(R.id.menu_qrmake);
                         break;
                     default:
@@ -350,17 +326,13 @@ public class MainActivity extends BaseActivity {
         if (isVisible) {
             menuMatsto.setVisible(true);
             menuMatin.setVisible(true);
-            menuMatinrec.setVisible(true);
             menuMatout.setVisible(true);
-            menuMatoutrec.setVisible(true);
             menuMatsearch.setVisible(true);
             imageMat.setImageResource(R.drawable.menu_down);
         } else {
             menuMatsto.setVisible(false);
             menuMatin.setVisible(false);
-            menuMatinrec.setVisible(false);
             menuMatout.setVisible(false);
-            menuMatoutrec.setVisible(false);
             menuMatsearch.setVisible(false);
             imageMat.setImageResource(R.drawable.menu_left);
         }
@@ -370,17 +342,13 @@ public class MainActivity extends BaseActivity {
         if (isVisible) {
             menuPartsto.setVisible(true);
             menuPartin.setVisible(true);
-            menuPartinrec.setVisible(true);
             menuPartout.setVisible(true);
-            menuPartoutrec.setVisible(true);
             menuPartsearch.setVisible(true);
             imagePart.setImageResource(R.drawable.menu_down);
         } else {
             menuPartsto.setVisible(false);
             menuPartin.setVisible(false);
-            menuPartinrec.setVisible(false);
             menuPartout.setVisible(false);
-            menuPartoutrec.setVisible(false);
             menuPartsearch.setVisible(false);
             imagePart.setImageResource(R.drawable.menu_left);
         }
@@ -435,6 +403,14 @@ public class MainActivity extends BaseActivity {
                         MatOutFragment matOutFragment = new MatOutFragment();
                         matOutFragment.setArguments(args);
                         replaceFragment(matOutFragment);
+                    } else if (fragment instanceof PartInFragment) {
+                        PartInFragment partInFragment = new PartInFragment();
+                        partInFragment.setArguments(args);
+                        replaceFragment(partInFragment);
+                    } else if (fragment instanceof PartOutFragment) {
+                        PartOutFragment partOutFragment = new PartOutFragment();
+                        partOutFragment.setArguments(args);
+                        replaceFragment(partOutFragment);
                     }
                 }
                 break;

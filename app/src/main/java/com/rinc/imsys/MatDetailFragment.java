@@ -62,6 +62,10 @@ public class MatDetailFragment extends Fragment {
 
     private Button deleteButton;
 
+    private Button inButton;
+
+    private Button outButton;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,6 +88,8 @@ public class MatDetailFragment extends Fragment {
         backButton = (Button) view.findViewById(R.id.button_back_matdetail);
         modifyButton = (Button) view.findViewById(R.id.button_modify_matdetail);
         deleteButton = (Button) view.findViewById(R.id.button_delete_matdetail);
+        inButton = (Button) view.findViewById(R.id.button_in_matdetail);
+        outButton = (Button) view.findViewById(R.id.button_out_matdetail);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
         toolbar.setTitle("材料详细信息");
@@ -195,6 +201,32 @@ public class MatDetailFragment extends Fragment {
                     }
                 });
                 builder.show();
+            }
+        });
+
+        inButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                //传递对象
+                MatInRecFragment matInRecFragment = new MatInRecFragment();
+                Bundle args = new Bundle();
+                args.putSerializable("stock", materialStock);
+                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
+                matInRecFragment.setArguments(args);
+                replaceFragment(matInRecFragment);
+            }
+        });
+
+        outButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                //传递对象
+                MatOutRecFragment matOutRecFragment = new MatOutRecFragment();
+                Bundle args = new Bundle();
+                args.putSerializable("stock", materialStock);
+                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
+                matOutRecFragment.setArguments(args);
+                replaceFragment(matOutRecFragment);
             }
         });
 

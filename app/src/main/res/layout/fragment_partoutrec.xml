@@ -5,13 +5,13 @@
     android:layout_height="match_parent">
 
     <ProgressBar
-        android:id="@+id/progressbar_matinrec"
+        android:id="@+id/progressbar_partoutrec"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp" />
 
     <TextView
-        android:id="@+id/text_notexist_matinrec"
+        android:id="@+id/text_notexist_partoutrec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -19,14 +19,14 @@
         android:text="没有相关记录" />
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/button_back_matinrec"
+        android:id="@+id/button_back_partoutrec"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="返回" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_matinrec"
+        android:id="@+id/recycler_partoutrec"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

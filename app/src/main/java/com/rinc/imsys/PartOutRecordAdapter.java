@@ -10,10 +10,10 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by zhouzhi on 2017/8/19.
+ * Created by ZhouZhi on 2017/9/12.
  */
 
-public class MaterialInRecordAdapter extends RecyclerView.Adapter<MaterialInRecordAdapter.ViewHolder> implements View.OnClickListener {
+public class PartOutRecordAdapter extends RecyclerView.Adapter<PartOutRecordAdapter.ViewHolder> implements View.OnClickListener {
 
     public static final int TYPE_HEADER = 0;
 
@@ -21,15 +21,15 @@ public class MaterialInRecordAdapter extends RecyclerView.Adapter<MaterialInReco
 
     public static final int TYPE_NORMAL = 2;
 
-    private List<MaterialInRecord> mlist;
+    private List<PartOutRecord> mlist;
 
-    private OnItemClickListener mOnItemClickListener = null;
+    private PartOutRecordAdapter.OnItemClickListener mOnItemClickListener = null;
 
     private View mHeaderView;
 
     private View mFooterView;
 
-    public MaterialInRecordAdapter(List<MaterialInRecord> mlist) {
+    public PartOutRecordAdapter(List<PartOutRecord> mlist) {
         this.mlist = mlist;
     }
 
@@ -71,48 +71,56 @@ public class MaterialInRecordAdapter extends RecyclerView.Adapter<MaterialInReco
         TextView textOperator;
         TextView textId;
         TextView textNum;
+        TextView textLeftnum;
+        TextView textUser;
         ImageView more;
 
         public ViewHolder(View view) {
             super(view);
-            textTime = (TextView) view.findViewById(R.id.text_datatime_matinrec);
-            textOperator = (TextView) view.findViewById(R.id.text_operator_matinrec);
-            textId = (TextView) view.findViewById(R.id.text_id_matinrec);
-            textNum = (TextView) view.findViewById(R.id.text_num_matinrec);
-            more = (ImageView) view.findViewById(R.id.image_more_matinrec);
+            if (view != mHeaderView && view != mFooterView) {
+                textTime = (TextView) view.findViewById(R.id.text_datatime_partoutrec);
+                textOperator = (TextView) view.findViewById(R.id.text_operator_partoutrec);
+                textId = (TextView) view.findViewById(R.id.text_id_partoutrec);
+                textNum = (TextView) view.findViewById(R.id.text_num_partoutrec);
+                textLeftnum = (TextView) view.findViewById(R.id.text_leftnum_partoutrec);
+                textUser = (TextView) view.findViewById(R.id.text_user_partoutrec);
+                more = (ImageView) view.findViewById(R.id.image_more_partoutrec);
+            }
         }
     }
 
     @Override
-    public MaterialInRecordAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public PartOutRecordAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         if (mHeaderView != null && viewType == TYPE_HEADER) {
             mHeaderView.setOnClickListener(this);
-            return new MaterialInRecordAdapter.ViewHolder(mHeaderView);
+            return new PartOutRecordAdapter.ViewHolder(mHeaderView);
         }
         if (mFooterView != null && viewType == TYPE_FOOTER) {
             mFooterView.setOnClickListener(this);
-            return new MaterialInRecordAdapter.ViewHolder(mFooterView);
+            return new PartOutRecordAdapter.ViewHolder(mFooterView);
         }
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.materialinrecord_item, parent, false);
-        MaterialInRecordAdapter.ViewHolder viewHolder = new MaterialInRecordAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.partoutrecord_item, parent, false);
+        PartOutRecordAdapter.ViewHolder viewHolder = new PartOutRecordAdapter.ViewHolder(view);
         view.setOnClickListener(this);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(MaterialInRecordAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(PartOutRecordAdapter.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_NORMAL) {
             if (holder != null) {
-                MaterialInRecord materialInRecord;
+                PartOutRecord partOutRecord;
                 if (mHeaderView != null) {
-                    materialInRecord = mlist.get(position - 1);
+                    partOutRecord = mlist.get(position - 1);
                 } else {
-                    materialInRecord = mlist.get(position);
+                    partOutRecord = mlist.get(position);
                 }
-                holder.textTime.setText(materialInRecord.getInputDateTime());
-                holder.textOperator.setText(materialInRecord.getOperator());
-                holder.textId.setText(materialInRecord.getMaterialStock().getId());
-                holder.textNum.setText(materialInRecord.getInputNum());
+                holder.textTime.setText(partOutRecord.getOutputDateTime());
+                holder.textOperator.setText(partOutRecord.getOperator());
+                holder.textId.setText(partOutRecord.getPartStock().getId());
+                holder.textNum.setText(partOutRecord.getOutputNum());
+                holder.textLeftnum.setText(partOutRecord.getLeftNum());
+                holder.textUser.setText(partOutRecord.getUser());
                 holder.itemView.setTag(position);
             }
         } else {
@@ -129,7 +137,7 @@ public class MaterialInRecordAdapter extends RecyclerView.Adapter<MaterialInReco
         }
     }
 
-    public void setOnItemClickListener(MaterialInRecordAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(PartOutRecordAdapter.OnItemClickListener listener) {
         this.mOnItemClickListener = listener;
     }
 
@@ -145,5 +153,4 @@ public class MaterialInRecordAdapter extends RecyclerView.Adapter<MaterialInReco
             return mlist.size() + 2;
         }
     }
-
 }

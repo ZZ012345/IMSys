@@ -330,7 +330,117 @@ public class QRMakeFragment extends Fragment {
                         getActivity().startActivity(intent);
                     } else if (stockType == 1) {
                         //零件库
+                        boolean nameValid = false;
+                        boolean companyValid = false;
+                        boolean machineNameValid = false;
+                        boolean machineTypeValid = false;
+                        boolean machineBandValid = false;
+                        boolean conditionValid = false;
+                        boolean vulnerabilityValid = false;
 
+                        //检查名称是否合法
+                        String name = textName.getText().toString();
+                        LogUtil.d("QR Make name", name);
+                        if (name.length() > 100) {
+                            wrapperName.setError("长度不能超过100个字符！");
+                        } else {
+                            wrapperName.setErrorEnabled(false);
+                            nameValid = true;
+                        }
+
+                        //检查制造企业是否合法
+                        String company = textCompany.getText().toString();
+                        LogUtil.d("QR Make company", company);
+                        if (company.length() > 100) {
+                            wrapperCompany.setError("长度不能超过100个字符！");
+                        } else {
+                            wrapperCompany.setErrorEnabled(false);
+                            companyValid = true;
+                        }
+
+                        //检查整机名称是否合法
+                        String machineName = textMachineName.getText().toString();
+                        LogUtil.d("QR Make machineName", machineName);
+                        if (machineName.length() > 100) {
+                            wrapperMachineName.setError("长度不能超过100个字符！");
+                        } else {
+                            wrapperMachineName.setErrorEnabled(false);
+                            machineNameValid = true;
+                        }
+
+                        //检查整机型号是否合法
+                        String machineType = textMachineType.getText().toString();
+                        LogUtil.d("QR Make machineType", machineType);
+                        if (machineType.length() > 100) {
+                            wrapperMachineType.setError("长度不能超过100个字符！");
+                        } else {
+                            wrapperMachineType.setErrorEnabled(false);
+                            machineTypeValid = true;
+                        }
+
+                        //检查整机品牌是否合法
+                        String machineBand = textMachineBand.getText().toString();
+                        LogUtil.d("QR Make machineBand", machineBand);
+                        if (machineBand.length() > 100) {
+                            wrapperMachineBand.setError("长度不能超过100个字符！");
+                        } else {
+                            wrapperMachineBand.setErrorEnabled(false);
+                            machineBandValid = true;
+                        }
+
+                        //检查储存条件是否合法
+                        String condition = textCondition.getText().toString();
+                        LogUtil.d("QR Make condition", condition);
+                        if (condition.length() > 100) {
+                            wrapperCondition.setError("长度不能超过100个字符！");
+                        } else {
+                            wrapperCondition.setErrorEnabled(false);
+                            conditionValid = true;
+                        }
+
+                        //检查易损性是否合法
+                        String vulnerability = textVulnerability.getText().toString();
+                        LogUtil.d("QR Make vulnerability", vulnerability);
+                        if (vulnerability.length() > 100) {
+                            wrapperVulnerability.setError("长度不能超过100个字符！");
+                        } else {
+                            wrapperVulnerability.setErrorEnabled(false);
+                            vulnerabilityValid = true;
+                        }
+
+                        if (!(nameValid && companyValid && machineNameValid && machineTypeValid &&
+                                machineBandValid && conditionValid && vulnerabilityValid)) {
+                            Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                        } else {
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+                                jsonObject.put("stockType", "part");
+                                jsonObject.put("id", id);
+                                jsonObject.put("type", type);
+                                jsonObject.put("mark", mark);
+                                jsonObject.put("hour", "");
+                                jsonObject.put("band", band);
+                                jsonObject.put("original" , original);
+                                jsonObject.put("year", year);
+                                jsonObject.put("state", state);
+                                jsonObject.put("position", position);
+                                jsonObject.put("unit", unit);
+                                jsonObject.put("name", name);
+                                jsonObject.put("company", company);
+                                jsonObject.put("machineName", machineName);
+                                jsonObject.put("machineType", machineType);
+                                jsonObject.put("machineBand", machineBand);
+                                jsonObject.put("condition", condition);
+                                jsonObject.put("vulnerability", vulnerability);
+                                jsonObject.put("description", description);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            String infoStr = jsonObject.toString();
+                            Intent intent = new Intent(getActivity(), QRCodeActivity.class);
+                            intent.putExtra("info", infoStr);
+                            getActivity().startActivity(intent);
+                        }
                     } else {
                         //设备库
                     }

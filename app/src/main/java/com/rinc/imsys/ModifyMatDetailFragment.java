@@ -184,6 +184,10 @@ public class ModifyMatDetailFragment extends Fragment {
                     originalValid = true;
                 }
 
+                //检查年份是否合法
+                final TextInputLayout wrapperYear = (TextInputLayout) view.findViewById(R.id.wrapper_year_matdetail_modify);
+                wrapperYear.setErrorEnabled(false);
+
                 //检查状态是否合法
                 TextInputLayout wrapperState = (TextInputLayout) view.findViewById(R.id.wrapper_state_matdetail_modify);
                 final String state = textState.getText().toString();
@@ -223,8 +227,6 @@ public class ModifyMatDetailFragment extends Fragment {
                         stateValid && positionValid && unitValid)) {
                     Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
                 }
-
-                final TextInputLayout wrapperYear = (TextInputLayout) view.findViewById(R.id.wrapper_year_matdetail_modify);
 
                 if (idValid && typeValid && markValid && bandValid && originalValid &&
                         stateValid && positionValid && unitValid) {

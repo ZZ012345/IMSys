@@ -26,16 +26,8 @@
             android:title="入库" />
 
         <item
-            android:id="@+id/menu_matin_record"
-            android:title="入库记录查询" />
-
-        <item
             android:id="@+id/menu_matout"
             android:title="出库" />
-
-        <item
-            android:id="@+id/menu_matout_record"
-            android:title="出库记录查询" />
 
         <item
             android:id="@+id/menu_matsearch"
@@ -57,16 +49,8 @@
             android:title="入库" />
 
         <item
-            android:id="@+id/menu_partin_record"
-            android:title="入库记录查询" />
-
-        <item
             android:id="@+id/menu_partout"
             android:title="出库" />
-
-        <item
-            android:id="@+id/menu_partout_record"
-            android:title="出库记录查询" />
 
         <item
             android:id="@+id/menu_partsearch"

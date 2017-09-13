@@ -266,6 +266,57 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
+    public static void partIn(String id, String type, String storestate, String mark, String band, String original,
+                              String year, String state, String position, String unit, String name, String company,
+                              String machineName, String machineType, String machineBand, String condition, String vulnerability,
+                              String description, String datetime, String operator, String num, okhttp3.Callback callback) {
+        JSONObject jsonPart = new JSONObject();
+        JSONObject jsonAll = new JSONObject();
+        try {
+            jsonPart.put("partID", id);
+            jsonPart.put("partType", type);
+            jsonPart.put("partStoreState", storestate);
+            jsonPart.put("partMark", mark);
+            jsonPart.put("partBand", band);
+            jsonPart.put("partOriginal", original);
+            if (year.length() != 0) {
+                jsonPart.put("partYear", year);
+            } else {
+                jsonPart.put("partYear", JSONObject.NULL);
+            }
+            jsonPart.put("partState", state);
+            jsonPart.put("partPosition", position);
+            if (unit.length() != 0) {
+                jsonPart.put("partUnit", unit);
+            } else {
+                jsonPart.put("partUnit", JSONObject.NULL);
+            }
+            jsonPart.put("partName", name);
+            jsonPart.put("partCompany", company);
+            jsonPart.put("partMachineName", machineName);
+            jsonPart.put("partMachineType", machineType);
+            jsonPart.put("partMachineBand", machineBand);
+            jsonPart.put("partCondition", condition);
+            jsonPart.put("partVulnerability", vulnerability);
+            jsonPart.put("description", description);
+            jsonAll.put("inputPart", jsonPart);
+            jsonAll.put("inputDateTime", datetime);
+            jsonAll.put("inputOperator", operator);
+            jsonAll.put("inputNum", num);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LogUtil.d("Part in send", jsonAll.toString());
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = RequestBody.create(JSON, jsonAll.toString());
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/part_input/")
+                .addHeader("Authorization", "Token " + header)
+                .post(requestBody)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
     public static void getPartStorage(okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -326,6 +377,48 @@ public class HttpUtil {
                 .url(serverAddr + "api/part/" + id + "/")
                 .addHeader("Authorization", "Token " + header)
                 .delete()
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void getPartInRec(String id, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/part/inputlist?partID=" + id)
+                .addHeader("Authorization", "Token " + header)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void partOut(String id, String datetime, String user, String operator, String num, okhttp3.Callback callback) {
+        JSONObject jsonPart = new JSONObject();
+        JSONObject jsonAll = new JSONObject();
+        try {
+            jsonPart.put("partID", id);
+            jsonAll.put("outputPart", jsonPart);
+            jsonAll.put("outputDateTime", datetime);
+            jsonAll.put("partUser", user);
+            jsonAll.put("outputOperator", operator);
+            jsonAll.put("outputNum", num);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LogUtil.d("Part out send", jsonAll.toString());
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = RequestBody.create(JSON, jsonAll.toString());
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/part_output/")
+                .addHeader("Authorization", "Token " + header)
+                .post(requestBody)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void getPartOutRec(String id, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/part/outputlist?partID=" + id)
+                .addHeader("Authorization", "Token " + header)
                 .build();
         client.newCall(request).enqueue(callback);
     }

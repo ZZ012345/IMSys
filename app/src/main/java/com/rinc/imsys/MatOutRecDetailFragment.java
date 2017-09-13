@@ -81,7 +81,7 @@ public class MatOutRecDetailFragment extends Fragment {
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
         toolbar.setTitle("出库记录详细信息");
 
-        //加载之前已经获取的所有出库记录信息
+        //加载之前已经获取的出库记录信息
         final MaterialOutRecord materialOutRecord = (MaterialOutRecord) getArguments().getSerializable("MatOutRecord");
         textOutputdatetime.setText(materialOutRecord.getOutputDateTime());
         textOperator.setText(materialOutRecord.getOperator());
@@ -104,10 +104,11 @@ public class MatOutRecDetailFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                //传递搜索的材料标号
+                //传递材料信息
                 MatOutRecFragment matOutRecFragment = new MatOutRecFragment();
                 Bundle args = new Bundle();
-                args.putString("lastSearchId", materialOutRecord.getMaterialStock().getId());
+                args.putSerializable("stock", materialOutRecord.getMaterialStock());
+                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 matOutRecFragment.setArguments(args);
                 replaceFragment(matOutRecFragment);
             }

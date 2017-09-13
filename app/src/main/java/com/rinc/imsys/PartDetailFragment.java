@@ -76,6 +76,10 @@ public class PartDetailFragment extends Fragment {
 
     private Button deleteButton;
 
+    private Button inButton;
+
+    private Button outButton;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -105,6 +109,8 @@ public class PartDetailFragment extends Fragment {
         backButton = (Button) view.findViewById(R.id.button_back_partdetail);
         modifyButton = (Button) view.findViewById(R.id.button_modify_partdetail);
         deleteButton = (Button) view.findViewById(R.id.button_delete_partdetail);
+        inButton = (Button) view.findViewById(R.id.button_in_partdetail);
+        outButton = (Button) view.findViewById(R.id.button_out_partdetail);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
         toolbar.setTitle("零件详细信息");
@@ -114,6 +120,8 @@ public class PartDetailFragment extends Fragment {
         backButton.setVisibility(View.VISIBLE);
         modifyButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
+        inButton.setVisibility(View.VISIBLE);
+        outButton.setVisibility(View.VISIBLE);
 
         final PartStock partStock = (PartStock) getArguments().getSerializable("stock");
 
@@ -223,6 +231,32 @@ public class PartDetailFragment extends Fragment {
                     }
                 });
                 builder.show();
+            }
+        });
+
+        inButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                //传递对象
+                PartInRecFragment partInRecFragment = new PartInRecFragment();
+                Bundle args = new Bundle();
+                args.putSerializable("stock", partStock);
+                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
+                partInRecFragment.setArguments(args);
+                replaceFragment(partInRecFragment);
+            }
+        });
+
+        outButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                //传递对象
+                PartOutRecFragment partOutRecFragment = new PartOutRecFragment();
+                Bundle args = new Bundle();
+                args.putSerializable("stock", partStock);
+                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
+                partOutRecFragment.setArguments(args);
+                replaceFragment(partOutRecFragment);
             }
         });
 

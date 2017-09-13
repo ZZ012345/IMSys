@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by zhouzhi on 2017/8/20.
  */
@@ -77,7 +75,7 @@ public class MatInRecDetailFragment extends Fragment {
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
         toolbar.setTitle("入库记录详细信息");
 
-        //加载之前已经获取的所有入库记录信息
+        //加载之前已经获取的所入库记录信息
         final MaterialInRecord materialInRecord = (MaterialInRecord) getArguments().getSerializable("MatInRecord");
         textInputdatetime.setText(materialInRecord.getInputDateTime());
         textOperator.setText(materialInRecord.getOperator());
@@ -98,10 +96,11 @@ public class MatInRecDetailFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                //传递搜索的材料标号
+                //传递材料信息
                 MatInRecFragment matInRecFragment = new MatInRecFragment();
                 Bundle args = new Bundle();
-                args.putString("lastSearchId", materialInRecord.getMaterialStock().getId());
+                args.putSerializable("stock", materialInRecord.getMaterialStock());
+                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 matInRecFragment.setArguments(args);
                 replaceFragment(matInRecFragment);
             }

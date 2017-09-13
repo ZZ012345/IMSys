@@ -27,10 +27,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by zhouzhi on 2017/8/18.
+ * Created by ZhouZhi on 2017/9/11.
  */
 
-public class MatInRecFragment extends Fragment {
+public class PartInRecFragment extends Fragment {
 
     private ProgressBar progressBar;
 
@@ -40,33 +40,33 @@ public class MatInRecFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    private List<MaterialInRecord> mrlist = new ArrayList<>();
+    private List<PartInRecord> prlist = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_matinrec, container, false);
+        View view = inflater.inflate(R.layout.fragment_partinrec, container, false);
 
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matinrec);
-        textNotExist = (TextView) view.findViewById(R.id.text_notexist_matinrec);
-        backButton = (Button) view.findViewById(R.id.button_back_matinrec);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_matinrec);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_partinrec);
+        textNotExist = (TextView) view.findViewById(R.id.text_notexist_partinrec);
+        backButton = (Button) view.findViewById(R.id.button_back_partinrec);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_partinrec);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("材料入库记录");
+        toolbar.setTitle("零件入库记录");
 
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);
         backButton.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
 
-        final MaterialStock materialStock = (MaterialStock) getArguments().getSerializable("stock");
+        final PartStock partStock = (PartStock) getArguments().getSerializable("stock");
 
-        HttpUtil.getMatInRec(materialStock.getId(), new okhttp3.Callback() {
+        HttpUtil.getPartInRec(partStock.getId(), new okhttp3.Callback() {
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 String responseData = response.body().string();
-                LogUtil.d("Get Mat In Rec jsondata", responseData);
+                LogUtil.d("Get Part In Rec jsondata", responseData);
                 try {
                     JSONArray jsonArray = new JSONArray(responseData);
                     if (jsonArray.length() == 0) {
@@ -81,37 +81,38 @@ public class MatInRecFragment extends Fragment {
                             }
                         });
                     } else {
-                        mrlist.clear(); //清空入库记录
+                        prlist.clear(); //清空入库记录
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             int recordId = jsonObject.getInt("id");
                             String inputDateTime = jsonObject.getString("inputDateTime");
                             String operator = jsonObject.getString("inputOperator");
                             String inputNum = jsonObject.getString("inputNum");
-                            JSONObject jsonMaterial = jsonObject.getJSONObject("inputMaterial");
-                            String materialYear;
-                            if (jsonMaterial.get("materialYear") == JSONObject.NULL) {
-                                materialYear = "";
+                            JSONObject jsonPart = jsonObject.getJSONObject("inputPart");
+                            String partYear;
+                            if (jsonPart.get("partYear") == JSONObject.NULL) {
+                                partYear = "";
                             } else {
-                                materialYear = jsonMaterial.getString("materialYear");
+                                partYear = jsonPart.getString("partYear");
                             }
-                            String materialUnit;
-                            if (jsonMaterial.get("materialUnit") == JSONObject.NULL) {
-                                materialUnit = "";
+                            String partUnit;
+                            if (jsonPart.get("partUnit") == JSONObject.NULL) {
+                                partUnit = "";
                             } else {
-                                materialUnit = jsonMaterial.getString("materialUnit");
+                                partUnit = jsonPart.getString("partUnit");
                             }
-                            MaterialStock materialStock = new MaterialStock(jsonMaterial.getInt("id"), jsonMaterial.getString("materialID"),
-                                    jsonMaterial.getString("materialType"), jsonMaterial.getString("materialStoreState"),
-                                    jsonMaterial.getString("materialMark"), jsonMaterial.getString("materialBand"),
-                                    jsonMaterial.getString("materialOriginal"), materialYear,
-                                    jsonMaterial.getString("materialState"), jsonMaterial.getString("materialPosition"),
-                                    materialUnit, jsonMaterial.getString("description"),
-                                    jsonMaterial.getString("materialNum"));
-                            int owner = jsonMaterial.getInt("owner");
-                            MaterialInRecord materialInRecord = new MaterialInRecord(recordId, inputDateTime, operator, inputNum, materialStock, owner);
-                            mrlist.add(materialInRecord);
+                            PartStock partStock = new PartStock(jsonPart.getInt("id"), jsonPart.getString("partID"),
+                                    jsonPart.getString("partType"), jsonPart.getString("partStoreState"),
+                                    jsonPart.getString("partMark"), jsonPart.getString("partBand"),
+                                    jsonPart.getString("partOriginal"), partYear, jsonPart.getString("partState"), jsonPart.getString("partPosition"),
+                                    partUnit, jsonPart.getString("partName"), jsonPart.getString("partCompany"), jsonPart.getString("partMachineName"),
+                                    jsonPart.getString("partMachineType"), jsonPart.getString("partMachineBand"), jsonPart.getString("partCondition"),
+                                    jsonPart.getString("partVulnerability"), jsonPart.getString("description"), jsonPart.getString("partNum"));
+                            int owner = jsonPart.getInt("owner");
+                            PartInRecord partInRecord = new PartInRecord(recordId, inputDateTime, operator, inputNum, partStock, owner);
+                            prlist.add(partInRecord);
                         }
+
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -122,33 +123,33 @@ public class MatInRecFragment extends Fragment {
 
                                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                                 recyclerView.setLayoutManager(layoutManager);
-                                MaterialInRecordAdapter materialInRecordAdapter = new MaterialInRecordAdapter(mrlist);
-                                recyclerView.setAdapter(materialInRecordAdapter);
+                                PartInRecordAdapter partInRecordAdapter = new PartInRecordAdapter(prlist);
+                                recyclerView.setAdapter(partInRecordAdapter);
                                 View footer = LayoutInflater.from(getActivity()).inflate(R.layout.button_item, recyclerView, false);
                                 Button backButton2 = footer.findViewById(R.id.back_button_searchresult);
                                 backButton2.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view1) {
-                                        MatDetailFragment matDetailFragment = new MatDetailFragment();
+                                        PartDetailFragment partDetailFragment = new PartDetailFragment();
                                         Bundle args = new Bundle();
-                                        args.putSerializable("stock", materialStock);
+                                        args.putSerializable("stock", partStock);
                                         args.putInt("lastfragment", getArguments().getInt("lastfragment"));
-                                        matDetailFragment.setArguments(args);
-                                        replaceFragment(matDetailFragment);
+                                        partDetailFragment.setArguments(args);
+                                        replaceFragment(partDetailFragment);
                                     }
                                 });
-                                materialInRecordAdapter.setFooterView(footer);
-                                materialInRecordAdapter.setOnItemClickListener(new MaterialInRecordAdapter.OnItemClickListener() {
+                                partInRecordAdapter.setFooterView(footer);
+                                partInRecordAdapter.setOnItemClickListener(new PartInRecordAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(View view1, int position) {
                                         //传递对象
-                                        if (position != mrlist.size()) {
-                                            MatInRecDetailFragment matInRecDetailFragment = new MatInRecDetailFragment();
+                                        if (position != prlist.size()) {
+                                            PartInRecDetailFragment partInRecDetailFragment = new PartInRecDetailFragment();
                                             Bundle args = new Bundle();
-                                            args.putSerializable("MatInRecord", mrlist.get(position));
+                                            args.putSerializable("PartInRecord", prlist.get(position));
                                             args.putInt("lastfragment", getArguments().getInt("lastfragment"));
-                                            matInRecDetailFragment.setArguments(args);
-                                            replaceFragment(matInRecDetailFragment);
+                                            partInRecDetailFragment.setArguments(args);
+                                            replaceFragment(partInRecDetailFragment);
                                         }
                                     }
                                 });
@@ -163,7 +164,7 @@ public class MatInRecFragment extends Fragment {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                LogUtil.d("Get Mat In Rec", "failed");
+                LogUtil.d("Get Part In Rec", "failed");
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -180,12 +181,12 @@ public class MatInRecFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                MatDetailFragment matDetailFragment = new MatDetailFragment();
+                PartDetailFragment partDetailFragment = new PartDetailFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("stock", materialStock);
+                args.putSerializable("stock", partStock);
                 args.putInt("lastfragment", getArguments().getInt("lastfragment"));
-                matDetailFragment.setArguments(args);
-                replaceFragment(matDetailFragment);
+                partDetailFragment.setArguments(args);
+                replaceFragment(partDetailFragment);
             }
         });
 
