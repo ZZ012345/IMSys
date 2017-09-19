@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +68,18 @@ public class MainActivity extends BaseActivity {
 
     private ImageView imagePart;
 
+    private MenuItem menuEquip;
+
+    private MenuItem menuEquipsto;
+
+    private MenuItem menuEquipin;
+
+    private MenuItem menuEquipout;
+
+    private MenuItem menuEquipsearch;
+
+    private ImageView imageEquip;
+
     private int lastClickOn = 0; //用于标记上次点击的菜单位置
 
     @Override
@@ -109,9 +122,18 @@ public class MainActivity extends BaseActivity {
         View viewPart = menuPart.getActionView();
         imagePart = (ImageView) viewPart.findViewById(R.id.image_menu_part);
 
+        menuEquip = menu.getItem(11);
+        menuEquipsto = menu.getItem(12);
+        menuEquipin = menu.getItem(13);
+        menuEquipout = menu.getItem(14);
+        menuEquipsearch = menu.getItem(15);
+        View viewEquip = menuEquip.getActionView();
+        imageEquip = (ImageView) viewEquip.findViewById(R.id.image_menu_equip);
+
         //菜单默认收起
         setMatMenuVisible(false);
         setPartMenuVisible(false);
+        setEquipMenuVisible(false);
 
         replaceFragment(new UserinfoFragment()); //加载个人信息碎片
 
@@ -127,7 +149,7 @@ public class MainActivity extends BaseActivity {
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_mat:
-                        //根据所有库存品信息菜单是否可见展开或收起菜单
+                        //根据库存品信息菜单是否可见展开或收起菜单
                         setMatMenuVisible(!menuMatsto.isVisible());
                         break;
                     case R.id.menu_matsto:
@@ -155,7 +177,7 @@ public class MainActivity extends BaseActivity {
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_part:
-                        //根据所有库存品信息菜单是否可见展开或收起菜单
+                        //根据库存品信息菜单是否可见展开或收起菜单
                         setPartMenuVisible(!menuPartsto.isVisible());
                         break;
                     case R.id.menu_partsto:
@@ -182,9 +204,21 @@ public class MainActivity extends BaseActivity {
                         replaceFragment(new PartSearchFragment());
                         drawerLayout.closeDrawers();
                         break;
-                    case R.id.menu_equisto:
+                    case R.id.menu_equip:
+                        //根据库存品信息菜单是否可见展开或收起菜单
+                        setEquipMenuVisible(!menuEquipsto.isVisible());
+                        break;
+                    case R.id.menu_equipsto:
                         scanItem.setVisible(false);
-                        //replaceFragment(new EquiStorageFragment());
+                        lastClickOn = 9;
+                        replaceFragment(new EquipStorageFragment());
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.menu_equipin:
+                        scanItem.setVisible(true);
+                        lastClickOn = 10;
+                        replaceFragment(new EquipInFragment());
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_qrmake:
                         scanItem.setVisible(false);
@@ -308,6 +342,18 @@ public class MainActivity extends BaseActivity {
                         }
                         navView.setCheckedItem(R.id.menu_partsearch);
                         break;
+                    case 9:
+                        if (!menuEquipsto.isVisible()) {
+                            setEquipMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_equipsto);
+                        break;
+                    case 10:
+                        if (!menuEquipsto.isVisible()) {
+                            setEquipMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_equipin);
+                        break;
                     case 13:
                         navView.setCheckedItem(R.id.menu_qrmake);
                         break;
@@ -351,6 +397,22 @@ public class MainActivity extends BaseActivity {
             menuPartout.setVisible(false);
             menuPartsearch.setVisible(false);
             imagePart.setImageResource(R.drawable.menu_left);
+        }
+    }
+
+    public void setEquipMenuVisible(boolean isVisible) {
+        if (isVisible) {
+            menuEquipsto.setVisible(true);
+            menuEquipin.setVisible(true);
+            menuEquipout.setVisible(true);
+            menuEquipsearch.setVisible(true);
+            imageEquip.setImageResource(R.drawable.menu_down);
+        } else {
+            menuEquipsto.setVisible(false);
+            menuEquipin.setVisible(false);
+            menuEquipout.setVisible(false);
+            menuEquipsearch.setVisible(false);
+            imageEquip.setImageResource(R.drawable.menu_left);
         }
     }
 
@@ -421,7 +483,33 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        drawerLayout.closeDrawers();
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawers();
+        } else {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
+            if (fragment instanceof ModifyUserinfoFragment) {
+                Button button = (Button) findViewById(R.id.button_cancel_modify);
+                button.performClick();
+            } else if (fragment instanceof ModifyPassFragment) {
+                Button button = (Button) findViewById(R.id.button_cancel_modify_pass);
+                button.performClick();
+            } else if (fragment instanceof MatDetailFragment) {
+                Button button = (Button) findViewById(R.id.button_back_matdetail);
+                button.performClick();
+            } else if (fragment instanceof ModifyMatDetailFragment) {
+                Button button = (Button) findViewById(R.id.button_cancel_matdetail_modify);
+                button.performClick();
+            } else if (fragment instanceof MatInRecFragment) {
+                Button button = (Button) findViewById(R.id.button_back_matinrec);
+                button.performClick();
+            } else if (fragment instanceof MatOutRecFragment) {
+                Button button = (Button) findViewById(R.id.button_back_matoutrec);
+                button.performClick();
+            } else if (fragment instanceof MatSearchResultFragment) {
+                Button button = (Button) findViewById(R.id.button_back_matsearchresult);
+                button.performClick();
+            }
+        }
     }
 
     private void hideKeyboard() { //隐藏虚拟键盘
@@ -436,8 +524,28 @@ public class MainActivity extends BaseActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_main, fragment);
-        transaction.addToBackStack(null);
         transaction.commitAllowingStateLoss();
+        /*
+        FragmentManager fragmentManager =  getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (currentFrag == null) {
+            transaction.add(R.id.frame_main, fragment);
+            //transaction.addToBackStack(null);
+            transaction.commitAllowingStateLoss();
+            currentFrag = fragment;
+        }
+        if (currentFrag != fragment) {
+            if (!fragment.isAdded()) {
+                transaction.hide(currentFrag).add(R.id.frame_main, fragment);
+                //transaction.addToBackStack(null);
+                transaction.commitAllowingStateLoss();
+            } else {
+                transaction.hide(currentFrag).show(fragment);
+                transaction.commitAllowingStateLoss();
+            }
+            currentFrag = fragment;
+        }
+        */
     }
 
     @Override

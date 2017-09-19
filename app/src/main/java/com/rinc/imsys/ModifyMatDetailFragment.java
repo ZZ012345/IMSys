@@ -5,9 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -33,7 +30,7 @@ import okhttp3.Response;
  * Created by zhouzhi on 2017/8/18.
  */
 
-public class ModifyMatDetailFragment extends Fragment {
+public class ModifyMatDetailFragment extends BaseFragment {
 
     private EditText textId;
 
@@ -238,7 +235,7 @@ public class ModifyMatDetailFragment extends Fragment {
                     final String year = textYear.getText().toString();
                     final String description = textDescription.getText().toString();
 
-                    HttpUtil.modifyMatDetail(materialStock.getId(), id, type, storestate, mark, band, original, year, state,
+                    HttpUtil.modifyMatDetail(String.valueOf(materialStock.getDatabaseid()), id, type, storestate, mark, band, original, year, state,
                             position, unit, description, new okhttp3.Callback() {
                                 @Override
                                 public void onResponse(final Call call, Response response) throws IOException {
@@ -267,7 +264,6 @@ public class ModifyMatDetailFragment extends Fragment {
                                                                     storestate, mark, band, original, year, state, position, unit, description, materialStock.getNum());
                                                             Bundle args = new Bundle();
                                                             args.putSerializable("stock", materialStock1);
-                                                            args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                                                             matDetailFragment.setArguments(args);
                                                             replaceFragment(matDetailFragment);
                                                         }
@@ -311,13 +307,12 @@ public class ModifyMatDetailFragment extends Fragment {
                                                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                                            int lastfragment = getArguments().getInt("lastfragment");
-                                                            if (lastfragment == 1) {
+                                                            if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_STORAGE) {
                                                                 //由所有库存品信息碎片跳转而来
                                                                 replaceFragment(new MatStorageFragment());
-                                                            } else if (lastfragment == 2) {
+                                                            } else if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_SEARCH) {
                                                                 //由查找结果碎片跳转而来
-                                                                replaceFragment(new MatSearchFragment());
+                                                                replaceFragment(new MatSearchResultFragment());
                                                             }
                                                         }
                                                     });
@@ -417,7 +412,6 @@ public class ModifyMatDetailFragment extends Fragment {
                 MatDetailFragment matDetailFragment = new MatDetailFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("stock", materialStock);
-                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 matDetailFragment.setArguments(args);
                 replaceFragment(matDetailFragment);
             }
@@ -432,12 +426,5 @@ public class ModifyMatDetailFragment extends Fragment {
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
                     .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager =  getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 }

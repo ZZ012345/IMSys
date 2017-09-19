@@ -5,9 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -34,7 +31,7 @@ import okhttp3.Response;
  * Created by zhouzhi on 2017/8/18.
  */
 
-public class MatOutFragment extends Fragment {
+public class MatOutFragment extends BaseFragment {
 
     private EditText textId;
 
@@ -45,6 +42,8 @@ public class MatOutFragment extends Fragment {
     private EditText textOperator;
 
     private EditText textNum;
+
+    private EditText textDescription;
 
     private ProgressBar progressBar;
 
@@ -60,6 +59,7 @@ public class MatOutFragment extends Fragment {
         textUser = (EditText) view.findViewById(R.id.input_user_matout);
         textOperator = (EditText) view.findViewById(R.id.input_operator_matout);
         textNum = (EditText) view.findViewById(R.id.input_num_matout);
+        textDescription = (EditText) view.findViewById(R.id.input_outputdescription_matout);
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matout);
         submitButton = (Button) view.findViewById(R.id.button_submit_matout);
 
@@ -174,7 +174,9 @@ public class MatOutFragment extends Fragment {
                     submitButton.setVisibility(View.GONE);
                     progressBar.setVisibility(View.VISIBLE);
 
-                    HttpUtil.materialOut(id, datetime, user, operator, num, new okhttp3.Callback() {
+                    String description = textDescription.getText().toString();
+
+                    HttpUtil.materialOut(id, datetime, user, operator, num, description, new okhttp3.Callback() {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             try {
@@ -332,12 +334,5 @@ public class MatOutFragment extends Fragment {
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
                     .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager =  getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 }

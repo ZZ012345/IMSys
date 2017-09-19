@@ -20,20 +20,17 @@ public class MaterialOutRecord implements Serializable {
 
     private String leftNum;
 
-    private MaterialStock materialStock;
-
-    private int owner;
+    private String description;
 
     public MaterialOutRecord(int recordId ,String outputDateTime, String user, String operator, String outputNum,
-                            String leftNum, MaterialStock materialStock, int owner) {
+                            String leftNum, String description) {
         this.recordId = recordId;
         this.outputDateTime = outputDateTime;
         this.user = user;
         this.operator = operator;
         this.outputNum = outputNum;
         this.leftNum = leftNum;
-        this.materialStock = materialStock;
-        this.owner = owner;
+        this.description = description;
     }
 
     public int getRecordId() {
@@ -60,11 +57,7 @@ public class MaterialOutRecord implements Serializable {
         return leftNum;
     }
 
-    public MaterialStock getMaterialStock() {
-        return materialStock;
-    }
-
-    public int getOwner() {
-        return owner;
+    public String getDescription() {
+        return description;
     }
 }

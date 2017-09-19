@@ -5,9 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -35,7 +32,7 @@ import okhttp3.Response;
  * Created by zhouzhi on 2017/8/16.
  */
 
-public class MatInFragment extends Fragment {
+public class MatInFragment extends BaseFragment {
 
     private Spinner stateSpinner;
 
@@ -67,6 +64,8 @@ public class MatInFragment extends Fragment {
 
     private EditText textNum;
 
+    private EditText textInputDescription;
+
     private ProgressBar progressBar;
 
     @Nullable
@@ -89,6 +88,7 @@ public class MatInFragment extends Fragment {
         textDateTime = (EditText) view.findViewById(R.id.input_date_matin);
         textOperator = (EditText) view.findViewById(R.id.input_operator_matin);
         textNum = (EditText) view.findViewById(R.id.input_num_matin);
+        textInputDescription = (EditText) view.findViewById(R.id.input_inputdescription_matin);
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matin);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
@@ -305,9 +305,10 @@ public class MatInFragment extends Fragment {
                     String storestate = (String) stateSpinner.getSelectedItem();
                     String year = textYear.getText().toString();
                     String description = textDescription.getText().toString();
+                    String inputDescription = textInputDescription.getText().toString();
 
                     HttpUtil.materialIn(id, type, storestate, mark, band, original, year, state,
-                            position, unit, description, datetime, operator, num, new okhttp3.Callback() {
+                            position, unit, description, datetime, operator, num, inputDescription, new okhttp3.Callback() {
                                 @Override
                                 public void onResponse(Call call, Response response) throws IOException {
                                     try {
@@ -476,12 +477,5 @@ public class MatInFragment extends Fragment {
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
                     .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager =  getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 }

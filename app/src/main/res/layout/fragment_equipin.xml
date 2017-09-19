@@ -17,14 +17,6 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
-            <!--
-            <ImageView
-                android:src="@drawable/in"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
-                -->
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,16 +25,16 @@
                 android:textSize="25dip"
                 android:textColor="@color/black" />
 
-            <!-- MaterialID -->
+            <!-- Id -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_id_matin"
+                android:id="@+id/wrapper_id_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_id_matin"
+                    android:id="@+id/input_id_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -52,14 +44,14 @@
 
             <!-- Type -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_type_matin"
+                android:id="@+id/wrapper_type_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_type_matin"
+                    android:id="@+id/input_type_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -77,7 +69,7 @@
                 android:text="库存状态" />
 
             <Spinner
-                android:id="@+id/spinner_state_matin"
+                android:id="@+id/spinner_state_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/state"
@@ -92,14 +84,14 @@
 
             <!-- Mark -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_mark_matin"
+                android:id="@+id/wrapper_mark_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_mark_matin"
+                    android:id="@+id/input_mark_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -107,16 +99,34 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <!-- Band -->
+            <!-- Hour -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_band_matin"
+                android:id="@+id/wrapper_hour_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_band_matin"
+                    android:id="@+id/input_hour_equipin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:digits="0123456789"
+                    android:hint="工作小时" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Band -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/wrapper_band_equipin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/input_band_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -126,14 +136,14 @@
 
             <!-- Original -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_original_matin"
+                android:id="@+id/wrapper_original_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_original_matin"
+                    android:id="@+id/input_original_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -143,14 +153,14 @@
 
             <!-- Year -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_year_matin"
+                android:id="@+id/wrapper_year_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_year_matin"
+                    android:id="@+id/input_year_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -161,14 +171,14 @@
 
             <!-- State -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_state_matin"
+                android:id="@+id/wrapper_state_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_state_matin"
+                    android:id="@+id/input_state_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -178,14 +188,14 @@
 
             <!-- Position -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_position_matin"
+                android:id="@+id/wrapper_position_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_position_matin"
+                    android:id="@+id/input_position_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -195,14 +205,14 @@
 
             <!-- Unit -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_unit_matin"
+                android:id="@+id/wrapper_unit_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_unit_matin"
+                    android:id="@+id/input_unit_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -213,14 +223,14 @@
 
             <!-- Description -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_description_matin"
+                android:id="@+id/wrapper_description_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_description_matin"
+                    android:id="@+id/input_description_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -230,14 +240,14 @@
 
             <!-- DateTime -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_datetime_matin"
+                android:id="@+id/wrapper_datetime_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_date_matin"
+                    android:id="@+id/input_date_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -248,14 +258,14 @@
 
             <!-- Operator -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_operator_matin"
+                android:id="@+id/wrapper_operator_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_operator_matin"
+                    android:id="@+id/input_operator_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -265,48 +275,31 @@
 
             <!-- Num -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_num_matin"
+                android:id="@+id/wrapper_num_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_num_matin"
+                    android:id="@+id/input_num_equipin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:digits="0123456789."
+                    android:digits="0123456789"
                     android:hint="入库量*" />
 
             </android.support.design.widget.TextInputLayout>
 
-            <!-- InputDescription -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_inputdescription_matin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-
-                <EditText
-                    android:id="@+id/input_inputdescription_matin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:hint="入库备注" />
-
-            </android.support.design.widget.TextInputLayout>
-
             <ProgressBar
-                android:id="@+id/progressbar_matin"
+                android:id="@+id/progressbar_equipin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp" />
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_submit_matin"
+                android:id="@+id/button_submit_equipin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"

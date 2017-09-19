@@ -3,10 +3,6 @@ package com.rinc.imsys;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +13,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -28,7 +22,7 @@ import okhttp3.Response;
  * Created by zhouzhi on 2017/8/22.
  */
 
-public class MatSearchFragment extends Fragment {
+public class MatSearchFragment extends BaseFragment {
 
     private EditText textId;
 
@@ -78,6 +72,8 @@ public class MatSearchFragment extends Fragment {
         textYearstart.setText(SearchRecord.yearstart_mat);
         textYearend.setText(SearchRecord.yearend_mat);
 
+        SearchRecord.lastFrag = SearchRecord.FRAGLABEL_SEARCH;
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -117,35 +113,15 @@ public class MatSearchFragment extends Fragment {
                                     }
                                 });
                             } else {
-                                try {
-                                    JSONArray jsonArray = new JSONArray(responseData);
-                                    if (jsonArray.length() == 0) {
-                                        //没有相关记录
-                                        getActivity().runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                progressBar.setVisibility(View.GONE);
-                                                searchButton.setVisibility(View.VISIBLE);
-                                                Toast.makeText(getActivity(), "没有相关记录", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                    } else {
-                                        getActivity().runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                progressBar.setVisibility(View.GONE);
-                                                searchButton.setVisibility(View.VISIBLE);
-                                            }
-                                        });
-                                        MatSearchResultFragment matSearchResultFragment = new MatSearchResultFragment();
-                                        Bundle args = new Bundle();
-                                        args.putString("MatSearchResult", responseData);
-                                        matSearchResultFragment.setArguments(args);
-                                        replaceFragment(matSearchResultFragment);
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressBar.setVisibility(View.GONE);
+                                        searchButton.setVisibility(View.VISIBLE);
                                     }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                                });
+                                MatSearchResultFragment matSearchResultFragment = new MatSearchResultFragment();
+                                replaceFragment(matSearchResultFragment);
                             }
                         }
 
@@ -176,12 +152,5 @@ public class MatSearchFragment extends Fragment {
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
                     .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager =  getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 }

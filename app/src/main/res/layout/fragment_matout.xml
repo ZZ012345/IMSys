@@ -120,19 +120,34 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <!-- OutputDescription -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/wrapper_outputdescription_matout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/input_outputdescription_matout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="出库备注" />
+
+            </android.support.design.widget.TextInputLayout>
+
             <ProgressBar
                 android:id="@+id/progressbar_matout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="10dp" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_submit_matout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="10dp"
                 android:padding="12dp"
                 android:text="出库" />
 

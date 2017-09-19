@@ -34,6 +34,12 @@ public class SearchRecord {
 
     public static String yearend_part = "";
 
+    public static final int FRAGLABEL_STORAGE = 1;
+
+    public static final int FRAGLABEL_SEARCH = 2;
+
+    public static int lastFrag = FRAGLABEL_STORAGE;
+
     public static void clearRecord() {
         id_mat = "";
         type_mat = "";
@@ -50,6 +56,8 @@ public class SearchRecord {
         position_part = "";
         yearstart_part = "";
         yearend_part = "";
+
+        lastFrag = FRAGLABEL_STORAGE;
     }
 
     public static void setMatRecord(String id, String type, String band, String original,

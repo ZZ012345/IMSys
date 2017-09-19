@@ -3,9 +3,6 @@ package com.rinc.imsys;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -26,7 +23,7 @@ import okhttp3.Response;
  * Created by zhouzhi on 2017/8/18.
  */
 
-public class MatDetailFragment extends Fragment {
+public class MatDetailFragment extends BaseFragment {
 
     private ProgressBar progressBar;
 
@@ -118,13 +115,12 @@ public class MatDetailFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                int lastfragment = getArguments().getInt("lastfragment");
-                if (lastfragment == 1) {
+                if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_STORAGE) {
                     //由所有库存品信息碎片跳转而来
                     replaceFragment(new MatStorageFragment());
-                } else if (lastfragment == 2) {
+                } else if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_SEARCH) {
                     //由查找结果碎片跳转而来
-                    replaceFragment(new MatSearchFragment());
+                    replaceFragment(new MatSearchResultFragment());
                 }
             }
         });
@@ -136,7 +132,6 @@ public class MatDetailFragment extends Fragment {
                 ModifyMatDetailFragment modifyMatDetailFragment = new ModifyMatDetailFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("stock", materialStock);
-                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 modifyMatDetailFragment.setArguments(args);
                 replaceFragment(modifyMatDetailFragment);
             }
@@ -152,7 +147,7 @@ public class MatDetailFragment extends Fragment {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        HttpUtil.deleteMatDetail(materialStock.getId(), new okhttp3.Callback() {
+                        HttpUtil.deleteMatDetail(String.valueOf(materialStock.getDatabaseid()), new okhttp3.Callback() {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 getActivity().runOnUiThread(new Runnable() {
@@ -165,13 +160,12 @@ public class MatDetailFragment extends Fragment {
                                         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
-                                                int lastfragment = getArguments().getInt("lastfragment");
-                                                if (lastfragment == 1) {
+                                                if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_STORAGE) {
                                                     //由所有库存品信息碎片跳转而来
                                                     replaceFragment(new MatStorageFragment());
-                                                } else if (lastfragment == 2) {
+                                                } else if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_SEARCH) {
                                                     //由查找结果碎片跳转而来
-                                                    replaceFragment(new MatSearchFragment());
+                                                    replaceFragment(new MatSearchResultFragment());
                                                 }
                                             }
                                         });
@@ -211,7 +205,6 @@ public class MatDetailFragment extends Fragment {
                 MatInRecFragment matInRecFragment = new MatInRecFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("stock", materialStock);
-                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 matInRecFragment.setArguments(args);
                 replaceFragment(matInRecFragment);
             }
@@ -224,19 +217,11 @@ public class MatDetailFragment extends Fragment {
                 MatOutRecFragment matOutRecFragment = new MatOutRecFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("stock", materialStock);
-                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 matOutRecFragment.setArguments(args);
                 replaceFragment(matOutRecFragment);
             }
         });
 
         return view;
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager =  getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 }

@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -69,17 +68,15 @@ public class MaterialInRecordAdapter extends RecyclerView.Adapter<MaterialInReco
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView textTime;
         TextView textOperator;
-        TextView textId;
         TextView textNum;
-        ImageView more;
+        TextView textDescription;
 
         public ViewHolder(View view) {
             super(view);
             textTime = (TextView) view.findViewById(R.id.text_datatime_matinrec);
             textOperator = (TextView) view.findViewById(R.id.text_operator_matinrec);
-            textId = (TextView) view.findViewById(R.id.text_id_matinrec);
             textNum = (TextView) view.findViewById(R.id.text_num_matinrec);
-            more = (ImageView) view.findViewById(R.id.image_more_matinrec);
+            textDescription = (TextView) view.findViewById(R.id.text_description_matinrec);
         }
     }
 
@@ -111,8 +108,8 @@ public class MaterialInRecordAdapter extends RecyclerView.Adapter<MaterialInReco
                 }
                 holder.textTime.setText(materialInRecord.getInputDateTime());
                 holder.textOperator.setText(materialInRecord.getOperator());
-                holder.textId.setText(materialInRecord.getMaterialStock().getId());
                 holder.textNum.setText(materialInRecord.getInputNum());
+                holder.textDescription.setText(materialInRecord.getDescription());
                 holder.itemView.setTag(position);
             }
         } else {

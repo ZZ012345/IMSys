@@ -1,6 +1,5 @@
 package com.rinc.imsys;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,7 +21,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtil.d("BaseActivity", getClass().getSimpleName());
+        LogUtil.d("BaseActivity Create", getClass().getSimpleName());
         ActivityCollector.addActivity(this);
     }
 
@@ -47,6 +46,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        LogUtil.d("BaseActivity Destroy", getClass().getSimpleName());
         ActivityCollector.removeActivity(this);
     }
 

@@ -1,13 +1,8 @@
 package com.rinc.imsys;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +24,7 @@ import okhttp3.Response;
  * Created by zhouzhi on 2017/8/14.
  */
 
-public class UserinfoFragment extends Fragment {
+public class UserinfoFragment extends BaseFragment {
 
     private ProgressBar progressBar;
 
@@ -180,12 +175,5 @@ public class UserinfoFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager =  getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 }

@@ -20,6 +20,15 @@ public class HttpUtil {
 
     private static MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
+    public static void simpleGet(String url, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Token " + header)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
     public static void login(String username, String password, okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
@@ -113,7 +122,7 @@ public class HttpUtil {
 
     public static void materialIn(String id, String type, String storestate, String mark, String band, String original,
                                   String year, String state, String position, String unit, String description, String datetime,
-                                  String operator, String num, okhttp3.Callback callback) {
+                                  String operator, String num, String inputDescription, okhttp3.Callback callback) {
         JSONObject jsonMaterial = new JSONObject();
         JSONObject jsonAll = new JSONObject();
         try {
@@ -140,6 +149,7 @@ public class HttpUtil {
             jsonAll.put("inputDateTime", datetime);
             jsonAll.put("inputOperator", operator);
             jsonAll.put("inputNum", num);
+            jsonAll.put("inputDescription", inputDescription);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -163,7 +173,7 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void modifyMatDetail(String oldid, String id, String type, String storestate, String mark,
+    public static void modifyMatDetail(String databaseId, String id, String type, String storestate, String mark,
                                        String band, String original, String year, String state,
                                        String position, String unit, String description, okhttp3.Callback callback) {
         JSONObject jsonMaterial = new JSONObject();
@@ -193,7 +203,7 @@ public class HttpUtil {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = RequestBody.create(JSON, jsonMaterial.toString());
         Request request = new Request.Builder()
-                .url(serverAddr + "api/material/" + oldid + "/")
+                .url(serverAddr + "api/material/" + databaseId + "/")
                 .addHeader("Authorization", "Token " + header)
                 .put(requestBody)
                 .build();
@@ -213,13 +223,13 @@ public class HttpUtil {
     public static void getMatInRec(String id, okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(serverAddr + "api/material/inputlist?materialID=" + id)
+                .url(serverAddr + "api/material/inputlist?id=" + id)
                 .addHeader("Authorization", "Token " + header)
                 .build();
         client.newCall(request).enqueue(callback);
     }
 
-    public static void materialOut(String id, String datetime, String user, String operator, String num, okhttp3.Callback callback) {
+    public static void materialOut(String id, String datetime, String user, String operator, String num, String outputDescription, okhttp3.Callback callback) {
         JSONObject jsonMaterial = new JSONObject();
         JSONObject jsonAll = new JSONObject();
         try {
@@ -229,6 +239,7 @@ public class HttpUtil {
             jsonAll.put("materialUser", user);
             jsonAll.put("outputOperator", operator);
             jsonAll.put("outputNum", num);
+            jsonAll.put("outputDescription", outputDescription);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -246,7 +257,7 @@ public class HttpUtil {
     public static void getMatOutRec(String id, okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(serverAddr + "api/material/outputlist?materialID=" + id)
+                .url(serverAddr + "api/material/outputlist?id=" + id)
                 .addHeader("Authorization", "Token " + header)
                 .build();
         client.newCall(request).enqueue(callback);

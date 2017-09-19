@@ -68,7 +68,8 @@ public class PartInRecFragment extends Fragment {
                 String responseData = response.body().string();
                 LogUtil.d("Get Part In Rec jsondata", responseData);
                 try {
-                    JSONArray jsonArray = new JSONArray(responseData);
+                    JSONObject jsonAll = new JSONObject(responseData);
+                    JSONArray jsonArray = new JSONArray(jsonAll.getString("results"));
                     if (jsonArray.length() == 0) {
                         //没有相关信息
                         getActivity().runOnUiThread(new Runnable() {

@@ -2,9 +2,6 @@ package com.rinc.imsys;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -29,7 +26,7 @@ import okhttp3.Response;
  * Created by ZhouZhi on 2017/9/1.
  */
 
-public class PartStorageFragment extends Fragment {
+public class PartStorageFragment extends BaseFragment {
 
     private ProgressBar progressBar;
 
@@ -61,7 +58,8 @@ public class PartStorageFragment extends Fragment {
                 String responseData = response.body().string();
                 LogUtil.d("Get Part Storage response", responseData);
                 try {
-                    JSONArray jsonArray = new JSONArray(responseData);
+                    JSONObject jsonAll = new JSONObject(responseData);
+                    JSONArray jsonArray = new JSONArray(jsonAll.getString("results"));
                     if (jsonArray.length() == 0) {
                         //没有相关信息
                         getActivity().runOnUiThread(new Runnable() {
@@ -161,12 +159,5 @@ public class PartStorageFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager =  getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 }

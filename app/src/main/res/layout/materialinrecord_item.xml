@@ -55,10 +55,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="材料标号" />
+            android:text="入库数量" />
 
         <TextView
-            android:id="@+id/text_id_matinrec"
+            android:id="@+id/text_num_matinrec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -75,10 +75,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="入库数量" />
+            android:text="入库备注" />
 
         <TextView
-            android:id="@+id/text_num_matinrec"
+            android:id="@+id/text_description_matinrec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -86,13 +86,6 @@
             android:textColor="@color/black" />
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/image_more_matinrec"
-        android:src="@drawable/more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
 
     <View
         android:layout_width="match_parent"

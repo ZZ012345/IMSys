@@ -85,8 +85,8 @@ public class PartSearchResultFragment extends Fragment {
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        EnhancedPartStockAdapter enhancedPartStockAdapter = new EnhancedPartStockAdapter(mlist);
-        recyclerView.setAdapter(enhancedPartStockAdapter);
+        PartStockAdapter partStockAdapter = new PartStockAdapter(mlist);
+        recyclerView.setAdapter(partStockAdapter);
         View footer = LayoutInflater.from(getActivity()).inflate(R.layout.button_item, recyclerView, false);
         Button backButton = footer.findViewById(R.id.back_button_searchresult);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +95,8 @@ public class PartSearchResultFragment extends Fragment {
                 replaceFragment(new PartSearchFragment());
             }
         });
-        enhancedPartStockAdapter.setFooterView(footer);
-        enhancedPartStockAdapter.setOnItemClickListener(new EnhancedPartStockAdapter.OnItemClickListener() {
+        partStockAdapter.setFooterView(footer);
+        partStockAdapter.setOnItemClickListener(new PartStockAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view1, int position) {
                 if (position != mlist.size()) {

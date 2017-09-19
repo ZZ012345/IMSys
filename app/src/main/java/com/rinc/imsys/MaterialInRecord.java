@@ -16,18 +16,14 @@ public class MaterialInRecord implements Serializable {
 
     private String inputNum;
 
-    private MaterialStock materialStock;
+    private String description;
 
-    private int owner;
-
-    public MaterialInRecord(int recordId, String inputDateTime, String operator, String inputNum,
-                            MaterialStock materialStock, int owner) {
+    public MaterialInRecord(int recordId, String inputDateTime, String operator, String inputNum, String description) {
         this.recordId = recordId;
         this.inputDateTime = inputDateTime;
         this.operator = operator;
         this.inputNum = inputNum;
-        this.materialStock = materialStock;
-        this.owner = owner;
+        this.description = description;
     }
 
     public int getRecordId() {
@@ -46,11 +42,7 @@ public class MaterialInRecord implements Serializable {
         return inputNum;
     }
 
-    public MaterialStock getMaterialStock() {
-        return materialStock;
-    }
-
-    public int getOwner() {
-        return owner;
+    public String getDescription() {
+        return description;
     }
 }

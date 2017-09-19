@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,7 @@ import java.util.List;
  * Created by ZhouZhi on 2017/8/30.
  */
 
-public class QRMakeFragment extends Fragment {
+public class QRMakeFragment extends BaseFragment {
 
     private List<String> stockList = new ArrayList<String>();
 

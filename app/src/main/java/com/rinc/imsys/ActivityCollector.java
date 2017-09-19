@@ -2,8 +2,8 @@ package com.rinc.imsys;
 
 import android.app.Activity;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by zhouzhi on 2017/8/10.
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ActivityCollector {
 
-    public static List<Activity> activities = new ArrayList<>();
+    public static List<Activity> activities = new CopyOnWriteArrayList<>();
 
     public static void addActivity(Activity activity) {
         activities.add(activity);

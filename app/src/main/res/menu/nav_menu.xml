@@ -57,10 +57,27 @@
             android:title="查找" />
 
         <item
-            android:id="@+id/menu_equisto"
-            android:icon="@drawable/menu_equi"
+            android:id="@+id/menu_equip"
+            android:icon="@drawable/menu_equip"
+            app:actionLayout="@layout/custom_menu_equip"
             android:checkable="false"
             android:title="设备库" />
+
+        <item
+            android:id="@+id/menu_equipsto"
+            android:title="库存品信息" />
+
+        <item
+            android:id="@+id/menu_equipin"
+            android:title="入库" />
+
+        <item
+            android:id="@+id/menu_equipout"
+            android:title="出库" />
+
+        <item
+            android:id="@+id/menu_equipsearch"
+            android:title="查找" />
 
         <item
             android:id="@+id/menu_qrmake"
