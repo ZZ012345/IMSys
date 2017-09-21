@@ -280,7 +280,7 @@ public class HttpUtil {
     public static void partIn(String id, String type, String storestate, String mark, String band, String original,
                               String year, String state, String position, String unit, String name, String company,
                               String machineName, String machineType, String machineBand, String condition, String vulnerability,
-                              String description, String datetime, String operator, String num, okhttp3.Callback callback) {
+                              String description, String datetime, String operator, String num, String inputDescription, okhttp3.Callback callback) {
         JSONObject jsonPart = new JSONObject();
         JSONObject jsonAll = new JSONObject();
         try {
@@ -314,6 +314,7 @@ public class HttpUtil {
             jsonAll.put("inputDateTime", datetime);
             jsonAll.put("inputOperator", operator);
             jsonAll.put("inputNum", num);
+            jsonAll.put("inputDescription", inputDescription);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -337,7 +338,7 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void modifyPartDetail(String oldid, String id, String type, String storestate, String mark,
+    public static void modifyPartDetail(String databaseId, String id, String type, String storestate, String mark,
                                         String band, String original, String year, String state, String position,
                                         String unit, String name, String company, String machineName, String machineType,
                                         String machineBand, String condition, String vulnerability, String description, okhttp3.Callback callback) {
@@ -375,7 +376,7 @@ public class HttpUtil {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = RequestBody.create(JSON, jsonPart.toString());
         Request request = new Request.Builder()
-                .url(serverAddr + "api/part/" + oldid + "/")
+                .url(serverAddr + "api/part/" + databaseId + "/")
                 .addHeader("Authorization", "Token " + header)
                 .put(requestBody)
                 .build();
@@ -395,13 +396,13 @@ public class HttpUtil {
     public static void getPartInRec(String id, okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(serverAddr + "api/part/inputlist?partID=" + id)
+                .url(serverAddr + "api/part/inputlist?id=" + id)
                 .addHeader("Authorization", "Token " + header)
                 .build();
         client.newCall(request).enqueue(callback);
     }
 
-    public static void partOut(String id, String datetime, String user, String operator, String num, okhttp3.Callback callback) {
+    public static void partOut(String id, String datetime, String user, String operator, String num, String outputDescription, okhttp3.Callback callback) {
         JSONObject jsonPart = new JSONObject();
         JSONObject jsonAll = new JSONObject();
         try {
@@ -411,6 +412,7 @@ public class HttpUtil {
             jsonAll.put("partUser", user);
             jsonAll.put("outputOperator", operator);
             jsonAll.put("outputNum", num);
+            jsonAll.put("outputDescription", outputDescription);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -428,7 +430,7 @@ public class HttpUtil {
     public static void getPartOutRec(String id, okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(serverAddr + "api/part/outputlist?partID=" + id)
+                .url(serverAddr + "api/part/outputlist?id=" + id)
                 .addHeader("Authorization", "Token " + header)
                 .build();
         client.newCall(request).enqueue(callback);

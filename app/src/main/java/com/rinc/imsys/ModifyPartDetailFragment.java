@@ -5,9 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -33,7 +30,7 @@ import okhttp3.Response;
  * Created by ZhouZhi on 2017/9/7.
  */
 
-public class ModifyPartDetailFragment extends Fragment {
+public class ModifyPartDetailFragment extends BaseFragment {
 
     private EditText textId;
 
@@ -346,7 +343,7 @@ public class ModifyPartDetailFragment extends Fragment {
                     final String year = textYear.getText().toString();
                     final String description = textDescription.getText().toString();
 
-                    HttpUtil.modifyPartDetail(partStock.getId(), id, type, storestate, mark, band, original, year, state, position, unit,
+                    HttpUtil.modifyPartDetail(String.valueOf(partStock.getDatabaseid()), id, type, storestate, mark, band, original, year, state, position, unit,
                             name, company, machineName, machineType, machineBand, condition, vulnerability, description, new okhttp3.Callback() {
                                 @Override
                                 public void onResponse(final Call call, Response response) throws IOException {
@@ -376,7 +373,6 @@ public class ModifyPartDetailFragment extends Fragment {
                                                                     machineBand, condition, vulnerability, description, partStock.getNum());
                                                             Bundle args = new Bundle();
                                                             args.putSerializable("stock", partStock1);
-                                                            args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                                                             partDetailFragment.setArguments(args);
                                                             replaceFragment(partDetailFragment);
                                                         }
@@ -420,13 +416,12 @@ public class ModifyPartDetailFragment extends Fragment {
                                                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                                            int lastfragment = getArguments().getInt("lastfragment");
-                                                            if (lastfragment == 1) {
+                                                            if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_STORAGE) {
                                                                 //由所有库存品信息碎片跳转而来
                                                                 replaceFragment(new PartStorageFragment());
-                                                            } else if (lastfragment == 2) {
+                                                            } else if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_SEARCH) {
                                                                 //由查找结果碎片跳转而来
-                                                                replaceFragment(new PartSearchFragment());
+                                                                replaceFragment(new PartSearchResultFragment());
                                                             }
                                                         }
                                                     });
@@ -526,7 +521,6 @@ public class ModifyPartDetailFragment extends Fragment {
                 PartDetailFragment partDetailFragment = new PartDetailFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("stock", partStock);
-                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 partDetailFragment.setArguments(args);
                 replaceFragment(partDetailFragment);
             }
@@ -541,12 +535,5 @@ public class ModifyPartDetailFragment extends Fragment {
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
                     .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager =  getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 }

@@ -94,7 +94,7 @@ public class MatOutRecFragment extends BaseFragment {
                     JSONObject jsonAll = new JSONObject(responseData);
                     allNum = jsonAll.getInt("count");
                     JSONArray jsonArray = new JSONArray(jsonAll.getString("results"));
-                    if (jsonArray.length() == 0) {
+                    if (allNum == 0) {
                         //没有相关信息
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -115,10 +115,10 @@ public class MatOutRecFragment extends BaseFragment {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             int recordId = jsonObject.getInt("id");
                             String outputDateTime = jsonObject.getString("outputDateTime");
+                            String user = jsonObject.getString("materialUser");
                             String operator = jsonObject.getString("outputOperator");
                             String outputNum = jsonObject.getString("outputNum");
                             String leftNum = jsonObject.getString("leftNum");
-                            String user = jsonObject.getString("materialUser");
                             String description = jsonObject.getString("outputDescription");
                             MaterialOutRecord materialOutRecord = new MaterialOutRecord(recordId, outputDateTime, user, operator, outputNum, leftNum, description);
                             mrlist.add(materialOutRecord);
@@ -259,10 +259,10 @@ public class MatOutRecFragment extends BaseFragment {
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                                     int recordId = jsonObject.getInt("id");
                                     String outputDateTime = jsonObject.getString("outputDateTime");
+                                    String user = jsonObject.getString("materialUser");
                                     String operator = jsonObject.getString("outputOperator");
                                     String outputNum = jsonObject.getString("outputNum");
                                     String leftNum = jsonObject.getString("leftNum");
-                                    String user = jsonObject.getString("materialUser");
                                     String description = jsonObject.getString("outputDescription");
                                     MaterialOutRecord materialOutRecord = new MaterialOutRecord(recordId, outputDateTime, user, operator, outputNum, leftNum, description);
                                     mrlist.add(materialOutRecord);

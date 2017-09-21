@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -69,18 +68,16 @@ public class PartInRecordAdapter extends RecyclerView.Adapter<PartInRecordAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView textTime;
         TextView textOperator;
-        TextView textId;
         TextView textNum;
-        ImageView more;
+        TextView textDescription;
 
         public ViewHolder(View view) {
             super(view);
             if (view != mHeaderView && view != mFooterView) {
                 textTime = (TextView) view.findViewById(R.id.text_datatime_partinrec);
                 textOperator = (TextView) view.findViewById(R.id.text_operator_partinrec);
-                textId = (TextView) view.findViewById(R.id.text_id_partinrec);
                 textNum = (TextView) view.findViewById(R.id.text_num_partinrec);
-                more = (ImageView) view.findViewById(R.id.image_more_partinrec);
+                textDescription = (TextView) view.findViewById(R.id.text_description_partinrec);
             }
         }
     }
@@ -113,8 +110,8 @@ public class PartInRecordAdapter extends RecyclerView.Adapter<PartInRecordAdapte
                 }
                 holder.textTime.setText(partInRecord.getInputDateTime());
                 holder.textOperator.setText(partInRecord.getOperator());
-                holder.textId.setText(partInRecord.getPartStock().getId());
                 holder.textNum.setText(partInRecord.getInputNum());
+                holder.textDescription.setText(partInRecord.getDescription());
                 holder.itemView.setTag(position);
             }
         } else {

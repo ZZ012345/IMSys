@@ -20,20 +20,17 @@ public class PartOutRecord implements Serializable {
 
     private String leftNum;
 
-    private PartStock partStock;
-
-    private int owner;
+    private String description;
 
     public PartOutRecord(int recordId ,String outputDateTime, String user, String operator, String outputNum,
-                             String leftNum, PartStock partStock, int owner) {
+                             String leftNum, String description) {
         this.recordId = recordId;
         this.outputDateTime = outputDateTime;
         this.user = user;
         this.operator = operator;
         this.outputNum = outputNum;
         this.leftNum = leftNum;
-        this.partStock = partStock;
-        this.owner = owner;
+        this.description = description;
     }
 
     public int getRecordId() {
@@ -60,11 +57,7 @@ public class PartOutRecord implements Serializable {
         return leftNum;
     }
 
-    public PartStock getPartStock() {
-        return partStock;
-    }
-
-    public int getOwner() {
-        return owner;
+    public String getDescription() {
+        return description;
     }
 }

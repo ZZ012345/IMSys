@@ -75,12 +75,14 @@ public class MaterialOutRecordAdapter extends RecyclerView.Adapter<MaterialOutRe
 
         public ViewHolder(View view) {
             super(view);
-            textTime = (TextView) view.findViewById(R.id.text_datatime_matoutrec);
-            textOperator = (TextView) view.findViewById(R.id.text_operator_matoutrec);
-            textNum = (TextView) view.findViewById(R.id.text_num_matoutrec);
-            textLeftnum = (TextView) view.findViewById(R.id.text_leftnum_matoutrec);
-            textUser = (TextView) view.findViewById(R.id.text_user_matoutrec);
-            textDescription = (TextView) view.findViewById(R.id.text_description_matoutrec);
+            if (view != mHeaderView && view != mFooterView) {
+                textTime = (TextView) view.findViewById(R.id.text_datatime_matoutrec);
+                textOperator = (TextView) view.findViewById(R.id.text_operator_matoutrec);
+                textNum = (TextView) view.findViewById(R.id.text_num_matoutrec);
+                textLeftnum = (TextView) view.findViewById(R.id.text_leftnum_matoutrec);
+                textUser = (TextView) view.findViewById(R.id.text_user_matoutrec);
+                textDescription = (TextView) view.findViewById(R.id.text_description_matoutrec);
+            }
         }
     }
 

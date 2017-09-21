@@ -73,10 +73,12 @@ public class MaterialInRecordAdapter extends RecyclerView.Adapter<MaterialInReco
 
         public ViewHolder(View view) {
             super(view);
-            textTime = (TextView) view.findViewById(R.id.text_datatime_matinrec);
-            textOperator = (TextView) view.findViewById(R.id.text_operator_matinrec);
-            textNum = (TextView) view.findViewById(R.id.text_num_matinrec);
-            textDescription = (TextView) view.findViewById(R.id.text_description_matinrec);
+            if (view != mHeaderView && view != mFooterView) {
+                textTime = (TextView) view.findViewById(R.id.text_datatime_matinrec);
+                textOperator = (TextView) view.findViewById(R.id.text_operator_matinrec);
+                textNum = (TextView) view.findViewById(R.id.text_num_matinrec);
+                textDescription = (TextView) view.findViewById(R.id.text_description_matinrec);
+            }
         }
     }
 
@@ -142,5 +144,4 @@ public class MaterialInRecordAdapter extends RecyclerView.Adapter<MaterialInReco
             return mlist.size() + 2;
         }
     }
-
 }

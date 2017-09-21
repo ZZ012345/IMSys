@@ -3,9 +3,6 @@ package com.rinc.imsys;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -26,7 +23,7 @@ import okhttp3.Response;
  * Created by ZhouZhi on 2017/9/7.
  */
 
-public class PartDetailFragment extends Fragment {
+public class PartDetailFragment extends BaseFragment {
 
     private ProgressBar progressBar;
 
@@ -148,13 +145,12 @@ public class PartDetailFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                int lastfragment = getArguments().getInt("lastfragment");
-                if (lastfragment == 1) {
+                if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_STORAGE) {
                     //由所有库存品信息碎片跳转而来
                     replaceFragment(new PartStorageFragment());
-                } else if (lastfragment == 2) {
+                } else if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_SEARCH) {
                     //由查找结果碎片跳转而来
-                    replaceFragment(new PartSearchFragment());
+                    replaceFragment(new PartSearchResultFragment());
                 }
             }
         });
@@ -166,7 +162,6 @@ public class PartDetailFragment extends Fragment {
                 ModifyPartDetailFragment modifyPartDetailFragment = new ModifyPartDetailFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("stock", partStock);
-                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 modifyPartDetailFragment.setArguments(args);
                 replaceFragment(modifyPartDetailFragment);
             }
@@ -182,7 +177,7 @@ public class PartDetailFragment extends Fragment {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        HttpUtil.deletePartDetail(partStock.getId(), new okhttp3.Callback() {
+                        HttpUtil.deletePartDetail(String.valueOf(partStock.getDatabaseid()), new okhttp3.Callback() {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 getActivity().runOnUiThread(new Runnable() {
@@ -195,13 +190,12 @@ public class PartDetailFragment extends Fragment {
                                         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
-                                                int lastfragment = getArguments().getInt("lastfragment");
-                                                if (lastfragment == 1) {
+                                                if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_STORAGE) {
                                                     //由所有库存品信息碎片跳转而来
                                                     replaceFragment(new PartStorageFragment());
-                                                } else if (lastfragment == 2) {
+                                                } else if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_SEARCH) {
                                                     //由查找结果碎片跳转而来
-                                                    replaceFragment(new PartSearchFragment());
+                                                    replaceFragment(new PartSearchResultFragment());
                                                 }
                                             }
                                         });
@@ -241,7 +235,6 @@ public class PartDetailFragment extends Fragment {
                 PartInRecFragment partInRecFragment = new PartInRecFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("stock", partStock);
-                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 partInRecFragment.setArguments(args);
                 replaceFragment(partInRecFragment);
             }
@@ -254,19 +247,11 @@ public class PartDetailFragment extends Fragment {
                 PartOutRecFragment partOutRecFragment = new PartOutRecFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("stock", partStock);
-                args.putInt("lastfragment", getArguments().getInt("lastfragment"));
                 partOutRecFragment.setArguments(args);
                 replaceFragment(partOutRecFragment);
             }
         });
 
         return view;
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager =  getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 }

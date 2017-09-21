@@ -96,6 +96,8 @@ public class MatDetailFragment extends BaseFragment {
         backButton.setVisibility(View.VISIBLE);
         modifyButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
+        inButton.setVisibility(View.VISIBLE);
+        outButton.setVisibility(View.VISIBLE);
 
         final MaterialStock materialStock = (MaterialStock) getArguments().getSerializable("stock");
 

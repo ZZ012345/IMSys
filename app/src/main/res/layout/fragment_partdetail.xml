@@ -519,14 +519,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:text="查询入库记录" />
+                android:text="入库记录" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_out_partdetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:text="查询出库记录" />
+                android:text="出库记录" />
 
         </LinearLayout>
 

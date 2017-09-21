@@ -16,18 +16,14 @@ public class PartInRecord implements Serializable {
 
     private String inputNum;
 
-    private PartStock partStock;
+    private String description;
 
-    private int owner;
-
-    public PartInRecord(int recordId, String inputDateTime, String operator, String inputNum,
-                            PartStock partStock, int owner) {
+    public PartInRecord(int recordId, String inputDateTime, String operator, String inputNum, String description) {
         this.recordId = recordId;
         this.inputDateTime = inputDateTime;
         this.operator = operator;
         this.inputNum = inputNum;
-        this.partStock = partStock;
-        this.owner = owner;
+        this.description = description;
     }
 
     public int getRecordId() {
@@ -46,11 +42,7 @@ public class PartInRecord implements Serializable {
         return inputNum;
     }
 
-    public PartStock getPartStock() {
-        return partStock;
-    }
-
-    public int getOwner() {
-        return owner;
+    public String getDescription() {
+        return description;
     }
 }

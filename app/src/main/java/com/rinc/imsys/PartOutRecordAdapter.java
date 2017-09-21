@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -69,22 +68,20 @@ public class PartOutRecordAdapter extends RecyclerView.Adapter<PartOutRecordAdap
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView textTime;
         TextView textOperator;
-        TextView textId;
         TextView textNum;
         TextView textLeftnum;
         TextView textUser;
-        ImageView more;
+        TextView textDescription;
 
         public ViewHolder(View view) {
             super(view);
             if (view != mHeaderView && view != mFooterView) {
                 textTime = (TextView) view.findViewById(R.id.text_datatime_partoutrec);
                 textOperator = (TextView) view.findViewById(R.id.text_operator_partoutrec);
-                textId = (TextView) view.findViewById(R.id.text_id_partoutrec);
                 textNum = (TextView) view.findViewById(R.id.text_num_partoutrec);
                 textLeftnum = (TextView) view.findViewById(R.id.text_leftnum_partoutrec);
                 textUser = (TextView) view.findViewById(R.id.text_user_partoutrec);
-                more = (ImageView) view.findViewById(R.id.image_more_partoutrec);
+                textDescription = (TextView) view.findViewById(R.id.text_description_partoutrec);
             }
         }
     }
@@ -117,10 +114,10 @@ public class PartOutRecordAdapter extends RecyclerView.Adapter<PartOutRecordAdap
                 }
                 holder.textTime.setText(partOutRecord.getOutputDateTime());
                 holder.textOperator.setText(partOutRecord.getOperator());
-                holder.textId.setText(partOutRecord.getPartStock().getId());
                 holder.textNum.setText(partOutRecord.getOutputNum());
                 holder.textLeftnum.setText(partOutRecord.getLeftNum());
                 holder.textUser.setText(partOutRecord.getUser());
+                holder.textDescription.setText(partOutRecord.getDescription());
                 holder.itemView.setTag(position);
             }
         } else {

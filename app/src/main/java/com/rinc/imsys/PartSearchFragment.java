@@ -3,9 +3,6 @@ package com.rinc.imsys;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +13,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -27,7 +22,7 @@ import okhttp3.Response;
  * Created by ZhouZhi on 2017/9/7.
  */
 
-public class PartSearchFragment extends Fragment {
+public class PartSearchFragment extends BaseFragment {
 
     private EditText textId;
 
@@ -77,6 +72,8 @@ public class PartSearchFragment extends Fragment {
         textYearstart.setText(SearchRecord.yearstart_part);
         textYearend.setText(SearchRecord.yearend_part);
 
+        SearchRecord.lastFrag = SearchRecord.FRAGLABEL_SEARCH;
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -116,35 +113,15 @@ public class PartSearchFragment extends Fragment {
                                     }
                                 });
                             } else {
-                                try {
-                                    JSONArray jsonArray = new JSONArray(responseData);
-                                    if (jsonArray.length() == 0) {
-                                        //没有相关记录
-                                        getActivity().runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                progressBar.setVisibility(View.GONE);
-                                                searchButton.setVisibility(View.VISIBLE);
-                                                Toast.makeText(getActivity(), "没有相关记录", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                    } else {
-                                        getActivity().runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                progressBar.setVisibility(View.GONE);
-                                                searchButton.setVisibility(View.VISIBLE);
-                                            }
-                                        });
-                                        PartSearchResultFragment partSearchResultFragment = new PartSearchResultFragment();
-                                        Bundle args = new Bundle();
-                                        args.putString("PartSearchResult", responseData);
-                                        partSearchResultFragment.setArguments(args);
-                                        replaceFragment(partSearchResultFragment);
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressBar.setVisibility(View.GONE);
+                                        searchButton.setVisibility(View.VISIBLE);
                                     }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                                });
+                                PartSearchResultFragment partSearchResultFragment = new PartSearchResultFragment();
+                                replaceFragment(partSearchResultFragment);
                             }
                         }
 
@@ -175,12 +152,5 @@ public class PartSearchFragment extends Fragment {
             ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
                     .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager =  getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 }

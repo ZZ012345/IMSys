@@ -508,6 +508,21 @@ public class MainActivity extends BaseActivity {
             } else if (fragment instanceof MatSearchResultFragment) {
                 Button button = (Button) findViewById(R.id.button_back_matsearchresult);
                 button.performClick();
+            } else if (fragment instanceof PartDetailFragment) {
+                Button button = (Button) findViewById(R.id.button_back_partdetail);
+                button.performClick();
+            } else if (fragment instanceof ModifyPartDetailFragment) {
+                Button button = (Button) findViewById(R.id.button_cancel_partdetail_modify);
+                button.performClick();
+            } else if (fragment instanceof PartInRecFragment) {
+                Button button = (Button) findViewById(R.id.button_back_partinrec);
+                button.performClick();
+            } else if (fragment instanceof PartOutRecFragment) {
+                Button button = (Button) findViewById(R.id.button_back_partoutrec);
+                button.performClick();
+            } else if (fragment instanceof PartSearchResultFragment) {
+                Button button = (Button) findViewById(R.id.button_back_partsearchresult);
+                button.performClick();
             }
         }
     }
