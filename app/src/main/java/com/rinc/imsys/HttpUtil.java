@@ -29,6 +29,7 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
+    //用户api
     public static void login(String username, String password, okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
@@ -120,6 +121,7 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
+    //材料库api
     public static void materialIn(String id, String type, String storestate, String mark, String band, String original,
                                   String year, String state, String position, String unit, String description, String datetime,
                                   String operator, String num, String inputDescription, okhttp3.Callback callback) {
@@ -277,6 +279,7 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
+    //零件库api
     public static void partIn(String id, String type, String storestate, String mark, String band, String original,
                               String year, String state, String position, String unit, String name, String company,
                               String machineName, String machineType, String machineBand, String condition, String vulnerability,
@@ -445,6 +448,16 @@ public class HttpUtil {
         LogUtil.d("Part Search url", url);
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("Authorization", "Token " + header)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    //整机库api
+    public static void getEquipStorage(okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/equipment/")
                 .addHeader("Authorization", "Token " + header)
                 .build();
         client.newCall(request).enqueue(callback);

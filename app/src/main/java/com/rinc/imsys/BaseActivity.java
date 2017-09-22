@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * Created by zhouzhi on 2017/8/10.
@@ -69,6 +71,14 @@ public class BaseActivity extends AppCompatActivity {
                 }
             });
             builder.show();
+        }
+    }
+
+    public void hideKeyboard() { //隐藏虚拟键盘
+        View view = getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 }

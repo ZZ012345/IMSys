@@ -1,13 +1,11 @@
 package com.rinc.imsys;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Patterns;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -234,14 +232,6 @@ public class RegisterActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-    }
-
-    private void hideKeyboard() { //隐藏虚拟键盘
-        View view = getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
     }
 
     private boolean checkUsername(String username) { //检查用户名是否合法

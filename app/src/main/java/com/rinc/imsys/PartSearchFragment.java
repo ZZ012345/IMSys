@@ -1,13 +1,11 @@
 package com.rinc.imsys;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -144,13 +142,5 @@ public class PartSearchFragment extends BaseFragment {
         });
 
         return view;
-    }
-
-    private void hideKeyboard() { //隐藏虚拟键盘
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
     }
 }

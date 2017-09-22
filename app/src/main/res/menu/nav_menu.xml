@@ -61,7 +61,7 @@
             android:icon="@drawable/menu_equip"
             app:actionLayout="@layout/custom_menu_equip"
             android:checkable="false"
-            android:title="设备库" />
+            android:title="整机库" />
 
         <item
             android:id="@+id/menu_equipsto"

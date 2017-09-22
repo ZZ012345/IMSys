@@ -1,6 +1,5 @@
 package com.rinc.imsys;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -156,7 +154,7 @@ public class QRMakeFragment extends BaseFragment {
         //初始化下拉列表
         stockList.add("材料库");
         stockList.add("零件库");
-        stockList.add("设备库");
+        stockList.add("整机库");
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnertext_item, stockList);
         adapter.setDropDownViewResource(R.layout.spinnerdropdown_item);
         spinner.setAdapter(adapter);
@@ -184,7 +182,7 @@ public class QRMakeFragment extends BaseFragment {
                     wrapperCondition.setVisibility(View.VISIBLE);
                     wrapperVulnerability.setVisibility(View.VISIBLE);
                 } else {
-                    //设备库
+                    //整机库
                     wrapperHour.setVisibility(View.VISIBLE);
                     wrapperName.setVisibility(View.GONE);
                     wrapperCompany.setVisibility(View.GONE);
@@ -441,20 +439,12 @@ public class QRMakeFragment extends BaseFragment {
                             getActivity().startActivity(intent);
                         }
                     } else {
-                        //设备库
+                        //整机库
                     }
                 }
             }
         });
 
         return view;
-    }
-
-    private void hideKeyboard() { //隐藏虚拟键盘
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
     }
 }
