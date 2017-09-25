@@ -76,7 +76,7 @@ public class PartInRecFragment extends BaseFragment {
         pageCount = (TextView) pageController.findViewById(R.id.page_count_pageandback);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("零件入库记录");
+        toolbar.setTitle("备件入库记录");
 
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);

@@ -25,33 +25,33 @@
                 android:textSize="25dip"
                 android:textColor="@color/black" />
 
-            <!-- Id -->
+            <!-- EquipmentID -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_id_partout"
+                android:id="@+id/wrapper_id_equipout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_id_partout"
+                    android:id="@+id/input_id_equipout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="备件标号*" />
+                    android:hint="整机标号*" />
 
             </android.support.design.widget.TextInputLayout>
 
             <!-- DateTime -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_datetime_partout"
+                android:id="@+id/wrapper_datetime_equipout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_date_partout"
+                    android:id="@+id/input_date_equipout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -62,31 +62,31 @@
 
             <!-- User -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_user_partout"
+                android:id="@+id/wrapper_user_equipout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_user_partout"
+                    android:id="@+id/input_user_equipout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="备件去向*" />
+                    android:hint="整机去向*" />
 
             </android.support.design.widget.TextInputLayout>
 
             <!-- Operator -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_operator_partout"
+                android:id="@+id/wrapper_operator_equipout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_operator_partout"
+                    android:id="@+id/input_operator_equipout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -96,14 +96,14 @@
 
             <!-- Num -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_num_partout"
+                android:id="@+id/wrapper_num_equipout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_num_partout"
+                    android:id="@+id/input_num_equipout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -114,14 +114,14 @@
 
             <!-- OutputDescription -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_outputdescription_partout"
+                android:id="@+id/wrapper_outputdescription_equipout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_outputdescription_partout"
+                    android:id="@+id/input_outputdescription_equipout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -130,13 +130,13 @@
             </android.support.design.widget.TextInputLayout>
 
             <ProgressBar
-                android:id="@+id/progressbar_partout"
+                android:id="@+id/progressbar_equipout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp" />
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_submit_partout"
+                android:id="@+id/button_submit_equipout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"

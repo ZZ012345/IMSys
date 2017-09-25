@@ -25,10 +25,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by zhouzhi on 2017/8/18.
+ * Created by ZhouZhi on 2017/9/22.
  */
 
-public class ModifyMatDetailFragment extends BaseFragment {
+public class ModifyEquipDetailFragment extends BaseFragment {
 
     private EditText textId;
 
@@ -43,6 +43,8 @@ public class ModifyMatDetailFragment extends BaseFragment {
     private EditText textOriginal;
 
     private EditText textYear;
+
+    private EditText textHour;
 
     private EditText textState;
 
@@ -61,35 +63,36 @@ public class ModifyMatDetailFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_modifymatdetail, container, false);
+        final View view = inflater.inflate(R.layout.fragment_modifyequipdetail, container, false);
 
-        textId = (EditText) view.findViewById(R.id.input_id_matdetail_modify);
-        textType = (EditText) view.findViewById(R.id.input_type_matdetail_modify);
-        spinnerStorestate = (Spinner) view.findViewById(R.id.spinner_state_matdetail_modify);
-        textMark = (EditText) view.findViewById(R.id.input_mark_matdetail_modify);
-        textBand = (EditText) view.findViewById(R.id.input_band_matdetail_modify);
-        textOriginal = (EditText) view.findViewById(R.id.input_original_matdetail_modify);
-        textYear = (EditText) view.findViewById(R.id.input_year_matdetail_modify);
-        textState = (EditText) view.findViewById(R.id.input_state_matdetail_modify);
-        textPosition = (EditText) view.findViewById(R.id.input_position_matdetail_modify);
-        textUnit = (EditText) view.findViewById(R.id.input_unit_matdetail_modify);
-        textDescription = (EditText) view.findViewById(R.id.input_description_matdetail_modify);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matdetail_modify);
-        submitButton = (Button) view.findViewById(R.id.button_submit_matdetail_modify);
-        cancelButton = (Button) view.findViewById(R.id.button_cancel_matdetail_modify);
+        textId = (EditText) view.findViewById(R.id.input_id_equipdetail_modify);
+        textType = (EditText) view.findViewById(R.id.input_type_equipdetail_modify);
+        spinnerStorestate = (Spinner) view.findViewById(R.id.spinner_state_equipdetail_modify);
+        textMark = (EditText) view.findViewById(R.id.input_mark_equipdetail_modify);
+        textHour = (EditText) view.findViewById(R.id.input_hour_equipdetail_modify);
+        textBand = (EditText) view.findViewById(R.id.input_band_equipdetail_modify);
+        textOriginal = (EditText) view.findViewById(R.id.input_original_equipdetail_modify);
+        textYear = (EditText) view.findViewById(R.id.input_year_equipdetail_modify);
+        textState = (EditText) view.findViewById(R.id.input_state_equipdetail_modify);
+        textPosition = (EditText) view.findViewById(R.id.input_position_equipdetail_modify);
+        textUnit = (EditText) view.findViewById(R.id.input_unit_equipdetail_modify);
+        textDescription = (EditText) view.findViewById(R.id.input_description_equipdetail_modify);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_equipdetail_modify);
+        submitButton = (Button) view.findViewById(R.id.button_submit_equipdetail_modify);
+        cancelButton = (Button) view.findViewById(R.id.button_cancel_equipdetail_modify);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("修改材料详细信息");
+        toolbar.setTitle("修改整机详细信息");
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
         cancelButton.setVisibility(View.VISIBLE);
 
         //初始化，填入当前库存品详细信息
-        final MaterialStock materialStock = (MaterialStock) getArguments().getSerializable("stock");
-        textId.setText(materialStock.getId());
-        textType.setText(materialStock.getType());
-        String storestate = materialStock.getStorestate();
+        final EquipStock equipStock = (EquipStock) getArguments().getSerializable("stock");
+        textId.setText(equipStock.getId());
+        textType.setText(equipStock.getType());
+        String storestate = equipStock.getStorestate();
         if (storestate.equals("在用")) {
             spinnerStorestate.setSelection(0);
         } else if (storestate.equals("闲置可用")) {
@@ -99,14 +102,15 @@ public class ModifyMatDetailFragment extends BaseFragment {
         } else {
             spinnerStorestate.setSelection(3);
         }
-        textMark.setText(materialStock.getMark());
-        textBand.setText(materialStock.getBand());
-        textOriginal.setText(materialStock.getOriginal());
-        textYear.setText(materialStock.getYear());
-        textState.setText(materialStock.getState());
-        textPosition.setText(materialStock.getPosition());
-        textUnit.setText(materialStock.getUnit());
-        textDescription.setText(materialStock.getDescription());
+        textMark.setText(equipStock.getMark());
+        textHour.setText(equipStock.getHour());
+        textBand.setText(equipStock.getBand());
+        textOriginal.setText(equipStock.getOriginal());
+        textYear.setText(equipStock.getYear());
+        textState.setText(equipStock.getState());
+        textPosition.setText(equipStock.getPosition());
+        textUnit.setText(equipStock.getUnit());
+        textDescription.setText(equipStock.getDescription());
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +120,7 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 boolean idValid = false;
                 boolean typeValid = false;
                 boolean markValid = false;
+                boolean hourValid = false;
                 boolean bandValid = false;
                 boolean originalValid = false;
                 boolean stateValid = false;
@@ -123,9 +128,9 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 boolean unitValid = false;
 
                 //检查标号是否合法
-                TextInputLayout wrapperId = (TextInputLayout) view.findViewById(R.id.wrapper_id_matdetail_modify);
+                TextInputLayout wrapperId = (TextInputLayout) view.findViewById(R.id.wrapper_id_equipdetail_modify);
                 final String id = textId.getText().toString();
-                LogUtil.d("Mat Detail Modify id", id);
+                LogUtil.d("Equip Detail Modify id", id);
                 if (id.length() == 0) {
                     wrapperId.setError("不能为空！");
                 } else if (id.length() > 100) {
@@ -136,9 +141,9 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查类型是否合法
-                TextInputLayout wrapperType = (TextInputLayout) view.findViewById(R.id.wrapper_type_matdetail_modify);
+                TextInputLayout wrapperType = (TextInputLayout) view.findViewById(R.id.wrapper_type_equipdetail_modify);
                 final String type = textType.getText().toString();
-                LogUtil.d("Mat Detail Modify type", type);
+                LogUtil.d("Equip Detail Modify type", type);
                 if (type.length() > 100) {
                     wrapperType.setError("长度不能超过100个字符！");
                 } else {
@@ -147,9 +152,9 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查型号是否合法
-                TextInputLayout wrapperMark = (TextInputLayout) view.findViewById(R.id.wrapper_mark_matdetail_modify);
+                TextInputLayout wrapperMark = (TextInputLayout) view.findViewById(R.id.wrapper_mark_equipdetail_modify);
                 final String mark = textMark.getText().toString();
-                LogUtil.d("Mat Detail Modify mark", mark);
+                LogUtil.d("Equip Detail Modify mark", mark);
                 if (mark.length() > 100) {
                     wrapperMark.setError("长度不能超过100个字符！");
                 } else {
@@ -157,10 +162,17 @@ public class ModifyMatDetailFragment extends BaseFragment {
                     markValid = true;
                 }
 
+                //检查工作小时是否合法
+                final TextInputLayout wrapperHour = (TextInputLayout) view.findViewById(R.id.wrapper_hour_equipdetail_modify);
+                final String hour = textHour.getText().toString();
+                LogUtil.d("Equip in hour", hour);
+                wrapperHour.setErrorEnabled(false);
+                hourValid = true;
+
                 //检查品牌是否合法
-                TextInputLayout wrapperBand = (TextInputLayout) view.findViewById(R.id.wrapper_band_matdetail_modify);
+                TextInputLayout wrapperBand = (TextInputLayout) view.findViewById(R.id.wrapper_band_equipdetail_modify);
                 final String band = textBand.getText().toString();
-                LogUtil.d("Mat Detail Modify band", band);
+                LogUtil.d("Equip Detail Modify band", band);
                 if (band.length() > 100) {
                     wrapperBand.setError("长度不能超过100个字符！");
                 } else {
@@ -169,9 +181,9 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查原产地是否合法
-                TextInputLayout wrapperOriginal = (TextInputLayout) view.findViewById(R.id.wrapper_original_matdetail_modify);
+                TextInputLayout wrapperOriginal = (TextInputLayout) view.findViewById(R.id.wrapper_original_equipdetail_modify);
                 final String original = textOriginal.getText().toString();
-                LogUtil.d("Mat Detail Modify original", original);
+                LogUtil.d("Equip Detail Modify original", original);
                 if (original.length() > 100) {
                     wrapperOriginal.setError("长度不能超过100个字符！");
                 } else {
@@ -180,13 +192,13 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查年份是否合法
-                final TextInputLayout wrapperYear = (TextInputLayout) view.findViewById(R.id.wrapper_year_matdetail_modify);
+                final TextInputLayout wrapperYear = (TextInputLayout) view.findViewById(R.id.wrapper_year_equipdetail_modify);
                 wrapperYear.setErrorEnabled(false);
 
                 //检查状态是否合法
-                TextInputLayout wrapperState = (TextInputLayout) view.findViewById(R.id.wrapper_state_matdetail_modify);
+                TextInputLayout wrapperState = (TextInputLayout) view.findViewById(R.id.wrapper_state_equipdetail_modify);
                 final String state = textState.getText().toString();
-                LogUtil.d("Mat Detail Modify state", state);
+                LogUtil.d("Equip Detail Modify state", state);
                 if (state.length() > 100) {
                     wrapperState.setError("长度不能超过100个字符！");
                 } else {
@@ -195,9 +207,9 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查位置是否合法
-                TextInputLayout wrapperPosition = (TextInputLayout) view.findViewById(R.id.wrapper_position_matdetail_modify);
+                TextInputLayout wrapperPosition = (TextInputLayout) view.findViewById(R.id.wrapper_position_equipdetail_modify);
                 final String position = textPosition.getText().toString();
-                LogUtil.d("Mat Detail Modify position", position);
+                LogUtil.d("Equip Detail Modify position", position);
                 if (position.length() > 100) {
                     wrapperPosition.setError("长度不能超过100个字符！");
                 } else {
@@ -206,24 +218,18 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查单位原值是否合法
-                final TextInputLayout wrapperUnit = (TextInputLayout) view.findViewById(R.id.wrapper_unit_matdetail_modify);
+                final TextInputLayout wrapperUnit = (TextInputLayout) view.findViewById(R.id.wrapper_unit_equipdetail_modify);
                 final String unit = textUnit.getText().toString();
-                LogUtil.d("Mat Detail Modify unit", unit);
-                /*if (unit.length() == 0) {
-                    wrapperUnit.setError("不能为空！");
-                } else {
-                    wrapperUnit.setErrorEnabled(false);
-                    unitValid = true;
-                }*/
+                LogUtil.d("Equip Detail Modify unit", unit);
                 wrapperUnit.setErrorEnabled(false);
                 unitValid = true;
 
-                if (!(idValid && typeValid && markValid && bandValid && originalValid &&
+                if (!(idValid && typeValid && markValid && hourValid && bandValid && originalValid &&
                         stateValid && positionValid && unitValid)) {
                     Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
                 }
 
-                if (idValid && typeValid && markValid && bandValid && originalValid &&
+                if (idValid && typeValid && markValid && hourValid && bandValid && originalValid &&
                         stateValid && positionValid && unitValid) {
                     submitButton.setVisibility(View.GONE); //隐藏提交按钮
                     cancelButton.setVisibility(View.GONE); //隐藏取消按钮
@@ -233,13 +239,13 @@ public class ModifyMatDetailFragment extends BaseFragment {
                     final String year = textYear.getText().toString();
                     final String description = textDescription.getText().toString();
 
-                    HttpUtil.modifyMatDetail(String.valueOf(materialStock.getDatabaseid()), id, type, storestate, mark, band, original, year, state,
+                    HttpUtil.modifyEquipDetail(String.valueOf(equipStock.getDatabaseid()), id, type, storestate, mark, hour, band, original, year, state,
                             position, unit, description, new okhttp3.Callback() {
                                 @Override
                                 public void onResponse(final Call call, Response response) throws IOException {
                                     try {
                                         String responseData = response.body().string();
-                                        LogUtil.d("Mat Detail Modify json", responseData);
+                                        LogUtil.d("Equip Detail Modify json", responseData);
                                         JSONObject jsonObject = new JSONObject(responseData);
                                         if (jsonObject.has("id")) {
                                             //修改成功
@@ -257,20 +263,20 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             //回到库存品详细信息碎片
-                                                            MatDetailFragment matDetailFragment = new MatDetailFragment();
-                                                            MaterialStock materialStock1 = new MaterialStock(materialStock.getDatabaseid(), id, type,
-                                                                    storestate, mark, band, original, year, state, position, unit, description, materialStock.getNum());
+                                                            EquipDetailFragment equipDetailFragment = new EquipDetailFragment();
+                                                            EquipStock equipStock1 = new EquipStock(equipStock.getDatabaseid(), id, type,
+                                                                    storestate, mark, hour, band, original, year, state, position, unit, description, equipStock.getNum());
                                                             Bundle args = new Bundle();
-                                                            args.putSerializable("stock", materialStock1);
-                                                            matDetailFragment.setArguments(args);
-                                                            replaceFragment(matDetailFragment);
+                                                            args.putSerializable("stock", equipStock1);
+                                                            equipDetailFragment.setArguments(args);
+                                                            replaceFragment(equipDetailFragment);
                                                         }
                                                     });
                                                     builder.show();
                                                 }
                                             });
-                                        } else if (jsonObject.has("materialID")) {
-                                            //修改的材料标号与数据库中有重复
+                                        } else if (jsonObject.has("equipmentID")) {
+                                            //修改的整机标号与数据库中有重复
                                             getActivity().runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
@@ -279,7 +285,7 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                                     cancelButton.setVisibility(View.VISIBLE);
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                                     builder.setTitle("提示");
-                                                    builder.setMessage("修改的材料标号与数据库中有重复！");
+                                                    builder.setMessage("修改的整机标号与数据库中有重复！");
                                                     builder.setCancelable(false);
                                                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                         @Override
@@ -307,10 +313,10 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_STORAGE) {
                                                                 //由所有库存品信息碎片跳转而来
-                                                                replaceFragment(new MatStorageFragment());
+                                                                replaceFragment(new EquipStorageFragment());
                                                             } else if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_SEARCH) {
                                                                 //由查找结果碎片跳转而来
-                                                                replaceFragment(new MatSearchResultFragment());
+                                                                replaceFragment(new EquipSearchResultFragment());
                                                             }
                                                         }
                                                     });
@@ -319,8 +325,8 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                             });
                                         } else {
                                             final List<Integer> errorType = new ArrayList<Integer>();
-                                            if (jsonObject.has("materialUnit")) {
-                                                String unitErr = jsonObject.getString("materialUnit");
+                                            if (jsonObject.has("equipmentUnit")) {
+                                                String unitErr = jsonObject.getString("equipmentUnit");
                                                 if (unitErr.equals("[\"A valid number is required.\"]")) {
                                                     //非数字
                                                     errorType.add(1);
@@ -343,9 +349,20 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                                 }
                                             }
 
-                                            if (jsonObject.has("materialYear")) {
+                                            if (jsonObject.has("equipmentYear")) {
                                                 //年份格式错误
                                                 errorType.add(6);
+                                            }
+                                            if (jsonObject.has("equipmentHour")) {
+                                                String hourErr = jsonObject.getString("equipmentHour");
+                                                if (hourErr.equals("[\"A valid integer is required.\"]")) {
+                                                    //非整数
+                                                    errorType.add(7);
+                                                }
+                                                if (hourErr.equals("[\"Ensure this value is less than or equal to 2147483647.\"]")) {
+                                                    //数字过大
+                                                    errorType.add(8);
+                                                }
                                             }
 
                                             getActivity().runOnUiThread(new Runnable() {
@@ -375,6 +392,12 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                                         if (errorType.contains(6)) {
                                                             wrapperYear.setError("格式错误，正确格式如2000-01-01！");
                                                         }
+                                                        if (errorType.contains(7)) {
+                                                            wrapperHour.setError("该输入非整数！");
+                                                        }
+                                                        if (errorType.contains(8)) {
+                                                            wrapperHour.setError("数字不能大于2147483647！");
+                                                        }
                                                     }
                                                 }
                                             });
@@ -387,7 +410,7 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                 @Override
                                 public void onFailure(Call call, IOException e) {
                                     e.printStackTrace();
-                                    LogUtil.d("Modify Mat Detail", "failed");
+                                    LogUtil.d("Modify Equip Detail", "failed");
                                     getActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -407,11 +430,11 @@ public class ModifyMatDetailFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 //传递对象
-                MatDetailFragment matDetailFragment = new MatDetailFragment();
+                EquipDetailFragment equipDetailFragment = new EquipDetailFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("stock", materialStock);
-                matDetailFragment.setArguments(args);
-                replaceFragment(matDetailFragment);
+                args.putSerializable("stock", equipStock);
+                equipDetailFragment.setArguments(args);
+                replaceFragment(equipDetailFragment);
             }
         });
 

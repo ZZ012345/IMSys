@@ -17,10 +17,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by ZhouZhi on 2017/9/7.
+ * Created by ZhouZhi on 2017/9/23.
  */
 
-public class PartSearchFragment extends BaseFragment {
+public class EquipSearchFragment extends BaseFragment {
 
     private EditText textId;
 
@@ -43,32 +43,32 @@ public class PartSearchFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_partsearch, container, false);
+        View view = inflater.inflate(R.layout.fragment_equipsearch, container, false);
 
-        textId = view.findViewById(R.id.input_id_partsearch);
-        textType = view.findViewById(R.id.input_type_partsearch);
-        textBand = view.findViewById(R.id.input_band_partsearch);
-        textOriginal = view.findViewById(R.id.input_original_partsearch);
-        textPosition = view.findViewById(R.id.input_position_partsearch);
-        textYearstart = view.findViewById(R.id.input_yearstart_partsearch);
-        textYearend = view.findViewById(R.id.input_yearend_partsearch);
-        progressBar = view.findViewById(R.id.progressbar_partsearch);
-        searchButton = view.findViewById(R.id.button_search_partsearch);
+        textId = view.findViewById(R.id.input_id_equipsearch);
+        textType = view.findViewById(R.id.input_type_equipsearch);
+        textBand = view.findViewById(R.id.input_band_equipsearch);
+        textOriginal = view.findViewById(R.id.input_original_equipsearch);
+        textPosition = view.findViewById(R.id.input_position_equipsearch);
+        textYearstart = view.findViewById(R.id.input_yearstart_equipsearch);
+        textYearend = view.findViewById(R.id.input_yearend_equipsearch);
+        progressBar = view.findViewById(R.id.progressbar_equipsearch);
+        searchButton = view.findViewById(R.id.button_search_equipsearch);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("备件查找");
+        toolbar.setTitle("整机查找");
 
         progressBar.setVisibility(View.GONE);
         searchButton.setVisibility(View.VISIBLE);
 
         //填充搜索界面
-        textId.setText(SearchRecord.id_part);
-        textType.setText(SearchRecord.type_part);
-        textBand.setText(SearchRecord.band_part);
-        textOriginal.setText(SearchRecord.original_part);
-        textPosition.setText(SearchRecord.position_part);
-        textYearstart.setText(SearchRecord.yearstart_part);
-        textYearend.setText(SearchRecord.yearend_part);
+        textId.setText(SearchRecord.id_equip);
+        textType.setText(SearchRecord.type_equip);
+        textBand.setText(SearchRecord.band_equip);
+        textOriginal.setText(SearchRecord.original_equip);
+        textPosition.setText(SearchRecord.position_equip);
+        textYearstart.setText(SearchRecord.yearstart_equip);
+        textYearend.setText(SearchRecord.yearend_equip);
 
         SearchRecord.lastFrag = SearchRecord.FRAGLABEL_SEARCH;
 
@@ -93,13 +93,13 @@ public class PartSearchFragment extends BaseFragment {
                     searchButton.setVisibility(View.GONE);
 
                     //保存搜索记录
-                    SearchRecord.setPartRecord(id, type, band, original, position, yearstart, yearend);
+                    SearchRecord.setEquipRecord(id, type, band, original, position, yearstart, yearend);
 
-                    HttpUtil.searchPart(id, type, band, original, position, yearstart, yearend, new okhttp3.Callback() {
+                    HttpUtil.searchEquip(id, type, band, original, position, yearstart, yearend, new okhttp3.Callback() {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             String responseData = response.body().string();
-                            LogUtil.d("Part Search json", responseData);
+                            LogUtil.d("Equip Search json", responseData);
                             if (responseData.equals("{\"detail\":\"Invalid time format!\"}")) {
                                 //时间格式错误
                                 getActivity().runOnUiThread(new Runnable() {
@@ -118,15 +118,15 @@ public class PartSearchFragment extends BaseFragment {
                                         searchButton.setVisibility(View.VISIBLE);
                                     }
                                 });
-                                PartSearchResultFragment partSearchResultFragment = new PartSearchResultFragment();
-                                replaceFragment(partSearchResultFragment);
+                                EquipSearchResultFragment equipSearchResultFragment = new EquipSearchResultFragment();
+                                replaceFragment(equipSearchResultFragment);
                             }
                         }
 
                         @Override
                         public void onFailure(Call call, IOException e) {
                             e.printStackTrace();
-                            LogUtil.d("Part Search", "failed");
+                            LogUtil.d("Equip Search", "failed");
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

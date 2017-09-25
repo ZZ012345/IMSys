@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- MaterialID -->
+                <!-- ID -->
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/wrapper_id_qrmake"
                     android:layout_width="match_parent"

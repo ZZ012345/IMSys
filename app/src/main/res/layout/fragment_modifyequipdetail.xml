@@ -17,16 +17,16 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
-            <!-- PartID -->
+            <!-- EquipmentID -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_id_partdetail_modify"
+                android:id="@+id/wrapper_id_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_id_partdetail_modify"
+                    android:id="@+id/input_id_equipdetail_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -36,14 +36,14 @@
 
             <!-- Type -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_type_partdetail_modify"
+                android:id="@+id/wrapper_type_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_type_partdetail_modify"
+                    android:id="@+id/input_type_equipdetail_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -61,7 +61,7 @@
                 android:text="库存状态" />
 
             <Spinner
-                android:id="@+id/spinner_state_partdetail_modify"
+                android:id="@+id/spinner_state_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/state"
@@ -76,14 +76,14 @@
 
             <!-- Mark -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_mark_partdetail_modify"
+                android:id="@+id/wrapper_mark_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_mark_partdetail_modify"
+                    android:id="@+id/input_mark_equipdetail_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -91,16 +91,34 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <!-- Band -->
+            <!-- Hour -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_band_partdetail_modify"
+                android:id="@+id/wrapper_hour_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_band_partdetail_modify"
+                    android:id="@+id/input_hour_equipdetail_modify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:digits="0123456789"
+                    android:hint="工作小时" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Band -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/wrapper_band_equipdetail_modify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/input_band_equipdetail_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -110,14 +128,14 @@
 
             <!-- Original -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_original_partdetail_modify"
+                android:id="@+id/wrapper_original_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_original_partdetail_modify"
+                    android:id="@+id/input_original_equipdetail_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -127,14 +145,14 @@
 
             <!-- Year -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_year_partdetail_modify"
+                android:id="@+id/wrapper_year_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_year_partdetail_modify"
+                    android:id="@+id/input_year_equipdetail_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -145,14 +163,14 @@
 
             <!-- State -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_state_partdetail_modify"
+                android:id="@+id/wrapper_state_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_state_partdetail_modify"
+                    android:id="@+id/input_state_equipdetail_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -162,14 +180,14 @@
 
             <!-- Position -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_position_partdetail_modify"
+                android:id="@+id/wrapper_position_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_position_partdetail_modify"
+                    android:id="@+id/input_position_equipdetail_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -179,14 +197,14 @@
 
             <!-- Unit -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_unit_partdetail_modify"
+                android:id="@+id/wrapper_unit_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_unit_partdetail_modify"
+                    android:id="@+id/input_unit_equipdetail_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -195,135 +213,16 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <!-- Name -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_name_partdetail_modify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-
-                <EditText
-                    android:id="@+id/input_name_partdetail_modify"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:hint="名称" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- Company -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_company_partdetail_modify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-
-                <EditText
-                    android:id="@+id/input_company_partdetail_modify"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:hint="制造企业" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- MachineName -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_machinename_partdetail_modify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-
-                <EditText
-                    android:id="@+id/input_machinename_partdetail_modify"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:hint="整机名称" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- MachineType -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_machinetype_partdetail_modify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-
-                <EditText
-                    android:id="@+id/input_machinetype_partdetail_modify"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:hint="整机型号" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- MachineBand -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_machineband_partdetail_modify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-
-                <EditText
-                    android:id="@+id/input_machineband_partdetail_modify"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:hint="整机品牌" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- Condition -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_condition_partdetail_modify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-
-                <EditText
-                    android:id="@+id/input_condition_partdetail_modify"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:hint="储存条件" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- Vulnerability -->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_vul_partdetail_modify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-
-                <EditText
-                    android:id="@+id/input_vul_partdetail_modify"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:hint="易损性" />
-
-            </android.support.design.widget.TextInputLayout>
-
             <!-- Description -->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapper_description_partdetail_modify"
+                android:id="@+id/wrapper_description_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/input_description_partdetail_modify"
+                    android:id="@+id/input_description_equipdetail_modify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -332,14 +231,14 @@
             </android.support.design.widget.TextInputLayout>
 
             <ProgressBar
-                android:id="@+id/progressbar_partdetail_modify"
+                android:id="@+id/progressbar_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp" />
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_submit_partdetail_modify"
+                android:id="@+id/button_submit_equipdetail_modify"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -348,7 +247,7 @@
                 android:text="提交" />
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_cancel_partdetail_modify"
+                android:id="@+id/button_cancel_equipdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

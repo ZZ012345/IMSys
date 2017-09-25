@@ -25,10 +25,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by ZhouZhi on 2017/9/12.
+ * Created by ZhouZhi on 2017/9/23.
  */
 
-public class PartOutRecFragment extends BaseFragment {
+public class EquipOutRecFragment extends BaseFragment {
 
     private ProgressBar progressBar;
 
@@ -52,7 +52,7 @@ public class PartOutRecFragment extends BaseFragment {
 
     private String nextUrl = "";
 
-    private List<PartOutRecord> prlist = new ArrayList<>();
+    private List<EquipOutRecord> erlist = new ArrayList<>();
 
     private int allNum;
 
@@ -61,12 +61,12 @@ public class PartOutRecFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_partoutrec, container, false);
+        View view = inflater.inflate(R.layout.fragment_equipoutrec, container, false);
 
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_partoutrec);
-        textNotExist = (TextView) view.findViewById(R.id.text_notexist_partoutrec);
-        backButton = (Button) view.findViewById(R.id.button_back_partoutrec);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_partoutrec);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_equipoutrec);
+        textNotExist = (TextView) view.findViewById(R.id.text_notexist_equipoutrec);
+        backButton = (Button) view.findViewById(R.id.button_back_equipoutrec);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_equipoutrec);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         pageController = LayoutInflater.from(getActivity()).inflate(R.layout.pageandback_item, recyclerView, false);
@@ -76,20 +76,20 @@ public class PartOutRecFragment extends BaseFragment {
         pageCount = (TextView) pageController.findViewById(R.id.page_count_pageandback);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("备件出库记录");
+        toolbar.setTitle("整机出库记录");
 
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);
         backButton.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
 
-        final PartStock partStock = (PartStock) getArguments().getSerializable("stock");
+        final EquipStock equipStock = (EquipStock) getArguments().getSerializable("stock");
 
-        HttpUtil.getPartOutRec(String.valueOf(partStock.getDatabaseid()), new okhttp3.Callback() {
+        HttpUtil.getEquipOutRec(String.valueOf(equipStock.getDatabaseid()), new okhttp3.Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseData = response.body().string();
-                LogUtil.d("Get Part Out Rec jsondata", responseData);
+                LogUtil.d("Get Equip Out Rec jsondata", responseData);
                 try {
                     JSONObject jsonAll = new JSONObject(responseData);
                     allNum = jsonAll.getInt("count");
@@ -110,18 +110,18 @@ public class PartOutRecFragment extends BaseFragment {
                             nextUrl = jsonAll.getString("next");
                         }
 
-                        prlist.clear(); //清空入库记录
+                        erlist.clear(); //清空出库记录
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             int recordId = jsonObject.getInt("id");
                             String outputDateTime = jsonObject.getString("outputDateTime");
-                            String user = jsonObject.getString("partUser");
+                            String user = jsonObject.getString("equipmentUser");
                             String operator = jsonObject.getString("outputOperator");
                             String outputNum = jsonObject.getString("outputNum");
                             String leftNum = jsonObject.getString("leftNum");
                             String description = jsonObject.getString("outputDescription");
-                            PartOutRecord partOutRecord = new PartOutRecord(recordId, outputDateTime, user, operator, outputNum, leftNum, description);
-                            prlist.add(partOutRecord);
+                            EquipOutRecord equipOutRecord = new EquipOutRecord(recordId, outputDateTime, user, operator, outputNum, leftNum, description);
+                            erlist.add(equipOutRecord);
                         }
 
                         getActivity().runOnUiThread(new Runnable() {
@@ -132,10 +132,10 @@ public class PartOutRecFragment extends BaseFragment {
                                 backButton.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
 
-                                PartOutRecordAdapter partOutRecordAdapter = new PartOutRecordAdapter(prlist);
-                                recyclerView.setAdapter(partOutRecordAdapter);
-                                partOutRecordAdapter.setFooterView(pageController);
-                                partOutRecordAdapter.setOnItemClickListener(new PartOutRecordAdapter.OnItemClickListener() {
+                                EquipOutRecordAdapter equipOutRecordAdapter = new EquipOutRecordAdapter(erlist);
+                                recyclerView.setAdapter(equipOutRecordAdapter);
+                                equipOutRecordAdapter.setFooterView(pageController);
+                                equipOutRecordAdapter.setOnItemClickListener(new EquipOutRecordAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(View view1, int position) {
 
@@ -150,7 +150,7 @@ public class PartOutRecFragment extends BaseFragment {
                                 }
                                 backButtonBottom.setVisibility(View.VISIBLE);
 
-                                pageSize = prlist.size();
+                                pageSize = erlist.size();
                                 int pageNum = MatStorageFragment.getPageNum(allNum, pageSize);
                                 pageCount.setText("1/" + String.valueOf(pageNum));
                             }
@@ -164,7 +164,7 @@ public class PartOutRecFragment extends BaseFragment {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                LogUtil.d("Get Part Out Rec", "failed");
+                LogUtil.d("Get Equip Out Rec", "failed");
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -178,7 +178,7 @@ public class PartOutRecFragment extends BaseFragment {
             }
         });
 
-        final View.OnClickListener pageListener = new View.OnClickListener() {
+        View.OnClickListener pageListener = new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
                 progressBar.setVisibility(View.VISIBLE);
@@ -197,7 +197,7 @@ public class PartOutRecFragment extends BaseFragment {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String responseData = response.body().string();
-                        LogUtil.d("Get Part Out Rec Page jsondata", responseData);
+                        LogUtil.d("Get Equip Out Rec Page jsondata", responseData);
                         try {
                             JSONObject jsonAll = new JSONObject(responseData);
                             allNum = jsonAll.getInt("count");
@@ -225,7 +225,7 @@ public class PartOutRecFragment extends BaseFragment {
                                 });
                             } else if (jsonArray.length() == 0) {
                                 //该页的内容已被删除
-                                prlist.clear();
+                                erlist.clear();
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -234,9 +234,9 @@ public class PartOutRecFragment extends BaseFragment {
                                         backButton.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        PartOutRecordAdapter partOutRecordAdapter = new PartOutRecordAdapter(prlist);
-                                        recyclerView.swapAdapter(partOutRecordAdapter, true);
-                                        partOutRecordAdapter.setFooterView(pageController);
+                                        EquipOutRecordAdapter equipOutRecordAdapter = new EquipOutRecordAdapter(erlist);
+                                        recyclerView.swapAdapter(equipOutRecordAdapter, true);
+                                        equipOutRecordAdapter.setFooterView(pageController);
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -254,18 +254,18 @@ public class PartOutRecFragment extends BaseFragment {
                                     }
                                 });
                             } else {
-                                prlist.clear(); //清空出库记录
+                                erlist.clear(); //清空出库记录
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                                     int recordId = jsonObject.getInt("id");
                                     String outputDateTime = jsonObject.getString("outputDateTime");
-                                    String user = jsonObject.getString("partUser");
+                                    String user = jsonObject.getString("equipmentUser");
                                     String operator = jsonObject.getString("outputOperator");
                                     String outputNum = jsonObject.getString("outputNum");
                                     String leftNum = jsonObject.getString("leftNum");
                                     String description = jsonObject.getString("outputDescription");
-                                    PartOutRecord partOutRecord = new PartOutRecord(recordId, outputDateTime, user, operator, outputNum, leftNum, description);
-                                    prlist.add(partOutRecord);
+                                    EquipOutRecord equipOutRecord = new EquipOutRecord(recordId, outputDateTime, user, operator, outputNum, leftNum, description);
+                                    erlist.add(equipOutRecord);
                                 }
 
                                 getActivity().runOnUiThread(new Runnable() {
@@ -276,10 +276,10 @@ public class PartOutRecFragment extends BaseFragment {
                                         backButton.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        PartOutRecordAdapter partOutRecordAdapter = new PartOutRecordAdapter(prlist);
-                                        recyclerView.swapAdapter(partOutRecordAdapter, true);
-                                        partOutRecordAdapter.setFooterView(pageController);
-                                        partOutRecordAdapter.setOnItemClickListener(new PartOutRecordAdapter.OnItemClickListener() {
+                                        EquipOutRecordAdapter equipOutRecordAdapter = new EquipOutRecordAdapter(erlist);
+                                        recyclerView.swapAdapter(equipOutRecordAdapter, true);
+                                        equipOutRecordAdapter.setFooterView(pageController);
+                                        equipOutRecordAdapter.setOnItemClickListener(new EquipOutRecordAdapter.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(View view2, int position) {
 
@@ -310,7 +310,7 @@ public class PartOutRecFragment extends BaseFragment {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         e.printStackTrace();
-                        LogUtil.d("Get Part Out Rec Page", "failed");
+                        LogUtil.d("Get Equip Out Rec Page", "failed");
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -332,22 +332,22 @@ public class PartOutRecFragment extends BaseFragment {
         backButtonBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                PartDetailFragment partDetailFragment = new PartDetailFragment();
+                EquipDetailFragment equipDetailFragment = new EquipDetailFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("stock", partStock);
-                partDetailFragment.setArguments(args);
-                replaceFragment(partDetailFragment);
+                args.putSerializable("stock", equipStock);
+                equipDetailFragment.setArguments(args);
+                replaceFragment(equipDetailFragment);
             }
         });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                PartDetailFragment partDetailFragment = new PartDetailFragment();
+                EquipDetailFragment equipDetailFragment = new EquipDetailFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("stock", partStock);
-                partDetailFragment.setArguments(args);
-                replaceFragment(partDetailFragment);
+                args.putSerializable("stock", equipStock);
+                equipDetailFragment.setArguments(args);
+                replaceFragment(equipDetailFragment);
             }
         });
 

@@ -153,7 +153,7 @@ public class QRMakeFragment extends BaseFragment {
 
         //初始化下拉列表
         stockList.add("材料库");
-        stockList.add("零件库");
+        stockList.add("备件库");
         stockList.add("整机库");
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnertext_item, stockList);
         adapter.setDropDownViewResource(R.layout.spinnerdropdown_item);
@@ -172,7 +172,7 @@ public class QRMakeFragment extends BaseFragment {
                     wrapperCondition.setVisibility(View.GONE);
                     wrapperVulnerability.setVisibility(View.GONE);
                 } else if (i == 1) {
-                    //零件库
+                    //备件库
                     wrapperHour.setVisibility(View.GONE);
                     wrapperName.setVisibility(View.VISIBLE);
                     wrapperCompany.setVisibility(View.VISIBLE);
@@ -326,7 +326,7 @@ public class QRMakeFragment extends BaseFragment {
                         intent.putExtra("info", infoStr);
                         getActivity().startActivity(intent);
                     } else if (stockType == 1) {
-                        //零件库
+                        //备件库
                         boolean nameValid = false;
                         boolean companyValid = false;
                         boolean machineNameValid = false;
@@ -440,6 +440,35 @@ public class QRMakeFragment extends BaseFragment {
                         }
                     } else {
                         //整机库
+                        String hour = textHour.getText().toString();
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("stockType", "equipment");
+                            jsonObject.put("id", id);
+                            jsonObject.put("type", type);
+                            jsonObject.put("mark", mark);
+                            jsonObject.put("hour", hour);
+                            jsonObject.put("band", band);
+                            jsonObject.put("original" , original);
+                            jsonObject.put("year", year);
+                            jsonObject.put("state", state);
+                            jsonObject.put("position", position);
+                            jsonObject.put("unit", unit);
+                            jsonObject.put("name", "");
+                            jsonObject.put("company", "");
+                            jsonObject.put("machineName", "");
+                            jsonObject.put("machineType", "");
+                            jsonObject.put("machineBand", "");
+                            jsonObject.put("condition", "");
+                            jsonObject.put("vulnerability", "");
+                            jsonObject.put("description", description);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        String infoStr = jsonObject.toString();
+                        Intent intent = new Intent(getActivity(), QRCodeActivity.class);
+                        intent.putExtra("info", infoStr);
+                        getActivity().startActivity(intent);
                     }
                 }
             }

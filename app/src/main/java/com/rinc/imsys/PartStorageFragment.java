@@ -69,7 +69,7 @@ public class PartStorageFragment extends BaseFragment {
         pageCount = (TextView) pageController.findViewById(R.id.page_count);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("零件库库存品信息");
+        toolbar.setTitle("备件库库存品信息");
 
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);

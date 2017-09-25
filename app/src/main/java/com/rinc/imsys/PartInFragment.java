@@ -111,7 +111,7 @@ public class PartInFragment extends BaseFragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar_partin);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("零件入库");
+        toolbar.setTitle("备件入库");
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
@@ -169,7 +169,7 @@ public class PartInFragment extends BaseFragment {
                     textVulnerability.setText(vulnerabilityScan);
                     textDescription.setText(descriptionScan);
                 } else {
-                    Toast.makeText(getActivity(), "非零件库二维码！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "非备件库二维码！", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

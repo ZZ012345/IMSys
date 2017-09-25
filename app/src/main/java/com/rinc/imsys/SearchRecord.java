@@ -34,6 +34,20 @@ public class SearchRecord {
 
     public static String yearend_part = "";
 
+    public static String id_equip = "";
+
+    public static String type_equip = "";
+
+    public static String band_equip = "";
+
+    public static String original_equip = "";
+
+    public static String position_equip = "";
+
+    public static String yearstart_equip = "";
+
+    public static String yearend_equip = "";
+
     public static final int FRAGLABEL_STORAGE = 1;
 
     public static final int FRAGLABEL_SEARCH = 2;
@@ -56,6 +70,14 @@ public class SearchRecord {
         position_part = "";
         yearstart_part = "";
         yearend_part = "";
+
+        id_equip = "";
+        type_equip = "";
+        band_equip = "";
+        original_equip = "";
+        position_equip = "";
+        yearstart_equip = "";
+        yearend_equip = "";
 
         lastFrag = FRAGLABEL_STORAGE;
     }
@@ -80,5 +102,16 @@ public class SearchRecord {
         position_part = position;
         yearstart_part = yearstart;
         yearend_part = yearend;
+    }
+
+    public static void setEquipRecord(String id, String type, String band, String original,
+                                     String position, String yearstart, String yearend) {
+        id_equip = id;
+        type_equip = type;
+        band_equip = band;
+        original_equip = original;
+        position_equip = position;
+        yearstart_equip = yearstart;
+        yearend_equip = yearend;
     }
 }

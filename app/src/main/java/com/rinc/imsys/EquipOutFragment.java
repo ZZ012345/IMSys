@@ -26,10 +26,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by ZhouZhi on 2017/9/11.
+ * Created by ZhouZhi on 2017/9/22.
  */
 
-public class PartOutFragment extends BaseFragment {
+public class EquipOutFragment extends BaseFragment {
 
     private EditText textId;
 
@@ -50,19 +50,19 @@ public class PartOutFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_partout, container, false);
+        final View view = inflater.inflate(R.layout.fragment_equipout, container, false);
 
-        textId = (EditText) view.findViewById(R.id.input_id_partout);
-        textDateTime = (EditText) view.findViewById(R.id.input_date_partout);
-        textUser = (EditText) view.findViewById(R.id.input_user_partout);
-        textOperator = (EditText) view.findViewById(R.id.input_operator_partout);
-        textNum = (EditText) view.findViewById(R.id.input_num_partout);
-        textDescription = (EditText) view.findViewById(R.id.input_outputdescription_partout);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_partout);
-        submitButton = (Button) view.findViewById(R.id.button_submit_partout);
+        textId = (EditText) view.findViewById(R.id.input_id_equipout);
+        textDateTime = (EditText) view.findViewById(R.id.input_date_equipout);
+        textUser = (EditText) view.findViewById(R.id.input_user_equipout);
+        textOperator = (EditText) view.findViewById(R.id.input_operator_equipout);
+        textNum = (EditText) view.findViewById(R.id.input_num_equipout);
+        textDescription = (EditText) view.findViewById(R.id.input_outputdescription_equipout);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_equipout);
+        submitButton = (Button) view.findViewById(R.id.button_submit_equipout);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("备件出库");
+        toolbar.setTitle("整机出库");
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
@@ -85,10 +85,10 @@ public class PartOutFragment extends BaseFragment {
                 String stockType = jsonObject.getString("stockType");
                 String idScan = jsonObject.getString("id");
 
-                if (stockType.equals("part")) {
+                if (stockType.equals("equipment")) {
                     textId.setText(idScan);
                 } else {
-                    Toast.makeText(getActivity(), "非备件库二维码！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "非整机库二维码！", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -108,9 +108,9 @@ public class PartOutFragment extends BaseFragment {
                 boolean numValid = false;
 
                 //检查标号是否合法
-                TextInputLayout wrapperId = (TextInputLayout) view.findViewById(R.id.wrapper_id_partout);
+                TextInputLayout wrapperId = (TextInputLayout) view.findViewById(R.id.wrapper_id_equipout);
                 String id = textId.getText().toString();
-                LogUtil.d("Part out id", id);
+                LogUtil.d("Equip out id", id);
                 if (id.length() == 0) {
                     wrapperId.setError("不能为空！");
                 } else if (id.length() > 100) {
@@ -121,9 +121,9 @@ public class PartOutFragment extends BaseFragment {
                 }
 
                 //检查出库时间是否合法
-                final TextInputLayout wrapperDatetime = (TextInputLayout) view.findViewById(R.id.wrapper_datetime_partout);
+                final TextInputLayout wrapperDatetime = (TextInputLayout) view.findViewById(R.id.wrapper_datetime_equipout);
                 String datetime = textDateTime.getText().toString();
-                LogUtil.d("Part out datetime", datetime);
+                LogUtil.d("Equip out datetime", datetime);
                 if (datetime.length() == 0) {
                     wrapperDatetime.setError("不能为空！");
                 } else {
@@ -132,9 +132,9 @@ public class PartOutFragment extends BaseFragment {
                 }
 
                 //检查去向是否合法
-                TextInputLayout wrapperUser = (TextInputLayout) view.findViewById(R.id.wrapper_user_partout);
+                TextInputLayout wrapperUser = (TextInputLayout) view.findViewById(R.id.wrapper_user_equipout);
                 String user = textUser.getText().toString();
-                LogUtil.d("Part out user", user);
+                LogUtil.d("Equip out user", user);
                 if (user.length() == 0) {
                     wrapperUser.setError("不能为空！");
                 } else if (user.length() > 100) {
@@ -145,9 +145,9 @@ public class PartOutFragment extends BaseFragment {
                 }
 
                 //检查操作人员是否合法
-                TextInputLayout wrapperOperator = (TextInputLayout) view.findViewById(R.id.wrapper_operator_partout);
+                TextInputLayout wrapperOperator = (TextInputLayout) view.findViewById(R.id.wrapper_operator_equipout);
                 String operator = textOperator.getText().toString();
-                LogUtil.d("Part out operator", operator);
+                LogUtil.d("Equip out operator", operator);
                 if (operator.length() == 0) {
                     wrapperOperator.setError("不能为空！");
                 } else if (operator.length() > 100) {
@@ -158,9 +158,9 @@ public class PartOutFragment extends BaseFragment {
                 }
 
                 //检查出库量是否合法
-                final TextInputLayout wrapperNum = (TextInputLayout) view.findViewById(R.id.wrapper_num_partout);
+                final TextInputLayout wrapperNum = (TextInputLayout) view.findViewById(R.id.wrapper_num_equipout);
                 String num = textNum.getText().toString();
-                LogUtil.d("Part out num", num);
+                LogUtil.d("Equip out num", num);
                 if (num.length() == 0) {
                     wrapperNum.setError("不能为空！");
                 } else {
@@ -174,12 +174,12 @@ public class PartOutFragment extends BaseFragment {
 
                     String description = textDescription.getText().toString();
 
-                    HttpUtil.partOut(id, datetime, user, operator, num, description, new okhttp3.Callback() {
+                    HttpUtil.equipOut(id, datetime, user, operator, num, description, new okhttp3.Callback() {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             try {
                                 String responseData = response.body().string();
-                                LogUtil.d("Part out json", responseData);
+                                LogUtil.d("Equip out json", responseData);
                                 JSONObject jsonObject = new JSONObject(responseData);
                                 if (jsonObject.has("id")) {
                                     //出库成功
@@ -195,7 +195,7 @@ public class PartOutFragment extends BaseFragment {
                                             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    replaceFragment(new PartOutFragment());
+                                                    replaceFragment(new EquipOutFragment());
                                                 }
                                             });
                                             builder.show();
@@ -213,7 +213,7 @@ public class PartOutFragment extends BaseFragment {
                                                 submitButton.setVisibility(View.VISIBLE);
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                                 builder.setTitle("提示");
-                                                builder.setMessage("出库失败，该备件不存在！");
+                                                builder.setMessage("出库失败，该整机不存在！");
                                                 builder.setCancelable(false);
                                                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                     @Override
@@ -225,7 +225,7 @@ public class PartOutFragment extends BaseFragment {
                                             }
                                         });
                                     }
-                                    if (jsonObject.has("partNum")) {
+                                    if (jsonObject.has("equipmentNum")) {
                                         //库存余量不足
                                         getActivity().runOnUiThread(new Runnable() {
                                             @Override
@@ -252,7 +252,7 @@ public class PartOutFragment extends BaseFragment {
                                     }
                                     if (jsonObject.has("outputNum")) {
                                         String numErr = jsonObject.getString("outputNum");
-                                        LogUtil.d("Part out error num", numErr);
+                                        LogUtil.d("Equip out error num", numErr);
                                         if (numErr.equals("[\"A valid integer is required.\"]")) {
                                             //非整数
                                             errorType.add(2);
@@ -290,7 +290,7 @@ public class PartOutFragment extends BaseFragment {
                         @Override
                         public void onFailure(Call call, IOException e) {
                             e.printStackTrace();
-                            LogUtil.d("Part out", "failed");
+                            LogUtil.d("Equip out", "failed");
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

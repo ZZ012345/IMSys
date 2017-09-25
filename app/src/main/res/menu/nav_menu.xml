@@ -38,7 +38,7 @@
             android:icon="@drawable/menu_part"
             app:actionLayout="@layout/custom_menu_part"
             android:checkable="false"
-            android:title="零件库" />
+            android:title="备件库" />
 
         <item
             android:id="@+id/menu_partsto"

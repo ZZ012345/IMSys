@@ -100,7 +100,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
         cancelButton = (Button) view.findViewById(R.id.button_cancel_partdetail_modify);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("修改零件详细信息");
+        toolbar.setTitle("修改备件详细信息");
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
@@ -108,7 +108,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
 
         //初始化，填入当前库存品详细信息
         final PartStock partStock = (PartStock) getArguments().getSerializable("stock");
-        textId.setText(String.valueOf(partStock.getId()));
+        textId.setText(partStock.getId());
         textType.setText(partStock.getType());
         String storestate = partStock.getStorestate();
         if (storestate.equals("在用")) {
@@ -379,7 +379,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                                                 }
                                             });
                                         } else if (jsonObject.has("partID")) {
-                                            //修改的零件标号与数据库中有重复
+                                            //修改的备件标号与数据库中有重复
                                             getActivity().runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
@@ -388,7 +388,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                                                     cancelButton.setVisibility(View.VISIBLE);
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                                     builder.setTitle("提示");
-                                                    builder.setMessage("修改的零件标号与数据库中有重复！");
+                                                    builder.setMessage("修改的备件标号与数据库中有重复！");
                                                     builder.setCancelable(false);
                                                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                         @Override

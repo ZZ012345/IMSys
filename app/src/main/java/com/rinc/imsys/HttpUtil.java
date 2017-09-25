@@ -279,7 +279,7 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
-    //零件库api
+    //备件库api
     public static void partIn(String id, String type, String storestate, String mark, String band, String original,
                               String year, String state, String position, String unit, String name, String company,
                               String machineName, String machineType, String machineBand, String condition, String vulnerability,
@@ -454,10 +454,168 @@ public class HttpUtil {
     }
 
     //整机库api
+    public static void equipIn(String id, String type, String storestate, String mark, String hour, String band, String original,
+                                  String year, String state, String position, String unit, String description, String datetime,
+                                  String operator, String num, String inputDescription, okhttp3.Callback callback) {
+        JSONObject jsonMaterial = new JSONObject();
+        JSONObject jsonAll = new JSONObject();
+        try {
+            jsonMaterial.put("equipmentID", id);
+            jsonMaterial.put("equipmentType", type);
+            jsonMaterial.put("equipmentStoreState", storestate);
+            jsonMaterial.put("equipmentMark", mark);
+            if (hour.length() != 0) {
+                jsonMaterial.put("equipmentHour", hour);
+            } else {
+                jsonMaterial.put("equipmentHour", JSONObject.NULL);
+            }
+            jsonMaterial.put("equipmentBand", band);
+            jsonMaterial.put("equipmentOriginal", original);
+            if (year.length() != 0) {
+                jsonMaterial.put("equipmentYear", year);
+            } else {
+                jsonMaterial.put("equipmentYear", JSONObject.NULL);
+            }
+            jsonMaterial.put("equipmentState", state);
+            jsonMaterial.put("equipmentPosition", position);
+            if (unit.length() != 0) {
+                jsonMaterial.put("equipmentUnit", unit);
+            } else {
+                jsonMaterial.put("equipmentUnit", JSONObject.NULL);
+            }
+            jsonMaterial.put("description", description);
+            jsonAll.put("inputEquipment", jsonMaterial);
+            jsonAll.put("inputDateTime", datetime);
+            jsonAll.put("inputOperator", operator);
+            jsonAll.put("inputNum", num);
+            jsonAll.put("inputDescription", inputDescription);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LogUtil.d("Equip in send", jsonAll.toString());
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = RequestBody.create(JSON, jsonAll.toString());
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/equipment_input/")
+                .addHeader("Authorization", "Token " + header)
+                .post(requestBody)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
     public static void getEquipStorage(okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(serverAddr + "api/equipment/")
+                .addHeader("Authorization", "Token " + header)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void modifyEquipDetail(String databaseId, String id, String type, String storestate, String mark,
+                                       String hour, String band, String original, String year, String state,
+                                       String position, String unit, String description, okhttp3.Callback callback) {
+        JSONObject jsonEquip = new JSONObject();
+        try {
+            jsonEquip.put("equipmentID", id);
+            jsonEquip.put("equipmentType", type);
+            jsonEquip.put("equipmentStoreState", storestate);
+            jsonEquip.put("equipmentMark", mark);
+            if (hour.length() != 0) {
+                jsonEquip.put("equipmentHour", hour);
+            } else {
+                jsonEquip.put("equipmentHour", JSONObject.NULL);
+            }
+            jsonEquip.put("equipmentBand", band);
+            jsonEquip.put("equipmentOriginal", original);
+            if (year.length() != 0) {
+                jsonEquip.put("equipmentYear", year);
+            } else {
+                jsonEquip.put("equipmentYear", JSONObject.NULL);
+            }
+            jsonEquip.put("equipmentState", state);
+            jsonEquip.put("equipmentPosition", position);
+            if (unit.length() != 0) {
+                jsonEquip.put("equipmentUnit", unit);
+            } else {
+                jsonEquip.put("equipmentUnit", JSONObject.NULL);
+            }
+            jsonEquip.put("description", description);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = RequestBody.create(JSON, jsonEquip.toString());
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/equipment/" + databaseId + "/")
+                .addHeader("Authorization", "Token " + header)
+                .put(requestBody)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void deleteEquipDetail(String id, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/equipment/" + id + "/")
+                .addHeader("Authorization", "Token " + header)
+                .delete()
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void getEquipInRec(String id, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/equipment/inputlist?id=" + id)
+                .addHeader("Authorization", "Token " + header)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void equipOut(String id, String datetime, String user, String operator, String num, String outputDescription, okhttp3.Callback callback) {
+        JSONObject jsonEquip = new JSONObject();
+        JSONObject jsonAll = new JSONObject();
+        try {
+            jsonEquip.put("equipmentID", id);
+            jsonAll.put("outputEquipment", jsonEquip);
+            jsonAll.put("outputDateTime", datetime);
+            jsonAll.put("equipmentUser", user);
+            jsonAll.put("outputOperator", operator);
+            jsonAll.put("outputNum", num);
+            jsonAll.put("outputDescription", outputDescription);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LogUtil.d("Equip out send", jsonAll.toString());
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = RequestBody.create(JSON, jsonAll.toString());
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/equipment_output/")
+                .addHeader("Authorization", "Token " + header)
+                .post(requestBody)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void getEquipOutRec(String id, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(serverAddr + "api/equipment/outputlist?id=" + id)
+                .addHeader("Authorization", "Token " + header)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void searchEquip(String id, String type, String band, String original, String position,
+                                 String yearstart, String yearend, okhttp3.Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        String url = serverAddr + "api/equipment/search?" + "equipmentID=" + id + "&equipmentType=" + type +
+                "&equipmentBand=" + band + "&equipmentOriginal=" + original + "&equipmentPosition=" + position +
+                "&equipmentYearstart=" + yearstart + "&equipmentYearend=" + yearend;
+        LogUtil.d("Equip Search url", url);
+        Request request = new Request.Builder()
+                .url(url)
                 .addHeader("Authorization", "Token " + header)
                 .build();
         client.newCall(request).enqueue(callback);

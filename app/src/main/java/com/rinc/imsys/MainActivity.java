@@ -218,6 +218,18 @@ public class MainActivity extends BaseActivity {
                         replaceFragment(new EquipInFragment());
                         drawerLayout.closeDrawers();
                         break;
+                    case R.id.menu_equipout:
+                        scanItem.setVisible(true);
+                        lastClickOn = 11;
+                        replaceFragment(new EquipOutFragment());
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.menu_equipsearch:
+                        scanItem.setVisible(false);
+                        lastClickOn = 12;
+                        replaceFragment(new EquipSearchFragment());
+                        drawerLayout.closeDrawers();
+                        break;
                     case R.id.menu_qrmake:
                         scanItem.setVisible(false);
                         lastClickOn = 13;
@@ -352,6 +364,18 @@ public class MainActivity extends BaseActivity {
                         }
                         navView.setCheckedItem(R.id.menu_equipin);
                         break;
+                    case 11:
+                        if (!menuEquipsto.isVisible()) {
+                            setEquipMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_equipout);
+                        break;
+                    case 12:
+                        if (!menuEquipsto.isVisible()) {
+                            setEquipMenuVisible(true);
+                        }
+                        navView.setCheckedItem(R.id.menu_equipsearch);
+                        break;
                     case 13:
                         navView.setCheckedItem(R.id.menu_qrmake);
                         break;
@@ -471,6 +495,14 @@ public class MainActivity extends BaseActivity {
                         PartOutFragment partOutFragment = new PartOutFragment();
                         partOutFragment.setArguments(args);
                         replaceFragment(partOutFragment);
+                    } else if (fragment instanceof EquipInFragment) {
+                        EquipInFragment equipInFragment = new EquipInFragment();
+                        equipInFragment.setArguments(args);
+                        replaceFragment(equipInFragment);
+                    } else if (fragment instanceof EquipOutFragment) {
+                        EquipOutFragment equipOutFragment = new EquipOutFragment();
+                        equipOutFragment.setArguments(args);
+                        replaceFragment(equipOutFragment);
                     }
                 }
                 break;
@@ -520,6 +552,21 @@ public class MainActivity extends BaseActivity {
                 button.performClick();
             } else if (fragment instanceof PartSearchResultFragment) {
                 Button button = (Button) findViewById(R.id.button_back_partsearchresult);
+                button.performClick();
+            } else if (fragment instanceof EquipDetailFragment) {
+                Button button = (Button) findViewById(R.id.button_back_equipdetail);
+                button.performClick();
+            } else if (fragment instanceof ModifyEquipDetailFragment) {
+                Button button = (Button) findViewById(R.id.button_cancel_equipdetail_modify);
+                button.performClick();
+            } else if (fragment instanceof EquipInRecFragment) {
+                Button button = (Button) findViewById(R.id.button_back_equipinrec);
+                button.performClick();
+            } else if (fragment instanceof EquipOutRecFragment) {
+                Button button = (Button) findViewById(R.id.button_back_equipoutrec);
+                button.performClick();
+            } else if (fragment instanceof EquipSearchResultFragment) {
+                Button button = (Button) findViewById(R.id.button_back_equipsearchresult);
                 button.performClick();
             }
         }

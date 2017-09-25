@@ -101,7 +101,7 @@ public class MatDetailFragment extends BaseFragment {
 
         final MaterialStock materialStock = (MaterialStock) getArguments().getSerializable("stock");
 
-        textId.setText(String.valueOf(materialStock.getId()));
+        textId.setText(materialStock.getId());
         textType.setText(materialStock.getType());
         textNum.setText(materialStock.getNum());
         textStorestate.setText(materialStock.getStorestate());
