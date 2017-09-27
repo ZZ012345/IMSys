@@ -1,14 +1,15 @@
 package com.rinc.imsys;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -25,10 +26,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by zhouzhi on 2017/8/18.
+ * Created by ZhouZhi on 2017/9/26.
  */
 
-public class ModifyMatDetailFragment extends BaseFragment {
+public class ModifyMatDetailActivity extends BaseActivity {
 
     private EditText textId;
 
@@ -56,37 +57,48 @@ public class ModifyMatDetailFragment extends BaseFragment {
 
     private Button submitButton;
 
-    private Button cancelButton;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_modifymatdetail, container, false);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
 
-        textId = (EditText) view.findViewById(R.id.input_id_matdetail_modify);
-        textType = (EditText) view.findViewById(R.id.input_type_matdetail_modify);
-        spinnerStorestate = (Spinner) view.findViewById(R.id.spinner_state_matdetail_modify);
-        textMark = (EditText) view.findViewById(R.id.input_mark_matdetail_modify);
-        textBand = (EditText) view.findViewById(R.id.input_band_matdetail_modify);
-        textOriginal = (EditText) view.findViewById(R.id.input_original_matdetail_modify);
-        textYear = (EditText) view.findViewById(R.id.input_year_matdetail_modify);
-        textState = (EditText) view.findViewById(R.id.input_state_matdetail_modify);
-        textPosition = (EditText) view.findViewById(R.id.input_position_matdetail_modify);
-        textUnit = (EditText) view.findViewById(R.id.input_unit_matdetail_modify);
-        textDescription = (EditText) view.findViewById(R.id.input_description_matdetail_modify);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matdetail_modify);
-        submitButton = (Button) view.findViewById(R.id.button_submit_matdetail_modify);
-        cancelButton = (Button) view.findViewById(R.id.button_cancel_matdetail_modify);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_modifymatdetail);
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("修改材料详细信息");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_modifymatdetail);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        textId = (EditText) findViewById(R.id.input_id_matdetail_modify);
+        textType = (EditText) findViewById(R.id.input_type_matdetail_modify);
+        spinnerStorestate = (Spinner) findViewById(R.id.spinner_state_matdetail_modify);
+        textMark = (EditText) findViewById(R.id.input_mark_matdetail_modify);
+        textBand = (EditText) findViewById(R.id.input_band_matdetail_modify);
+        textOriginal = (EditText) findViewById(R.id.input_original_matdetail_modify);
+        textYear = (EditText) findViewById(R.id.input_year_matdetail_modify);
+        textState = (EditText) findViewById(R.id.input_state_matdetail_modify);
+        textPosition = (EditText) findViewById(R.id.input_position_matdetail_modify);
+        textUnit = (EditText) findViewById(R.id.input_unit_matdetail_modify);
+        textDescription = (EditText) findViewById(R.id.input_description_matdetail_modify);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_matdetail_modify);
+        submitButton = (Button) findViewById(R.id.button_submit_matdetail_modify);
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
-        cancelButton.setVisibility(View.VISIBLE);
-
+        
         //初始化，填入当前库存品详细信息
-        final MaterialStock materialStock = (MaterialStock) getArguments().getSerializable("stock");
+        final Intent intent = getIntent();
+        final MaterialStock materialStock = (MaterialStock) intent.getSerializableExtra("stock");
         textId.setText(materialStock.getId());
         textType.setText(materialStock.getType());
         String storestate = materialStock.getStorestate();
@@ -110,7 +122,7 @@ public class ModifyMatDetailFragment extends BaseFragment {
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view1) {
+            public void onClick(View view) {
                 hideKeyboard(); //隐藏虚拟键盘
 
                 boolean idValid = false;
@@ -123,7 +135,7 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 boolean unitValid = false;
 
                 //检查标号是否合法
-                TextInputLayout wrapperId = (TextInputLayout) view.findViewById(R.id.wrapper_id_matdetail_modify);
+                TextInputLayout wrapperId = (TextInputLayout) findViewById(R.id.wrapper_id_matdetail_modify);
                 final String id = textId.getText().toString();
                 LogUtil.d("Mat Detail Modify id", id);
                 if (id.length() == 0) {
@@ -136,7 +148,7 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查类型是否合法
-                TextInputLayout wrapperType = (TextInputLayout) view.findViewById(R.id.wrapper_type_matdetail_modify);
+                TextInputLayout wrapperType = (TextInputLayout) findViewById(R.id.wrapper_type_matdetail_modify);
                 final String type = textType.getText().toString();
                 LogUtil.d("Mat Detail Modify type", type);
                 if (type.length() > 100) {
@@ -147,7 +159,7 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查型号是否合法
-                TextInputLayout wrapperMark = (TextInputLayout) view.findViewById(R.id.wrapper_mark_matdetail_modify);
+                TextInputLayout wrapperMark = (TextInputLayout) findViewById(R.id.wrapper_mark_matdetail_modify);
                 final String mark = textMark.getText().toString();
                 LogUtil.d("Mat Detail Modify mark", mark);
                 if (mark.length() > 100) {
@@ -158,7 +170,7 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查品牌是否合法
-                TextInputLayout wrapperBand = (TextInputLayout) view.findViewById(R.id.wrapper_band_matdetail_modify);
+                TextInputLayout wrapperBand = (TextInputLayout) findViewById(R.id.wrapper_band_matdetail_modify);
                 final String band = textBand.getText().toString();
                 LogUtil.d("Mat Detail Modify band", band);
                 if (band.length() > 100) {
@@ -169,7 +181,7 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查原产地是否合法
-                TextInputLayout wrapperOriginal = (TextInputLayout) view.findViewById(R.id.wrapper_original_matdetail_modify);
+                TextInputLayout wrapperOriginal = (TextInputLayout) findViewById(R.id.wrapper_original_matdetail_modify);
                 final String original = textOriginal.getText().toString();
                 LogUtil.d("Mat Detail Modify original", original);
                 if (original.length() > 100) {
@@ -180,11 +192,11 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查年份是否合法
-                final TextInputLayout wrapperYear = (TextInputLayout) view.findViewById(R.id.wrapper_year_matdetail_modify);
+                final TextInputLayout wrapperYear = (TextInputLayout) findViewById(R.id.wrapper_year_matdetail_modify);
                 wrapperYear.setErrorEnabled(false);
 
                 //检查状态是否合法
-                TextInputLayout wrapperState = (TextInputLayout) view.findViewById(R.id.wrapper_state_matdetail_modify);
+                TextInputLayout wrapperState = (TextInputLayout) findViewById(R.id.wrapper_state_matdetail_modify);
                 final String state = textState.getText().toString();
                 LogUtil.d("Mat Detail Modify state", state);
                 if (state.length() > 100) {
@@ -195,7 +207,7 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查位置是否合法
-                TextInputLayout wrapperPosition = (TextInputLayout) view.findViewById(R.id.wrapper_position_matdetail_modify);
+                TextInputLayout wrapperPosition = (TextInputLayout) findViewById(R.id.wrapper_position_matdetail_modify);
                 final String position = textPosition.getText().toString();
                 LogUtil.d("Mat Detail Modify position", position);
                 if (position.length() > 100) {
@@ -206,27 +218,20 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
 
                 //检查单位原值是否合法
-                final TextInputLayout wrapperUnit = (TextInputLayout) view.findViewById(R.id.wrapper_unit_matdetail_modify);
+                final TextInputLayout wrapperUnit = (TextInputLayout) findViewById(R.id.wrapper_unit_matdetail_modify);
                 final String unit = textUnit.getText().toString();
                 LogUtil.d("Mat Detail Modify unit", unit);
-                /*if (unit.length() == 0) {
-                    wrapperUnit.setError("不能为空！");
-                } else {
-                    wrapperUnit.setErrorEnabled(false);
-                    unitValid = true;
-                }*/
                 wrapperUnit.setErrorEnabled(false);
                 unitValid = true;
 
                 if (!(idValid && typeValid && markValid && bandValid && originalValid &&
                         stateValid && positionValid && unitValid)) {
-                    Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ModifyMatDetailActivity.this, "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
                 }
 
                 if (idValid && typeValid && markValid && bandValid && originalValid &&
                         stateValid && positionValid && unitValid) {
                     submitButton.setVisibility(View.GONE); //隐藏提交按钮
-                    cancelButton.setVisibility(View.GONE); //隐藏取消按钮
                     progressBar.setVisibility(View.VISIBLE); //显示进度条
 
                     final String storestate = (String) spinnerStorestate.getSelectedItem();
@@ -243,13 +248,12 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                         JSONObject jsonObject = new JSONObject(responseData);
                                         if (jsonObject.has("id")) {
                                             //修改成功
-                                            getActivity().runOnUiThread(new Runnable() {
+                                            runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
-                                                    cancelButton.setVisibility(View.VISIBLE);
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(ModifyMatDetailActivity.this);
                                                     builder.setTitle("提示");
                                                     builder.setMessage("修改成功！");
                                                     builder.setCancelable(false);
@@ -257,13 +261,12 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             //回到库存品详细信息碎片
-                                                            MatDetailFragment matDetailFragment = new MatDetailFragment();
+                                                            Intent intent1 = new Intent();
                                                             MaterialStock materialStock1 = new MaterialStock(materialStock.getDatabaseid(), id, type,
                                                                     storestate, mark, band, original, year, state, position, unit, description, materialStock.getNum());
-                                                            Bundle args = new Bundle();
-                                                            args.putSerializable("stock", materialStock1);
-                                                            matDetailFragment.setArguments(args);
-                                                            replaceFragment(matDetailFragment);
+                                                            intent1.putExtra("stock", materialStock1);
+                                                            setResult(RESULT_OK, intent1);
+                                                            finish();
                                                         }
                                                     });
                                                     builder.show();
@@ -271,13 +274,12 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                             });
                                         } else if (jsonObject.has("materialID")) {
                                             //修改的材料标号与数据库中有重复
-                                            getActivity().runOnUiThread(new Runnable() {
+                                            runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
-                                                    cancelButton.setVisibility(View.VISIBLE);
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(ModifyMatDetailActivity.this);
                                                     builder.setTitle("提示");
                                                     builder.setMessage("修改的材料标号与数据库中有重复！");
                                                     builder.setCancelable(false);
@@ -292,26 +294,22 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                             });
                                         } else if (jsonObject.has("detail")) {
                                             //没有找到相关记录，说明该库存品已被删除或标号已被修改
-                                            getActivity().runOnUiThread(new Runnable() {
+                                            runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
-                                                    cancelButton.setVisibility(View.VISIBLE);
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(ModifyMatDetailActivity.this);
                                                     builder.setTitle("提示");
                                                     builder.setMessage("没有找到相关记录！");
                                                     builder.setCancelable(false);
                                                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                                            if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_STORAGE) {
-                                                                //由所有库存品信息碎片跳转而来
-                                                                replaceFragment(new MatStorageFragment());
-                                                            } else if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_SEARCH) {
-                                                                //由查找结果碎片跳转而来
-                                                                replaceFragment(new MatSearchResultFragment());
-                                                            }
+                                                            Intent intent1 = new Intent();
+                                                            intent1.putExtra("stock", "");
+                                                            setResult(SearchRecord.RESULT_DELETE, intent1);
+                                                            finish();
                                                         }
                                                     });
                                                     builder.show();
@@ -348,18 +346,17 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                                 errorType.add(6);
                                             }
 
-                                            getActivity().runOnUiThread(new Runnable() {
+                                            runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
-                                                    cancelButton.setVisibility(View.VISIBLE);
 
                                                     if (errorType.size() == 0) {
                                                         //发生未预计到的错误
-                                                        Toast.makeText(getActivity(), "修改失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(ModifyMatDetailActivity.this, "修改失败，请重新尝试", Toast.LENGTH_SHORT).show();
                                                     } else {
-                                                        Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(ModifyMatDetailActivity.this, "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
                                                         if (errorType.contains(1)) {
                                                             wrapperUnit.setError("该输入非数字！");
                                                         }
@@ -388,13 +385,12 @@ public class ModifyMatDetailFragment extends BaseFragment {
                                 public void onFailure(Call call, IOException e) {
                                     e.printStackTrace();
                                     LogUtil.d("Modify Mat Detail", "failed");
-                                    getActivity().runOnUiThread(new Runnable() {
+                                    runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             progressBar.setVisibility(View.GONE);
                                             submitButton.setVisibility(View.VISIBLE);
-                                            cancelButton.setVisibility(View.VISIBLE);
-                                            Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ModifyMatDetailActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
@@ -402,19 +398,5 @@ public class ModifyMatDetailFragment extends BaseFragment {
                 }
             }
         });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //传递对象
-                MatDetailFragment matDetailFragment = new MatDetailFragment();
-                Bundle args = new Bundle();
-                args.putSerializable("stock", materialStock);
-                matDetailFragment.setArguments(args);
-                replaceFragment(matDetailFragment);
-            }
-        });
-
-        return view;
     }
 }

@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_modifymatdetail"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -16,16 +25,6 @@
             android:paddingTop="5dp"
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
-
-            <!--
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="请修改库存品详细信息"
-                android:textSize="25dip"
-                android:textColor="@color/black" />
-                -->
 
             <!-- MaterialID -->
             <android.support.design.widget.TextInputLayout
@@ -226,25 +225,17 @@
                 android:id="@+id/progressbar_matdetail_modify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginBottom="24dp" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_submit_matdetail_modify"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="24dp"
                 android:padding="12dp"
                 android:text="提交" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_cancel_matdetail_modify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="24dp"
-                android:text="取消" />
 
         </LinearLayout>
 

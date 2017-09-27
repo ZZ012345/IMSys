@@ -54,6 +54,10 @@ public class SearchRecord {
 
     public static int lastFrag = FRAGLABEL_STORAGE;
 
+    public static final int RESULT_MODIFY = 100;
+
+    public static final int RESULT_DELETE = 101;
+
     public static void clearRecord() {
         id_mat = "";
         type_mat = "";

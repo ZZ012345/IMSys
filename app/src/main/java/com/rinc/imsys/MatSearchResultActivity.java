@@ -1,14 +1,15 @@
 package com.rinc.imsys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,16 +26,14 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by zhouzhi on 2017/8/27.
+ * Created by ZhouZhi on 2017/9/26.
  */
 
-public class MatSearchResultFragment extends BaseFragment {
+public class MatSearchResultActivity extends BaseActivity {
 
     private ProgressBar progressBar;
 
     private TextView textNotExist;
-
-    private Button backButton;
 
     private RecyclerView recyclerView;
 
@@ -43,9 +42,7 @@ public class MatSearchResultFragment extends BaseFragment {
     private LinearLayout previousPage;
 
     private LinearLayout nextPage;
-
-    private Button backButtonBottom;
-
+    
     private TextView pageCount;
 
     private String previousUrl = "";
@@ -58,29 +55,44 @@ public class MatSearchResultFragment extends BaseFragment {
 
     private int pageSize;
 
-    @Nullable
+    private int lastClick = 0;
+
+    private MaterialStockAdapter materialStockAdapter;
+    
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_matsearchresult, container, false);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
+    
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_matsearchresult);
 
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matsearchresult);
-        textNotExist = (TextView) view.findViewById(R.id.text_notexist_matsearchresult);
-        backButton = (Button) view.findViewById(R.id.button_back_matsearchresult);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_matsearchresult);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_matsearchresult);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_matsearchresult);
+        textNotExist = (TextView) findViewById(R.id.text_notexist_matsearchresult);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_matsearchresult);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(MatSearchResultActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-        pageController = LayoutInflater.from(getActivity()).inflate(R.layout.pageandback_item, recyclerView, false);
-        previousPage = (LinearLayout) pageController.findViewById(R.id.previous_link_pageandback);
-        nextPage = (LinearLayout) pageController.findViewById(R.id.next_link_pageandback);
-        backButtonBottom = (Button) pageController.findViewById(R.id.back_button_pageandback);
-        pageCount = (TextView) pageController.findViewById(R.id.page_count_pageandback);
-
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("查找结果");
+        pageController = LayoutInflater.from(MatSearchResultActivity.this).inflate(R.layout.page_item, recyclerView, false);
+        previousPage = (LinearLayout) pageController.findViewById(R.id.previous_link);
+        nextPage = (LinearLayout) pageController.findViewById(R.id.next_link);
+        pageCount = (TextView) pageController.findViewById(R.id.page_count);
 
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);
-        backButton.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
 
         HttpUtil.searchMat(SearchRecord.id_mat, SearchRecord.type_mat, SearchRecord.band_mat, SearchRecord.original_mat,
@@ -95,12 +107,11 @@ public class MatSearchResultFragment extends BaseFragment {
                             JSONArray jsonArray = new JSONArray(jsonAll.getString("results"));
                             if (allNum == 0) {
                                 //没有相关信息
-                                getActivity().runOnUiThread(new Runnable() {
+                                runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressBar.setVisibility(View.GONE);
                                         textNotExist.setVisibility(View.VISIBLE);
-                                        backButton.setVisibility(View.VISIBLE);
                                         recyclerView.setVisibility(View.GONE);
                                     }
                                 });
@@ -140,28 +151,26 @@ public class MatSearchResultFragment extends BaseFragment {
                                     mlist.add(materialStock);
                                 }
 
-                                getActivity().runOnUiThread(new Runnable() {
+                                runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressBar.setVisibility(View.GONE);
                                         textNotExist.setVisibility(View.GONE);
-                                        backButton.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        MaterialStockAdapter materialStockAdapter = new MaterialStockAdapter(mlist);
+                                        materialStockAdapter = new MaterialStockAdapter(mlist);
                                         recyclerView.setAdapter(materialStockAdapter);
                                         materialStockAdapter.setFooterView(pageController);
                                         materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
                                             @Override
-                                            public void onItemClick(View view1, int position) {
+                                            public void onItemClick(View view, int position) {
                                                 if (position != mlist.size()) {
                                                     //传递对象
-                                                    MatDetailFragment matDetailFragment = new MatDetailFragment();
+                                                    lastClick = position;
                                                     MaterialStock materialStock = mlist.get(position);
-                                                    Bundle args = new Bundle();
-                                                    args.putSerializable("stock", materialStock);
-                                                    matDetailFragment.setArguments(args);
-                                                    replaceFragment(matDetailFragment);
+                                                    Intent intent = new Intent(MatSearchResultActivity.this, MatDetailActivity.class);
+                                                    intent.putExtra("stock", materialStock);
+                                                    startActivityForResult(intent, 1);
                                                 }
                                             }
                                         });
@@ -172,7 +181,6 @@ public class MatSearchResultFragment extends BaseFragment {
                                         } else {
                                             nextPage.setVisibility(View.GONE);
                                         }
-                                        backButtonBottom.setVisibility(View.VISIBLE);
 
                                         pageSize = mlist.size();
                                         int pageNum = MatStorageFragment.getPageNum(allNum, pageSize);
@@ -189,14 +197,13 @@ public class MatSearchResultFragment extends BaseFragment {
                     public void onFailure(Call call, IOException e) {
                         e.printStackTrace();
                         LogUtil.d("Get Mat Search Result", "failed");
-                        getActivity().runOnUiThread(new Runnable() {
+                        runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
-                                backButton.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MatSearchResultActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -204,14 +211,13 @@ public class MatSearchResultFragment extends BaseFragment {
 
         View.OnClickListener pageListener = new View.OnClickListener() {
             @Override
-            public void onClick(View view1) {
+            public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
                 textNotExist.setVisibility(View.GONE);
-                backButton.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.GONE);
 
                 String url;
-                if ((LinearLayout) view1 == previousPage) {
+                if ((LinearLayout) view == previousPage) {
                     url = previousUrl;
                 } else {
                     url = nextUrl;
@@ -238,27 +244,25 @@ public class MatSearchResultFragment extends BaseFragment {
                             JSONArray jsonArray = new JSONArray(jsonAll.getString("results"));
                             if (allNum == 0) {
                                 //没有相关信息
-                                getActivity().runOnUiThread(new Runnable() {
+                                runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressBar.setVisibility(View.GONE);
                                         textNotExist.setVisibility(View.VISIBLE);
-                                        backButton.setVisibility(View.VISIBLE);
                                         recyclerView.setVisibility(View.GONE);
                                     }
                                 });
                             } else if (jsonArray.length() == 0) {
                                 //该页的内容已被删除
                                 mlist.clear();
-                                getActivity().runOnUiThread(new Runnable() {
+                                runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressBar.setVisibility(View.GONE);
                                         textNotExist.setVisibility(View.GONE);
-                                        backButton.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        MaterialStockAdapter materialStockAdapter = new MaterialStockAdapter(mlist);
+                                        materialStockAdapter = new MaterialStockAdapter(mlist);
                                         recyclerView.swapAdapter(materialStockAdapter, true);
                                         materialStockAdapter.setFooterView(pageController);
 
@@ -272,7 +276,6 @@ public class MatSearchResultFragment extends BaseFragment {
                                         } else {
                                             nextPage.setVisibility(View.GONE);
                                         }
-                                        backButtonBottom.setVisibility(View.VISIBLE);
 
                                         pageCount.setText("");
                                     }
@@ -309,28 +312,26 @@ public class MatSearchResultFragment extends BaseFragment {
                                     mlist.add(materialStock);
                                 }
 
-                                getActivity().runOnUiThread(new Runnable() {
+                                runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressBar.setVisibility(View.GONE);
                                         textNotExist.setVisibility(View.GONE);
-                                        backButton.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        MaterialStockAdapter materialStockAdapter = new MaterialStockAdapter(mlist);
+                                        materialStockAdapter = new MaterialStockAdapter(mlist);
                                         recyclerView.swapAdapter(materialStockAdapter, true);
                                         materialStockAdapter.setFooterView(pageController);
                                         materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
                                             @Override
-                                            public void onItemClick(View view2, int position) {
+                                            public void onItemClick(View view1, int position) {
                                                 if (position != mlist.size()) {
                                                     //传递对象
-                                                    MatDetailFragment matDetailFragment = new MatDetailFragment();
+                                                    lastClick = position;
                                                     MaterialStock materialStock = mlist.get(position);
-                                                    Bundle args = new Bundle();
-                                                    args.putSerializable("stock", materialStock);
-                                                    matDetailFragment.setArguments(args);
-                                                    replaceFragment(matDetailFragment);
+                                                    Intent intent = new Intent(MatSearchResultActivity.this, MatDetailActivity.class);
+                                                    intent.putExtra("stock", materialStock);
+                                                    startActivityForResult(intent, 1);
                                                 }
                                             }
                                         });
@@ -345,7 +346,6 @@ public class MatSearchResultFragment extends BaseFragment {
                                         } else {
                                             nextPage.setVisibility(View.GONE);
                                         }
-                                        backButtonBottom.setVisibility(View.VISIBLE);
 
                                         pageCount.setText(MatStorageFragment.getPageCountStr(previousUrl, nextUrl, allNum, pageSize));
                                     }
@@ -360,14 +360,13 @@ public class MatSearchResultFragment extends BaseFragment {
                     public void onFailure(Call call, IOException e) {
                         e.printStackTrace();
                         LogUtil.d("Get Mat Search Result Page", "failed");
-                        getActivity().runOnUiThread(new Runnable() {
+                        runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
-                                backButton.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MatSearchResultActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -377,21 +376,53 @@ public class MatSearchResultFragment extends BaseFragment {
 
         previousPage.setOnClickListener(pageListener);
         nextPage.setOnClickListener(pageListener);
+    }
 
-        backButtonBottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view1) {
-                replaceFragment(new MatSearchFragment());
-            }
-        });
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view1) {
-                replaceFragment(new MatSearchFragment());
-            }
-        });
-
-        return view;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == SearchRecord.RESULT_MODIFY) {
+                    MaterialStock materialStock = (MaterialStock) data.getSerializableExtra("stock");
+                    mlist.remove(lastClick);
+                    mlist.add(lastClick, materialStock);
+                    materialStockAdapter = new MaterialStockAdapter(mlist);
+                    recyclerView.swapAdapter(materialStockAdapter, true);
+                    materialStockAdapter.setFooterView(pageController);
+                    materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            if (position != mlist.size()) {
+                                //传递对象
+                                lastClick = position;
+                                MaterialStock materialStock = mlist.get(position);
+                                Intent intent = new Intent(MatSearchResultActivity.this, MatDetailActivity.class);
+                                intent.putExtra("stock", materialStock);
+                                startActivityForResult(intent, 1);
+                            }
+                        }
+                    });
+                } else if (resultCode == SearchRecord.RESULT_DELETE) {
+                    mlist.remove(lastClick);
+                    materialStockAdapter = new MaterialStockAdapter(mlist);
+                    recyclerView.swapAdapter(materialStockAdapter, true);
+                    materialStockAdapter.setFooterView(pageController);
+                    materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            if (position != mlist.size()) {
+                                //传递对象
+                                lastClick = position;
+                                MaterialStock materialStock = mlist.get(position);
+                                Intent intent = new Intent(MatSearchResultActivity.this, MatDetailActivity.class);
+                                intent.putExtra("stock", materialStock);
+                                startActivityForResult(intent, 1);
+                            }
+                        }
+                    });
+                }
+                break;
+            default:
+        }
     }
 }

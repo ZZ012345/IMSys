@@ -20,6 +20,9 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Response;
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.USAGE_STATS_SERVICE;
+
 /**
  * Created by zhouzhi on 2017/8/14.
  */
@@ -78,7 +81,8 @@ public class UserinfoFragment extends BaseFragment {
                         String detailMess = jsonObject.getString("detail");
                         if (detailMess.equals("Not found.")) {
                             //用户还没有填写详细个人信息，跳转到填写个人信息碎片
-                            replaceFragment(new FillUserinfoFragment());
+                            Intent intent = new Intent(getActivity(), FillUserinfoActivity.class);
+                            startActivityForResult(intent, 2);
                         } else if (detailMess.equals("Authentication credentials were not provided.")) {
                             //用户未登录，一般是在另一个设备上登录的该账号修改了密码引起的
                             getActivity().runOnUiThread(new Runnable() {
@@ -87,22 +91,6 @@ public class UserinfoFragment extends BaseFragment {
                                     modifyInfoButton.setVisibility(View.VISIBLE);
                                     modifyPassButton.setVisibility(View.VISIBLE);
                                     progressBar.setVisibility(View.GONE);
-                                    /*AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                    builder.setTitle("提示");
-                                    builder.setMessage("该账号已被强制登出，请重新登录！");
-                                    builder.setCancelable(false);
-                                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            User.clear();
-                                            HttpUtil.header = null;
-                                            SearchRecord.clearRecord();
-                                            ActivityCollector.finishAll();
-                                            Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                            getActivity().startActivity(intent);
-                                        }
-                                    });
-                                    builder.show();*/
                                     Intent intent = new Intent("com.rinc.imsys.FORCE_OFFLINE");
                                     getActivity().sendBroadcast(intent);
                                 }
@@ -163,17 +151,38 @@ public class UserinfoFragment extends BaseFragment {
         modifyInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                replaceFragment(new ModifyUserinfoFragment());
+                Intent intent = new Intent(getActivity(), ModifyUserInfoActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
 
         modifyPassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                replaceFragment(new ModifyPassFragment());
+                Intent intent = new Intent(getActivity(), ModifyPassActivity.class);
+                startActivity(intent);
             }
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    textTelephone.setText(User.tel);
+                    textCompany.setText(User.company);
+                    textAddress.setText(User.address);
+                }
+                break;
+            case 2:
+                if (resultCode == RESULT_OK) {
+                    replaceFragment(new UserinfoFragment());
+                }
+                break;
+            default:
+        }
     }
 }

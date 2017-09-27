@@ -469,6 +469,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
@@ -517,28 +518,7 @@ public class MainActivity extends BaseActivity {
             drawerLayout.closeDrawers();
         } else {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
-            if (fragment instanceof ModifyUserinfoFragment) {
-                Button button = (Button) findViewById(R.id.button_cancel_modify);
-                button.performClick();
-            } else if (fragment instanceof ModifyPassFragment) {
-                Button button = (Button) findViewById(R.id.button_cancel_modify_pass);
-                button.performClick();
-            } else if (fragment instanceof MatDetailFragment) {
-                Button button = (Button) findViewById(R.id.button_back_matdetail);
-                button.performClick();
-            } else if (fragment instanceof ModifyMatDetailFragment) {
-                Button button = (Button) findViewById(R.id.button_cancel_matdetail_modify);
-                button.performClick();
-            } else if (fragment instanceof MatInRecFragment) {
-                Button button = (Button) findViewById(R.id.button_back_matinrec);
-                button.performClick();
-            } else if (fragment instanceof MatOutRecFragment) {
-                Button button = (Button) findViewById(R.id.button_back_matoutrec);
-                button.performClick();
-            } else if (fragment instanceof MatSearchResultFragment) {
-                Button button = (Button) findViewById(R.id.button_back_matsearchresult);
-                button.performClick();
-            } else if (fragment instanceof PartDetailFragment) {
+            if (fragment instanceof PartDetailFragment) {
                 Button button = (Button) findViewById(R.id.button_back_partdetail);
                 button.performClick();
             } else if (fragment instanceof ModifyPartDetailFragment) {

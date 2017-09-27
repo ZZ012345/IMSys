@@ -1,12 +1,11 @@
 package com.rinc.imsys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -18,10 +17,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by zhouzhi on 2017/8/14.
+ * Created by ZhouZhi on 2017/9/27.
  */
 
-public class FillUserinfoFragment extends BaseFragment {
+public class FillUserinfoActivity extends BaseActivity {
 
     private EditText textTelephone;
 
@@ -33,35 +32,33 @@ public class FillUserinfoFragment extends BaseFragment {
 
     private Button submitButton;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_filluserinfo, container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_filluserinfo);
 
-        textTelephone = (EditText) view.findViewById(R.id.input_tel_fill);
-        textCompany = (EditText) view.findViewById(R.id.input_company_fill);
-        textAddress = (EditText) view.findViewById(R.id.input_address_fill);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_fill);
-        submitButton = (Button) view.findViewById(R.id.button_submit_fill);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_filluserinfo);
+        setSupportActionBar(toolbar);
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("填写个人信息");
+        textTelephone = (EditText) findViewById(R.id.input_tel_fill);
+        textCompany = (EditText) findViewById(R.id.input_company_fill);
+        textAddress = (EditText) findViewById(R.id.input_address_fill);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_fill);
+        submitButton = (Button) findViewById(R.id.button_submit_fill);
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            //注意，这里的参数view1指按钮，view指上面定义的碎片布局，如果这里写成view，那么下面在调用
-            //view.findViewById时会从按钮中去找，而不是碎片布局，会造成空指针错误
-            public void onClick(View view1) {
+            public void onClick(View view) {
                 hideKeyboard(); //隐藏虚拟键盘
                 boolean telephoneValid = false;
                 boolean companyValid = false;
                 boolean addressValid = false;
 
                 //检查电话是否合法
-                TextInputLayout wrapperTel = (TextInputLayout) view.findViewById(R.id.wrapper_tel_fill);
+                TextInputLayout wrapperTel = (TextInputLayout) findViewById(R.id.wrapper_tel_fill);
                 String tel = textTelephone.getText().toString();
                 LogUtil.d("Userinfo Fill tel", tel);
                 if (tel.length() == 0) {
@@ -76,7 +73,7 @@ public class FillUserinfoFragment extends BaseFragment {
                 }
 
                 //检查公司是否合法
-                TextInputLayout wrapperCompany = (TextInputLayout) view.findViewById(R.id.wrapper_company_fill);
+                TextInputLayout wrapperCompany = (TextInputLayout) findViewById(R.id.wrapper_company_fill);
                 String company = textCompany.getText().toString();
                 LogUtil.d("Userinfo Fill company", company);
                 if (company.length() == 0) {
@@ -89,7 +86,7 @@ public class FillUserinfoFragment extends BaseFragment {
                 }
 
                 //检查地址是否合法
-                TextInputLayout wrapperAddress = (TextInputLayout) view.findViewById(R.id.wrapper_address_fill);
+                TextInputLayout wrapperAddress = (TextInputLayout) findViewById(R.id.wrapper_address_fill);
                 String address = textAddress.getText().toString();
                 LogUtil.d("Userinfo Fill address", address);
                 if (address.length() == 0) {
@@ -112,7 +109,10 @@ public class FillUserinfoFragment extends BaseFragment {
                                 String responseData = response.body().string();
                                 LogUtil.d("Userinfo Fill jsondata", responseData);
                                 //不管是否已经提交过个人信息，都跳转到个人信息碎片，从而刷新个人信息
-                                replaceFragment(new UserinfoFragment());
+                                Intent intent = new Intent();
+                                intent.putExtra("result", "");
+                                setResult(RESULT_OK, intent);
+                                finish();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -122,12 +122,12 @@ public class FillUserinfoFragment extends BaseFragment {
                         public void onFailure(Call call, IOException e) {
                             e.printStackTrace();
                             LogUtil.d("Userinfo Fill", "failed");
-                            getActivity().runOnUiThread(new Runnable() {
+                            runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     progressBar.setVisibility(View.GONE); //隐藏进度条
                                     submitButton.setVisibility(View.VISIBLE); //显示提交按钮
-                                    Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FillUserinfoActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -135,7 +135,10 @@ public class FillUserinfoFragment extends BaseFragment {
                 }
             }
         });
+    }
 
-        return view;
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
     }
 }

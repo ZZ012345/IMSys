@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -23,10 +23,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by zhouzhi on 2017/8/16.
+ * Created by ZhouZhi on 2017/9/26.
  */
 
-public class ModifyPassFragment extends BaseFragment {
+public class ModifyPassActivity extends BaseActivity {
 
     private EditText textOldPassword;
 
@@ -38,30 +38,41 @@ public class ModifyPassFragment extends BaseFragment {
 
     private Button submitButton;
 
-    private Button cancelButton;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_modifypass, container, false);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+        }
+        return true;
+    }
 
-        textOldPassword = (EditText) view.findViewById(R.id.input_oldpassword_modify);
-        textPassword1 = (EditText) view.findViewById(R.id.input_password1_modify);
-        textPassword2 = (EditText) view.findViewById(R.id.input_password2_modify);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_modify_pass);
-        submitButton = (Button) view.findViewById(R.id.button_submit_modify_pass);
-        cancelButton = (Button) view.findViewById(R.id.button_cancel_modify_pass);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_modifypass);
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("修改密码");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_modifypass);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        textOldPassword = (EditText) findViewById(R.id.input_oldpassword_modify);
+        textPassword1 = (EditText) findViewById(R.id.input_password1_modify);
+        textPassword2 = (EditText) findViewById(R.id.input_password2_modify);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_modify_pass);
+        submitButton = (Button) findViewById(R.id.button_submit_modify_pass);
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
-        cancelButton.setVisibility(View.VISIBLE);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view1) {
+            public void onClick(View view) {
                 hideKeyboard(); //隐藏虚拟键盘
 
                 boolean oldpasswordValid = false;
@@ -69,7 +80,7 @@ public class ModifyPassFragment extends BaseFragment {
                 boolean password2Valid = false;
 
                 //检查原密码是否为空
-                final TextInputLayout wrapperOldPassword = (TextInputLayout) view.findViewById(R.id.wrapper_oldpassword_modify);
+                final TextInputLayout wrapperOldPassword = (TextInputLayout) findViewById(R.id.wrapper_oldpassword_modify);
                 final String oldpassword = textOldPassword.getText().toString();
                 LogUtil.d("Modify old password", oldpassword);
                 if (oldpassword.length() == 0) {
@@ -80,7 +91,7 @@ public class ModifyPassFragment extends BaseFragment {
                 }
 
                 //检查新密码是否合法
-                TextInputLayout wrapperPassword1 = (TextInputLayout) view.findViewById(R.id.wrapper_password1_modify);
+                TextInputLayout wrapperPassword1 = (TextInputLayout) findViewById(R.id.wrapper_password1_modify);
                 String password1 = textPassword1.getText().toString();
                 LogUtil.d("Modify password1", password1);
                 if (password1.length() == 0) {
@@ -95,7 +106,7 @@ public class ModifyPassFragment extends BaseFragment {
                 }
 
                 //检查确认新密码是否合法
-                final TextInputLayout wrapperPassword2 = (TextInputLayout) view.findViewById(R.id.wrapper_password2_modify);
+                final TextInputLayout wrapperPassword2 = (TextInputLayout) findViewById(R.id.wrapper_password2_modify);
                 String password2 = textPassword2.getText().toString();
                 LogUtil.d("Modify password2", password2);
                 if (password2.length() == 0) {
@@ -114,7 +125,6 @@ public class ModifyPassFragment extends BaseFragment {
                         wrapperPassword2.setError("前后密码不一致！");
                     } else {
                         submitButton.setVisibility(View.GONE); //隐藏提交按钮
-                        cancelButton.setVisibility(View.GONE); //隐藏取消按钮
                         progressBar.setVisibility(View.VISIBLE); //显示进度条
 
                         HttpUtil.modifyPassword(oldpassword, password1, password2, new okhttp3.Callback() {
@@ -129,13 +139,12 @@ public class ModifyPassFragment extends BaseFragment {
                                         if (detailString.equals("New password has been saved.")) {
                                             //修改成功
                                             LogUtil.d("Modify password", "successful");
-                                            getActivity().runOnUiThread(new Runnable() {
+                                            runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     submitButton.setVisibility(View.VISIBLE);
-                                                    cancelButton.setVisibility(View.VISIBLE);
                                                     progressBar.setVisibility(View.GONE);
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(ModifyPassActivity.this);
                                                     builder.setTitle("提示");
                                                     builder.setMessage("修改密码成功，请重新登录！");
                                                     builder.setCancelable(false);
@@ -145,8 +154,8 @@ public class ModifyPassFragment extends BaseFragment {
                                                             User.clear();
                                                             HttpUtil.header = null;
                                                             ActivityCollector.finishAll();
-                                                            Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                                            getActivity().startActivity(intent);
+                                                            Intent intent = new Intent(ModifyPassActivity.this, LoginActivity.class);
+                                                            startActivity(intent);
                                                         }
                                                     });
                                                     builder.show();
@@ -154,52 +163,33 @@ public class ModifyPassFragment extends BaseFragment {
                                             });
                                         } else {
                                             //用户未登录，一般是在另一个设备上登录的该账号修改了密码引起的
-                                            getActivity().runOnUiThread(new Runnable() {
+                                            runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     submitButton.setVisibility(View.VISIBLE);
-                                                    cancelButton.setVisibility(View.VISIBLE);
                                                     progressBar.setVisibility(View.GONE);
-                                                    /*AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                                    builder.setTitle("提示");
-                                                    builder.setMessage("该账号已被强制登出，请重新登录！");
-                                                    builder.setCancelable(false);
-                                                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                                            User.clear();
-                                                            HttpUtil.header = null;
-                                                            SearchRecord.clearRecord();
-                                                            ActivityCollector.finishAll();
-                                                            Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                                            getActivity().startActivity(intent);
-                                                        }
-                                                    });
-                                                    builder.show();*/
                                                     Intent intent = new Intent("com.rinc.imsys.FORCE_OFFLINE");
-                                                    getActivity().sendBroadcast(intent);
+                                                    sendBroadcast(intent);
                                                 }
                                             });
                                         }
                                     } else if (jsonObject.has("old_password")) {
                                         //原密码错误
-                                        getActivity().runOnUiThread(new Runnable() {
+                                        runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
                                                 wrapperOldPassword.setError("原密码错误！");
                                                 submitButton.setVisibility(View.VISIBLE);
-                                                cancelButton.setVisibility(View.VISIBLE);
                                                 progressBar.setVisibility(View.GONE);
                                             }
                                         });
                                     } else {
                                         //新密码太简单
-                                        getActivity().runOnUiThread(new Runnable() {
+                                        runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
                                                 wrapperPassword2.setError("新密码太简单！");
                                                 submitButton.setVisibility(View.VISIBLE);
-                                                cancelButton.setVisibility(View.VISIBLE);
                                                 progressBar.setVisibility(View.GONE);
                                             }
                                         });
@@ -213,13 +203,12 @@ public class ModifyPassFragment extends BaseFragment {
                             public void onFailure(final Call call, IOException e) {
                                 e.printStackTrace();
                                 LogUtil.d("Modify password", "failed");
-                                getActivity().runOnUiThread(new Runnable() {
+                                runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressBar.setVisibility(View.GONE); //隐藏进度条
                                         submitButton.setVisibility(View.VISIBLE); //显示提交按钮
-                                        cancelButton.setVisibility(View.VISIBLE); //显示取消按钮
-                                        Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ModifyPassActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -228,14 +217,5 @@ public class ModifyPassFragment extends BaseFragment {
                 }
             }
         });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view1) {
-                replaceFragment(new UserinfoFragment());
-            }
-        });
-
-        return view;
     }
 }

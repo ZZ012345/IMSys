@@ -3,8 +3,10 @@ package com.rinc.imsys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +42,17 @@ public class RegisterActivity extends BaseActivity {
     private TextView loginLink;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+        }
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
@@ -53,8 +66,11 @@ public class RegisterActivity extends BaseActivity {
         registerButton = (Button) findViewById(R.id.button_register);
         loginLink = (TextView) findViewById(R.id.link_login);
 
-        toolbar.setTitle("注册");
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         if (progressBar.getVisibility() == View.VISIBLE) {
             progressBar.setVisibility(View.GONE);
@@ -229,7 +245,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //跳转到登录界面
-                onBackPressed();
+                finish();
             }
         });
     }
