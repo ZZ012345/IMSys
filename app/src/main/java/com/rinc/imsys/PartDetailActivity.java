@@ -220,14 +220,18 @@ public class PartDetailActivity extends BaseActivity {
         inButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(PartDetailActivity.this, PartInRecActivity.class);
+                intent.putExtra("stock", partStock);
+                startActivity(intent);
             }
         });
 
         outButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(PartDetailActivity.this, PartOutRecActivity.class);
+                intent.putExtra("stock", partStock);
+                startActivity(intent);
             }
         });
     }

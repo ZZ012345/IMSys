@@ -113,6 +113,24 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".PartInRecActivity"
+            android:label="备件入库记录"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".PartOutRecActivity"
+            android:label="备件出库记录"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".PartSearchResultActivity"
+            android:label="查找结果"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

@@ -375,7 +375,7 @@ public class PartStorageFragment extends BaseFragment {
                     partStockAdapter.notifyItemChanged(lastClick);
                 } else if (resultCode == SearchRecord.RESULT_DELETE) {
                     mlist.remove(lastClick);
-                    partStockAdapter.notifyItemRemoved(lastClick);
+                    partStockAdapter.notifyDataSetChanged();
                 }
                 break;
             default:

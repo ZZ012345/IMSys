@@ -1,5 +1,6 @@
 package com.rinc.imsys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -70,8 +71,6 @@ public class PartSearchFragment extends BaseFragment {
         textYearstart.setText(SearchRecord.yearstart_part);
         textYearend.setText(SearchRecord.yearend_part);
 
-        SearchRecord.lastFrag = SearchRecord.FRAGLABEL_SEARCH;
-
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -118,8 +117,8 @@ public class PartSearchFragment extends BaseFragment {
                                         searchButton.setVisibility(View.VISIBLE);
                                     }
                                 });
-                                PartSearchResultFragment partSearchResultFragment = new PartSearchResultFragment();
-                                replaceFragment(partSearchResultFragment);
+                                Intent intent = new Intent(getActivity(), PartSearchResultActivity.class);
+                                startActivity(intent);
                             }
                         }
 

@@ -518,16 +518,7 @@ public class MainActivity extends BaseActivity {
             drawerLayout.closeDrawers();
         } else {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
-            if (fragment instanceof PartInRecFragment) {
-                Button button = (Button) findViewById(R.id.button_back_partinrec);
-                button.performClick();
-            } else if (fragment instanceof PartOutRecFragment) {
-                Button button = (Button) findViewById(R.id.button_back_partoutrec);
-                button.performClick();
-            } else if (fragment instanceof PartSearchResultFragment) {
-                Button button = (Button) findViewById(R.id.button_back_partsearchresult);
-                button.performClick();
-            } else if (fragment instanceof EquipDetailFragment) {
+            if (fragment instanceof EquipDetailFragment) {
                 Button button = (Button) findViewById(R.id.button_back_equipdetail);
                 button.performClick();
             } else if (fragment instanceof ModifyEquipDetailFragment) {
