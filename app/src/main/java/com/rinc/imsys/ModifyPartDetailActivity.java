@@ -1,14 +1,15 @@
 package com.rinc.imsys;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -25,10 +26,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by ZhouZhi on 2017/9/7.
+ * Created by ZhouZhi on 2017/9/27.
  */
 
-public class ModifyPartDetailFragment extends BaseFragment {
+public class ModifyPartDetailActivity extends BaseActivity {
 
     private EditText textId;
 
@@ -70,44 +71,55 @@ public class ModifyPartDetailFragment extends BaseFragment {
 
     private Button submitButton;
 
-    private Button cancelButton;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_modifypartdetail, container, false);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
 
-        textId = (EditText) view.findViewById(R.id.input_id_partdetail_modify);
-        textType = (EditText) view.findViewById(R.id.input_type_partdetail_modify);
-        spinnerStorestate = (Spinner) view.findViewById(R.id.spinner_state_partdetail_modify);
-        textMark = (EditText) view.findViewById(R.id.input_mark_partdetail_modify);
-        textBand = (EditText) view.findViewById(R.id.input_band_partdetail_modify);
-        textOriginal = (EditText) view.findViewById(R.id.input_original_partdetail_modify);
-        textYear = (EditText) view.findViewById(R.id.input_year_partdetail_modify);
-        textState = (EditText) view.findViewById(R.id.input_state_partdetail_modify);
-        textPosition = (EditText) view.findViewById(R.id.input_position_partdetail_modify);
-        textUnit = (EditText) view.findViewById(R.id.input_unit_partdetail_modify);
-        textName = (EditText) view.findViewById(R.id.input_name_partdetail_modify);
-        textCompany = (EditText) view.findViewById(R.id.input_company_partdetail_modify);
-        textMachineName = (EditText) view.findViewById(R.id.input_machinename_partdetail_modify);
-        textMachineType = (EditText) view.findViewById(R.id.input_machinetype_partdetail_modify);
-        textMachineBand = (EditText) view.findViewById(R.id.input_machineband_partdetail_modify);
-        textCondition = (EditText) view.findViewById(R.id.input_condition_partdetail_modify);
-        textVulnerability = (EditText) view.findViewById(R.id.input_vul_partdetail_modify);
-        textDescription = (EditText) view.findViewById(R.id.input_description_partdetail_modify);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_partdetail_modify);
-        submitButton = (Button) view.findViewById(R.id.button_submit_partdetail_modify);
-        cancelButton = (Button) view.findViewById(R.id.button_cancel_partdetail_modify);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_modifypartdetail);
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("修改备件详细信息");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_modifypartdetail);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        textId = (EditText) findViewById(R.id.input_id_partdetail_modify);
+        textType = (EditText) findViewById(R.id.input_type_partdetail_modify);
+        spinnerStorestate = (Spinner) findViewById(R.id.spinner_state_partdetail_modify);
+        textMark = (EditText) findViewById(R.id.input_mark_partdetail_modify);
+        textBand = (EditText) findViewById(R.id.input_band_partdetail_modify);
+        textOriginal = (EditText) findViewById(R.id.input_original_partdetail_modify);
+        textYear = (EditText) findViewById(R.id.input_year_partdetail_modify);
+        textState = (EditText) findViewById(R.id.input_state_partdetail_modify);
+        textPosition = (EditText) findViewById(R.id.input_position_partdetail_modify);
+        textUnit = (EditText) findViewById(R.id.input_unit_partdetail_modify);
+        textName = (EditText) findViewById(R.id.input_name_partdetail_modify);
+        textCompany = (EditText) findViewById(R.id.input_company_partdetail_modify);
+        textMachineName = (EditText) findViewById(R.id.input_machinename_partdetail_modify);
+        textMachineType = (EditText) findViewById(R.id.input_machinetype_partdetail_modify);
+        textMachineBand = (EditText) findViewById(R.id.input_machineband_partdetail_modify);
+        textCondition = (EditText) findViewById(R.id.input_condition_partdetail_modify);
+        textVulnerability = (EditText) findViewById(R.id.input_vul_partdetail_modify);
+        textDescription = (EditText) findViewById(R.id.input_description_partdetail_modify);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_partdetail_modify);
+        submitButton = (Button) findViewById(R.id.button_submit_partdetail_modify);
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
-        cancelButton.setVisibility(View.VISIBLE);
 
         //初始化，填入当前库存品详细信息
-        final PartStock partStock = (PartStock) getArguments().getSerializable("stock");
+        final Intent intent = getIntent();
+        final PartStock partStock = (PartStock) intent.getSerializableExtra("stock");
         textId.setText(partStock.getId());
         textType.setText(partStock.getType());
         String storestate = partStock.getStorestate();
@@ -138,7 +150,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view1) {
+            public void onClick(View view) {
                 hideKeyboard(); //隐藏虚拟键盘
 
                 boolean idValid = false;
@@ -158,7 +170,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 boolean vulnerabilityValid = false;
 
                 //检查标号是否合法
-                TextInputLayout wrapperId = (TextInputLayout) view.findViewById(R.id.wrapper_id_partdetail_modify);
+                TextInputLayout wrapperId = (TextInputLayout) findViewById(R.id.wrapper_id_partdetail_modify);
                 final String id = textId.getText().toString();
                 LogUtil.d("Part Detail Modify id", id);
                 if (id.length() == 0) {
@@ -171,7 +183,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查类型是否合法
-                TextInputLayout wrapperType = (TextInputLayout) view.findViewById(R.id.wrapper_type_partdetail_modify);
+                TextInputLayout wrapperType = (TextInputLayout) findViewById(R.id.wrapper_type_partdetail_modify);
                 final String type = textType.getText().toString();
                 LogUtil.d("Part Detail Modify type", type);
                 if (type.length() > 100) {
@@ -182,7 +194,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查型号是否合法
-                TextInputLayout wrapperMark = (TextInputLayout) view.findViewById(R.id.wrapper_mark_partdetail_modify);
+                TextInputLayout wrapperMark = (TextInputLayout) findViewById(R.id.wrapper_mark_partdetail_modify);
                 final String mark = textMark.getText().toString();
                 LogUtil.d("Part Detail Modify mark", mark);
                 if (mark.length() > 100) {
@@ -193,7 +205,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查品牌是否合法
-                TextInputLayout wrapperBand = (TextInputLayout) view.findViewById(R.id.wrapper_band_partdetail_modify);
+                TextInputLayout wrapperBand = (TextInputLayout) findViewById(R.id.wrapper_band_partdetail_modify);
                 final String band = textBand.getText().toString();
                 LogUtil.d("Part Detail Modify band", band);
                 if (band.length() > 100) {
@@ -204,7 +216,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查原产地是否合法
-                TextInputLayout wrapperOriginal = (TextInputLayout) view.findViewById(R.id.wrapper_original_partdetail_modify);
+                TextInputLayout wrapperOriginal = (TextInputLayout) findViewById(R.id.wrapper_original_partdetail_modify);
                 final String original = textOriginal.getText().toString();
                 LogUtil.d("Part Detail Modify original", original);
                 if (original.length() > 100) {
@@ -215,11 +227,11 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查年份是否合法
-                final TextInputLayout wrapperYear = (TextInputLayout) view.findViewById(R.id.wrapper_year_partdetail_modify);
+                final TextInputLayout wrapperYear = (TextInputLayout) findViewById(R.id.wrapper_year_partdetail_modify);
                 wrapperYear.setErrorEnabled(false);
 
                 //检查状态是否合法
-                TextInputLayout wrapperState = (TextInputLayout) view.findViewById(R.id.wrapper_state_partdetail_modify);
+                TextInputLayout wrapperState = (TextInputLayout) findViewById(R.id.wrapper_state_partdetail_modify);
                 final String state = textState.getText().toString();
                 LogUtil.d("Part Detail Modify state", state);
                 if (state.length() > 100) {
@@ -230,7 +242,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查位置是否合法
-                TextInputLayout wrapperPosition = (TextInputLayout) view.findViewById(R.id.wrapper_position_partdetail_modify);
+                TextInputLayout wrapperPosition = (TextInputLayout) findViewById(R.id.wrapper_position_partdetail_modify);
                 final String position = textPosition.getText().toString();
                 LogUtil.d("Part Detail Modify position", position);
                 if (position.length() > 100) {
@@ -241,14 +253,14 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查单位原值是否合法
-                final TextInputLayout wrapperUnit = (TextInputLayout) view.findViewById(R.id.wrapper_unit_partdetail_modify);
+                final TextInputLayout wrapperUnit = (TextInputLayout) findViewById(R.id.wrapper_unit_partdetail_modify);
                 final String unit = textUnit.getText().toString();
                 LogUtil.d("Part Detail Modify unit", unit);
                 wrapperUnit.setErrorEnabled(false);
                 unitValid = true;
 
                 //检查名称是否合法
-                TextInputLayout wrapperName = (TextInputLayout) view.findViewById(R.id.wrapper_name_partdetail_modify);
+                TextInputLayout wrapperName = (TextInputLayout) findViewById(R.id.wrapper_name_partdetail_modify);
                 final String name = textName.getText().toString();
                 LogUtil.d("Part Detail Modify name", name);
                 if (name.length() > 100) {
@@ -259,7 +271,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查制造企业是否合法
-                TextInputLayout wrapperCompany = (TextInputLayout) view.findViewById(R.id.wrapper_company_partdetail_modify);
+                TextInputLayout wrapperCompany = (TextInputLayout) findViewById(R.id.wrapper_company_partdetail_modify);
                 final String company = textCompany.getText().toString();
                 LogUtil.d("Part Detail Modify company", company);
                 if (company.length() > 100) {
@@ -270,7 +282,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查整机名称是否合法
-                TextInputLayout wrapperMachineName = (TextInputLayout) view.findViewById(R.id.wrapper_machinename_partdetail_modify);
+                TextInputLayout wrapperMachineName = (TextInputLayout) findViewById(R.id.wrapper_machinename_partdetail_modify);
                 final String machineName = textMachineName.getText().toString();
                 LogUtil.d("Part Detail Modify machineName", machineName);
                 if (machineName.length() > 100) {
@@ -281,7 +293,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查整机型号是否合法
-                TextInputLayout wrapperMachineType = (TextInputLayout) view.findViewById(R.id.wrapper_machinetype_partdetail_modify);
+                TextInputLayout wrapperMachineType = (TextInputLayout) findViewById(R.id.wrapper_machinetype_partdetail_modify);
                 final String machineType = textMachineType.getText().toString();
                 LogUtil.d("Part Detail Modify machineType", machineType);
                 if (machineType.length() > 100) {
@@ -292,7 +304,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查整机品牌是否合法
-                TextInputLayout wrapperMachineBand = (TextInputLayout) view.findViewById(R.id.wrapper_machineband_partdetail_modify);
+                TextInputLayout wrapperMachineBand = (TextInputLayout) findViewById(R.id.wrapper_machineband_partdetail_modify);
                 final String machineBand = textMachineBand.getText().toString();
                 LogUtil.d("Part Detail Modify machineBand", machineBand);
                 if (machineBand.length() > 100) {
@@ -303,7 +315,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查储存条件是否合法
-                TextInputLayout wrapperCondition = (TextInputLayout) view.findViewById(R.id.wrapper_condition_partdetail_modify);
+                TextInputLayout wrapperCondition = (TextInputLayout) findViewById(R.id.wrapper_condition_partdetail_modify);
                 final String condition = textCondition.getText().toString();
                 LogUtil.d("Part Detail Modify condition", condition);
                 if (condition.length() > 100) {
@@ -314,7 +326,7 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
 
                 //检查易损性是否合法
-                TextInputLayout wrapperVul = (TextInputLayout) view.findViewById(R.id.wrapper_vul_partdetail_modify);
+                TextInputLayout wrapperVul = (TextInputLayout) findViewById(R.id.wrapper_vul_partdetail_modify);
                 final String vulnerability = textVulnerability.getText().toString();
                 LogUtil.d("Part Detail Modify vul", vulnerability);
                 if (vulnerability.length() > 100) {
@@ -327,14 +339,13 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 if (!(idValid && typeValid && markValid && bandValid && originalValid && stateValid &&
                         positionValid && unitValid && nameValid && companyValid && machineNameValid &&
                         machineTypeValid && machineBandValid && conditionValid && vulnerabilityValid)) {
-                    Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ModifyPartDetailActivity.this, "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
                 }
 
                 if (idValid && typeValid && markValid && bandValid && originalValid && stateValid &&
                         positionValid && unitValid && nameValid && companyValid && machineNameValid &&
                         machineTypeValid && machineBandValid && conditionValid && vulnerabilityValid) {
                     submitButton.setVisibility(View.GONE); //隐藏提交按钮
-                    cancelButton.setVisibility(View.GONE); //隐藏取消按钮
                     progressBar.setVisibility(View.VISIBLE); //显示进度条
 
                     final String storestate = (String) spinnerStorestate.getSelectedItem();
@@ -351,13 +362,12 @@ public class ModifyPartDetailFragment extends BaseFragment {
                                         JSONObject jsonObject = new JSONObject(responseData);
                                         if (jsonObject.has("id")) {
                                             //修改成功
-                                            getActivity().runOnUiThread(new Runnable() {
+                                            runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
-                                                    cancelButton.setVisibility(View.VISIBLE);
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(ModifyPartDetailActivity.this);
                                                     builder.setTitle("提示");
                                                     builder.setMessage("修改成功！");
                                                     builder.setCancelable(false);
@@ -365,14 +375,13 @@ public class ModifyPartDetailFragment extends BaseFragment {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             //回到库存品详细信息碎片
-                                                            PartDetailFragment partDetailFragment = new PartDetailFragment();
+                                                            Intent intent1 = new Intent();
                                                             PartStock partStock1 = new PartStock(partStock.getDatabaseid(), id, type, storestate, mark,
                                                                     band, original, year, state, position, unit, name, company, machineName, machineType,
                                                                     machineBand, condition, vulnerability, description, partStock.getNum());
-                                                            Bundle args = new Bundle();
-                                                            args.putSerializable("stock", partStock1);
-                                                            partDetailFragment.setArguments(args);
-                                                            replaceFragment(partDetailFragment);
+                                                            intent1.putExtra("stock", partStock1);
+                                                            setResult(RESULT_OK, intent1);
+                                                            finish();
                                                         }
                                                     });
                                                     builder.show();
@@ -380,13 +389,12 @@ public class ModifyPartDetailFragment extends BaseFragment {
                                             });
                                         } else if (jsonObject.has("partID")) {
                                             //修改的备件标号与数据库中有重复
-                                            getActivity().runOnUiThread(new Runnable() {
+                                            runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
-                                                    cancelButton.setVisibility(View.VISIBLE);
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(ModifyPartDetailActivity.this);
                                                     builder.setTitle("提示");
                                                     builder.setMessage("修改的备件标号与数据库中有重复！");
                                                     builder.setCancelable(false);
@@ -401,26 +409,22 @@ public class ModifyPartDetailFragment extends BaseFragment {
                                             });
                                         } else if (jsonObject.has("detail")) {
                                             //没有找到相关记录，说明该库存品已被删除或标号已被修改
-                                            getActivity().runOnUiThread(new Runnable() {
+                                            runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
-                                                    cancelButton.setVisibility(View.VISIBLE);
-                                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(ModifyPartDetailActivity.this);
                                                     builder.setTitle("提示");
                                                     builder.setMessage("没有找到相关记录！");
                                                     builder.setCancelable(false);
                                                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                                            if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_STORAGE) {
-                                                                //由所有库存品信息碎片跳转而来
-                                                                replaceFragment(new PartStorageFragment());
-                                                            } else if (SearchRecord.lastFrag == SearchRecord.FRAGLABEL_SEARCH) {
-                                                                //由查找结果碎片跳转而来
-                                                                replaceFragment(new PartSearchResultFragment());
-                                                            }
+                                                            Intent intent1 = new Intent();
+                                                            intent1.putExtra("stock", "");
+                                                            setResult(SearchRecord.RESULT_DELETE, intent1);
+                                                            finish();
                                                         }
                                                     });
                                                     builder.show();
@@ -457,18 +461,17 @@ public class ModifyPartDetailFragment extends BaseFragment {
                                                 errorType.add(6);
                                             }
 
-                                            getActivity().runOnUiThread(new Runnable() {
+                                            runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
-                                                    cancelButton.setVisibility(View.VISIBLE);
 
                                                     if (errorType.size() == 0) {
                                                         //发生未预计到的错误
-                                                        Toast.makeText(getActivity(), "修改失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(ModifyPartDetailActivity.this, "修改失败，请重新尝试", Toast.LENGTH_SHORT).show();
                                                     } else {
-                                                        Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(ModifyPartDetailActivity.this, "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
                                                         if (errorType.contains(1)) {
                                                             wrapperUnit.setError("该输入非数字！");
                                                         }
@@ -497,13 +500,12 @@ public class ModifyPartDetailFragment extends BaseFragment {
                                 public void onFailure(Call call, IOException e) {
                                     e.printStackTrace();
                                     LogUtil.d("Modify Part Detail", "failed");
-                                    getActivity().runOnUiThread(new Runnable() {
+                                    runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             progressBar.setVisibility(View.GONE);
                                             submitButton.setVisibility(View.VISIBLE);
-                                            cancelButton.setVisibility(View.VISIBLE);
-                                            Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ModifyPartDetailActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
@@ -511,19 +513,5 @@ public class ModifyPartDetailFragment extends BaseFragment {
                 }
             }
         });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //传递对象
-                PartDetailFragment partDetailFragment = new PartDetailFragment();
-                Bundle args = new Bundle();
-                args.putSerializable("stock", partStock);
-                partDetailFragment.setArguments(args);
-                replaceFragment(partDetailFragment);
-            }
-        });
-
-        return view;
     }
 }

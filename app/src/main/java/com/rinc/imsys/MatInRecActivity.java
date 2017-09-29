@@ -57,6 +57,8 @@ public class MatInRecActivity extends BaseActivity {
     
     private MaterialStock materialStock;
 
+    private MaterialInRecordAdapter materialInRecordAdapter;
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -139,7 +141,7 @@ public class MatInRecActivity extends BaseActivity {
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
 
-                                MaterialInRecordAdapter materialInRecordAdapter = new MaterialInRecordAdapter(mrlist);
+                                materialInRecordAdapter = new MaterialInRecordAdapter(mrlist);
                                 recyclerView.setAdapter(materialInRecordAdapter);
                                 materialInRecordAdapter.setFooterView(pageController);
                                 materialInRecordAdapter.setOnItemClickListener(new MaterialInRecordAdapter.OnItemClickListener() {
@@ -236,9 +238,7 @@ public class MatInRecActivity extends BaseActivity {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        MaterialInRecordAdapter materialInRecordAdapter = new MaterialInRecordAdapter(mrlist);
-                                        recyclerView.swapAdapter(materialInRecordAdapter, true);
-                                        materialInRecordAdapter.setFooterView(pageController);
+                                        materialInRecordAdapter.notifyDataSetChanged();
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -274,15 +274,8 @@ public class MatInRecActivity extends BaseActivity {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        MaterialInRecordAdapter materialInRecordAdapter = new MaterialInRecordAdapter(mrlist);
-                                        recyclerView.swapAdapter(materialInRecordAdapter, true);
-                                        materialInRecordAdapter.setFooterView(pageController);
-                                        materialInRecordAdapter.setOnItemClickListener(new MaterialInRecordAdapter.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(View view1, int position) {
-
-                                            }
-                                        });
+                                        materialInRecordAdapter.notifyDataSetChanged();
+                                        recyclerView.scrollToPosition(0);
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);

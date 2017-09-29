@@ -1,5 +1,6 @@
 package com.rinc.imsys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,6 +54,10 @@ public class PartStorageFragment extends BaseFragment {
 
     private int pageSize;
 
+    private int lastClick = 0;
+    
+    private PartStockAdapter partStockAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,8 +79,6 @@ public class PartStorageFragment extends BaseFragment {
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
-
-        SearchRecord.lastFrag = SearchRecord.FRAGLABEL_STORAGE;
 
         HttpUtil.getPartStorage(new okhttp3.Callback() {
             @Override
@@ -147,7 +150,7 @@ public class PartStorageFragment extends BaseFragment {
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
 
-                                PartStockAdapter partStockAdapter = new PartStockAdapter(mlist);
+                                partStockAdapter = new PartStockAdapter(mlist);
                                 recyclerView.setAdapter(partStockAdapter);
                                 partStockAdapter.setFooterView(pageController);
                                 partStockAdapter.setOnItemClickListener(new PartStockAdapter.OnItemClickListener() {
@@ -155,12 +158,11 @@ public class PartStorageFragment extends BaseFragment {
                                     public void onItemClick(View view1, int position) {
                                         if (position != mlist.size()) {
                                             //传递对象
-                                            PartDetailFragment partDetailFragment = new PartDetailFragment();
+                                            lastClick = position;
                                             PartStock partStock = mlist.get(position);
-                                            Bundle args = new Bundle();
-                                            args.putSerializable("stock", partStock);
-                                            partDetailFragment.setArguments(args);
-                                            replaceFragment(partDetailFragment);
+                                            Intent intent = new Intent(getActivity(), PartDetailActivity.class);
+                                            intent.putExtra("stock", partStock);
+                                            startActivityForResult(intent, 1);
                                         }
                                     }
                                 });
@@ -252,9 +254,7 @@ public class PartStorageFragment extends BaseFragment {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        PartStockAdapter partStockAdapter = new PartStockAdapter(mlist);
-                                        recyclerView.swapAdapter(partStockAdapter, true);
-                                        partStockAdapter.setFooterView(pageController);
+                                        partStockAdapter.notifyDataSetChanged();
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -317,23 +317,8 @@ public class PartStorageFragment extends BaseFragment {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        PartStockAdapter partStockAdapter = new PartStockAdapter(mlist);
-                                        recyclerView.swapAdapter(partStockAdapter, true);
-                                        partStockAdapter.setFooterView(pageController);
-                                        partStockAdapter.setOnItemClickListener(new PartStockAdapter.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(View view2, int position) {
-                                                if (position != mlist.size()) {
-                                                    //传递对象
-                                                    PartDetailFragment partDetailFragment = new PartDetailFragment();
-                                                    PartStock partStock = mlist.get(position);
-                                                    Bundle args = new Bundle();
-                                                    args.putSerializable("stock", partStock);
-                                                    partDetailFragment.setArguments(args);
-                                                    replaceFragment(partDetailFragment);
-                                                }
-                                            }
-                                        });
+                                        partStockAdapter.notifyDataSetChanged();
+                                        recyclerView.scrollToPosition(0);
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -377,5 +362,23 @@ public class PartStorageFragment extends BaseFragment {
         nextPage.setOnClickListener(pageListener);
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == SearchRecord.RESULT_MODIFY) {
+                    PartStock partStock = (PartStock) data.getSerializableExtra("stock");
+                    mlist.remove(lastClick);
+                    mlist.add(lastClick, partStock);
+                    partStockAdapter.notifyItemChanged(lastClick);
+                } else if (resultCode == SearchRecord.RESULT_DELETE) {
+                    mlist.remove(lastClick);
+                    partStockAdapter.notifyItemRemoved(lastClick);
+                }
+                break;
+            default:
+        }
     }
 }

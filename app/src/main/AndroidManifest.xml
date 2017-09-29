@@ -101,6 +101,18 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".PartDetailActivity"
+            android:label="备件详细信息"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".ModifyPartDetailActivity"
+            android:label="修改备件详细信息"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

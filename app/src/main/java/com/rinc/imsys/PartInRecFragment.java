@@ -328,22 +328,14 @@ public class PartInRecFragment extends BaseFragment {
         backButtonBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                PartDetailFragment partDetailFragment = new PartDetailFragment();
-                Bundle args = new Bundle();
-                args.putSerializable("stock", partStock);
-                partDetailFragment.setArguments(args);
-                replaceFragment(partDetailFragment);
+
             }
         });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                PartDetailFragment partDetailFragment = new PartDetailFragment();
-                Bundle args = new Bundle();
-                args.putSerializable("stock", partStock);
-                partDetailFragment.setArguments(args);
-                replaceFragment(partDetailFragment);
+
             }
         });
 

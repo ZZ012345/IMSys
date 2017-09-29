@@ -262,9 +262,7 @@ public class MatSearchResultActivity extends BaseActivity {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        materialStockAdapter = new MaterialStockAdapter(mlist);
-                                        recyclerView.swapAdapter(materialStockAdapter, true);
-                                        materialStockAdapter.setFooterView(pageController);
+                                        materialStockAdapter.notifyDataSetChanged();
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -319,22 +317,8 @@ public class MatSearchResultActivity extends BaseActivity {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        materialStockAdapter = new MaterialStockAdapter(mlist);
-                                        recyclerView.swapAdapter(materialStockAdapter, true);
-                                        materialStockAdapter.setFooterView(pageController);
-                                        materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(View view1, int position) {
-                                                if (position != mlist.size()) {
-                                                    //传递对象
-                                                    lastClick = position;
-                                                    MaterialStock materialStock = mlist.get(position);
-                                                    Intent intent = new Intent(MatSearchResultActivity.this, MatDetailActivity.class);
-                                                    intent.putExtra("stock", materialStock);
-                                                    startActivityForResult(intent, 1);
-                                                }
-                                            }
-                                        });
+                                        materialStockAdapter.notifyDataSetChanged();
+                                        recyclerView.scrollToPosition(0);
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -386,40 +370,10 @@ public class MatSearchResultActivity extends BaseActivity {
                     MaterialStock materialStock = (MaterialStock) data.getSerializableExtra("stock");
                     mlist.remove(lastClick);
                     mlist.add(lastClick, materialStock);
-                    materialStockAdapter = new MaterialStockAdapter(mlist);
-                    recyclerView.swapAdapter(materialStockAdapter, true);
-                    materialStockAdapter.setFooterView(pageController);
-                    materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-                            if (position != mlist.size()) {
-                                //传递对象
-                                lastClick = position;
-                                MaterialStock materialStock = mlist.get(position);
-                                Intent intent = new Intent(MatSearchResultActivity.this, MatDetailActivity.class);
-                                intent.putExtra("stock", materialStock);
-                                startActivityForResult(intent, 1);
-                            }
-                        }
-                    });
+                    materialStockAdapter.notifyItemChanged(lastClick);
                 } else if (resultCode == SearchRecord.RESULT_DELETE) {
                     mlist.remove(lastClick);
-                    materialStockAdapter = new MaterialStockAdapter(mlist);
-                    recyclerView.swapAdapter(materialStockAdapter, true);
-                    materialStockAdapter.setFooterView(pageController);
-                    materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-                            if (position != mlist.size()) {
-                                //传递对象
-                                lastClick = position;
-                                MaterialStock materialStock = mlist.get(position);
-                                Intent intent = new Intent(MatSearchResultActivity.this, MatDetailActivity.class);
-                                intent.putExtra("stock", materialStock);
-                                startActivityForResult(intent, 1);
-                            }
-                        }
-                    });
+                    materialStockAdapter.notifyDataSetChanged();
                 }
                 break;
             default:

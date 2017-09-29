@@ -56,6 +56,8 @@ public class MatOutRecActivity extends BaseActivity {
     private int pageSize;
 
     private MaterialStock materialStock;
+
+    private MaterialOutRecordAdapter materialOutRecordAdapter;
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -141,7 +143,7 @@ public class MatOutRecActivity extends BaseActivity {
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
 
-                                MaterialOutRecordAdapter materialOutRecordAdapter = new MaterialOutRecordAdapter(mrlist);
+                                materialOutRecordAdapter = new MaterialOutRecordAdapter(mrlist);
                                 recyclerView.setAdapter(materialOutRecordAdapter);
                                 materialOutRecordAdapter.setFooterView(pageController);
                                 materialOutRecordAdapter.setOnItemClickListener(new MaterialOutRecordAdapter.OnItemClickListener() {
@@ -238,9 +240,7 @@ public class MatOutRecActivity extends BaseActivity {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        MaterialOutRecordAdapter materialOutRecordAdapter = new MaterialOutRecordAdapter(mrlist);
-                                        recyclerView.swapAdapter(materialOutRecordAdapter, true);
-                                        materialOutRecordAdapter.setFooterView(pageController);
+                                        materialOutRecordAdapter.notifyDataSetChanged();
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -278,15 +278,8 @@ public class MatOutRecActivity extends BaseActivity {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        MaterialOutRecordAdapter materialOutRecordAdapter = new MaterialOutRecordAdapter(mrlist);
-                                        recyclerView.swapAdapter(materialOutRecordAdapter, true);
-                                        materialOutRecordAdapter.setFooterView(pageController);
-                                        materialOutRecordAdapter.setOnItemClickListener(new MaterialOutRecordAdapter.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(View view1, int position) {
-
-                                            }
-                                        });
+                                        materialOutRecordAdapter.notifyDataSetChanged();
+                                        recyclerView.scrollToPosition(0);
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);

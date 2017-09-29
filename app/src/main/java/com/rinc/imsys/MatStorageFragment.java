@@ -152,13 +152,6 @@ public class MatStorageFragment extends BaseFragment {
                                     public void onItemClick(View view1, int position) {
                                         if (position != mlist.size()) {
                                             //传递对象
-                                            /*
-                                            MatDetailFragment matDetailFragment = new MatDetailFragment();
-                                            MaterialStock materialStock = mlist.get(position);
-                                            Bundle args = new Bundle();
-                                            args.putSerializable("stock", materialStock);
-                                            matDetailFragment.setArguments(args);
-                                            replaceFragment(matDetailFragment);*/
                                             lastClick = position;
                                             MaterialStock materialStock = mlist.get(position);
                                             Intent intent = new Intent(getActivity(), MatDetailActivity.class);
@@ -255,9 +248,7 @@ public class MatStorageFragment extends BaseFragment {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        materialStockAdapter = new MaterialStockAdapter(mlist);
-                                        recyclerView.swapAdapter(materialStockAdapter, true);
-                                        materialStockAdapter.setFooterView(pageController);
+                                        materialStockAdapter.notifyDataSetChanged();
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -305,6 +296,7 @@ public class MatStorageFragment extends BaseFragment {
                                     mlist.add(materialStock);
                                 }
 
+
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -312,29 +304,8 @@ public class MatStorageFragment extends BaseFragment {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        materialStockAdapter = new MaterialStockAdapter(mlist);
-                                        recyclerView.swapAdapter(materialStockAdapter, true);
-                                        materialStockAdapter.setFooterView(pageController);
-                                        materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(View view2, int position) {
-                                                if (position != mlist.size()) {
-                                                    //传递对象
-                                                    /*
-                                                    MatDetailFragment matDetailFragment = new MatDetailFragment();
-                                                    MaterialStock materialStock = mlist.get(position);
-                                                    Bundle args = new Bundle();
-                                                    args.putSerializable("stock", materialStock);
-                                                    matDetailFragment.setArguments(args);
-                                                    replaceFragment(matDetailFragment);*/
-                                                    lastClick = position;
-                                                    MaterialStock materialStock = mlist.get(position);
-                                                    Intent intent = new Intent(getActivity(), MatDetailActivity.class);
-                                                    intent.putExtra("stock", materialStock);
-                                                    startActivityForResult(intent, 1);
-                                                }
-                                            }
-                                        });
+                                        materialStockAdapter.notifyDataSetChanged();
+                                        recyclerView.scrollToPosition(0);
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -388,40 +359,10 @@ public class MatStorageFragment extends BaseFragment {
                     MaterialStock materialStock = (MaterialStock) data.getSerializableExtra("stock");
                     mlist.remove(lastClick);
                     mlist.add(lastClick, materialStock);
-                    materialStockAdapter = new MaterialStockAdapter(mlist);
-                    recyclerView.swapAdapter(materialStockAdapter, true);
-                    materialStockAdapter.setFooterView(pageController);
-                    materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-                            if (position != mlist.size()) {
-                                //传递对象
-                                lastClick = position;
-                                MaterialStock materialStock = mlist.get(position);
-                                Intent intent = new Intent(getActivity(), MatDetailActivity.class);
-                                intent.putExtra("stock", materialStock);
-                                startActivityForResult(intent, 1);
-                            }
-                        }
-                    });
+                    materialStockAdapter.notifyItemChanged(lastClick);
                 } else if (resultCode == SearchRecord.RESULT_DELETE) {
                     mlist.remove(lastClick);
-                    materialStockAdapter = new MaterialStockAdapter(mlist);
-                    recyclerView.swapAdapter(materialStockAdapter, true);
-                    materialStockAdapter.setFooterView(pageController);
-                    materialStockAdapter.setOnItemClickListener(new MaterialStockAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-                            if (position != mlist.size()) {
-                                //传递对象
-                                lastClick = position;
-                                MaterialStock materialStock = mlist.get(position);
-                                Intent intent = new Intent(getActivity(), MatDetailActivity.class);
-                                intent.putExtra("stock", materialStock);
-                                startActivityForResult(intent, 1);
-                            }
-                        }
-                    });
+                    materialStockAdapter.notifyDataSetChanged();
                 }
                 break;
             default:

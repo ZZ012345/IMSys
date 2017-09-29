@@ -164,12 +164,7 @@ public class PartSearchResultFragment extends BaseFragment {
                                             public void onItemClick(View view1, int position) {
                                                 if (position != mlist.size()) {
                                                     //传递对象
-                                                    PartDetailFragment partDetailFragment = new PartDetailFragment();
-                                                    PartStock partStock = mlist.get(position);
-                                                    Bundle args = new Bundle();
-                                                    args.putSerializable("stock", partStock);
-                                                    partDetailFragment.setArguments(args);
-                                                    replaceFragment(partDetailFragment);
+
                                                 }
                                             }
                                         });
@@ -341,12 +336,7 @@ public class PartSearchResultFragment extends BaseFragment {
                                             public void onItemClick(View view2, int position) {
                                                 if (position != mlist.size()) {
                                                     //传递对象
-                                                    PartDetailFragment partDetailFragment = new PartDetailFragment();
-                                                    PartStock partStock = mlist.get(position);
-                                                    Bundle args = new Bundle();
-                                                    args.putSerializable("stock", partStock);
-                                                    partDetailFragment.setArguments(args);
-                                                    replaceFragment(partDetailFragment);
+
                                                 }
                                             }
                                         });
