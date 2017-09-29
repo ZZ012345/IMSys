@@ -1,14 +1,15 @@
 package com.rinc.imsys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,16 +26,14 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by ZhouZhi on 2017/9/22.
+ * Created by ZhouZhi on 2017/9/29.
  */
 
-public class EquipInRecFragment extends BaseFragment {
+public class EquipInRecActivity extends BaseActivity {
 
     private ProgressBar progressBar;
 
     private TextView textNotExist;
-
-    private Button backButton;
 
     private RecyclerView recyclerView;
 
@@ -43,8 +42,6 @@ public class EquipInRecFragment extends BaseFragment {
     private LinearLayout previousPage;
 
     private LinearLayout nextPage;
-
-    private Button backButtonBottom;
 
     private TextView pageCount;
 
@@ -57,33 +54,49 @@ public class EquipInRecFragment extends BaseFragment {
     private int allNum;
 
     private int pageSize;
-
-    @Nullable
+    
+    private EquipStock equipStock;
+    
+    private EquipInRecordAdapter equipInRecordAdapter;
+    
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_equipinrec, container, false);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
+    
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_equipinrec);
 
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar_equipinrec);
-        textNotExist = (TextView) view.findViewById(R.id.text_notexist_equipinrec);
-        backButton = (Button) view.findViewById(R.id.button_back_equipinrec);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_equipinrec);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_equipinrec);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_equipinrec);
+        textNotExist = (TextView) findViewById(R.id.text_notexist_equipinrec);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_equipinrec);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(EquipInRecActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-        pageController = LayoutInflater.from(getActivity()).inflate(R.layout.pageandback_item, recyclerView, false);
-        previousPage = (LinearLayout) pageController.findViewById(R.id.previous_link_pageandback);
-        nextPage = (LinearLayout) pageController.findViewById(R.id.next_link_pageandback);
-        backButtonBottom = (Button) pageController.findViewById(R.id.back_button_pageandback);
-        pageCount = (TextView) pageController.findViewById(R.id.page_count_pageandback);
-
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("整机入库记录");
+        pageController = LayoutInflater.from(EquipInRecActivity.this).inflate(R.layout.page_item, recyclerView, false);
+        previousPage = (LinearLayout) pageController.findViewById(R.id.previous_link);
+        nextPage = (LinearLayout) pageController.findViewById(R.id.next_link);
+        pageCount = (TextView) pageController.findViewById(R.id.page_count);
 
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);
-        backButton.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
 
-        final EquipStock equipStock = (EquipStock) getArguments().getSerializable("stock");
+        Intent intent = getIntent();
+        equipStock = (EquipStock) intent.getSerializableExtra("stock");
 
         HttpUtil.getEquipInRec(String.valueOf(equipStock.getDatabaseid()), new okhttp3.Callback() {
             @Override
@@ -96,12 +109,11 @@ public class EquipInRecFragment extends BaseFragment {
                     JSONArray jsonArray = new JSONArray(jsonAll.getString("results"));
                     if (allNum == 0) {
                         //没有相关信息
-                        getActivity().runOnUiThread(new Runnable() {
+                        runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.VISIBLE);
-                                backButton.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
                             }
                         });
@@ -122,20 +134,19 @@ public class EquipInRecFragment extends BaseFragment {
                             erlist.add(equipInRecord);
                         }
 
-                        getActivity().runOnUiThread(new Runnable() {
+                        runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
-                                backButton.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
 
-                                EquipInRecordAdapter equipInRecordAdapter = new EquipInRecordAdapter(erlist);
+                                equipInRecordAdapter = new EquipInRecordAdapter(erlist);
                                 recyclerView.setAdapter(equipInRecordAdapter);
                                 equipInRecordAdapter.setFooterView(pageController);
                                 equipInRecordAdapter.setOnItemClickListener(new EquipInRecordAdapter.OnItemClickListener() {
                                     @Override
-                                    public void onItemClick(View view1, int position) {
+                                    public void onItemClick(View view, int position) {
 
                                     }
                                 });
@@ -146,7 +157,6 @@ public class EquipInRecFragment extends BaseFragment {
                                 } else {
                                     nextPage.setVisibility(View.GONE);
                                 }
-                                backButtonBottom.setVisibility(View.VISIBLE);
 
                                 pageSize = erlist.size();
                                 int pageNum = MatStorageFragment.getPageNum(allNum, pageSize);
@@ -163,14 +173,13 @@ public class EquipInRecFragment extends BaseFragment {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 LogUtil.d("Get Equip In Rec", "failed");
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         progressBar.setVisibility(View.GONE);
                         textNotExist.setVisibility(View.GONE);
-                        backButton.setVisibility(View.VISIBLE);
                         recyclerView.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EquipInRecActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -178,14 +187,13 @@ public class EquipInRecFragment extends BaseFragment {
 
         View.OnClickListener pageListener = new View.OnClickListener() {
             @Override
-            public void onClick(View view1) {
+            public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
                 textNotExist.setVisibility(View.GONE);
-                backButton.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.GONE);
 
                 String url;
-                if ((LinearLayout) view1 == previousPage) {
+                if ((LinearLayout) view == previousPage) {
                     url = previousUrl;
                 } else {
                     url = nextUrl;
@@ -212,29 +220,25 @@ public class EquipInRecFragment extends BaseFragment {
                             JSONArray jsonArray = new JSONArray(jsonAll.getString("results"));
                             if (allNum == 0) {
                                 //没有相关信息
-                                getActivity().runOnUiThread(new Runnable() {
+                                runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressBar.setVisibility(View.GONE);
                                         textNotExist.setVisibility(View.VISIBLE);
-                                        backButton.setVisibility(View.VISIBLE);
                                         recyclerView.setVisibility(View.GONE);
                                     }
                                 });
                             } else if (jsonArray.length() == 0) {
                                 //该页的内容已被删除
                                 erlist.clear();
-                                getActivity().runOnUiThread(new Runnable() {
+                                runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressBar.setVisibility(View.GONE);
                                         textNotExist.setVisibility(View.GONE);
-                                        backButton.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        EquipInRecordAdapter equipInRecordAdapter = new EquipInRecordAdapter(erlist);
-                                        recyclerView.swapAdapter(equipInRecordAdapter, true);
-                                        equipInRecordAdapter.setFooterView(pageController);
+                                        equipInRecordAdapter.notifyDataSetChanged();
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -246,7 +250,6 @@ public class EquipInRecFragment extends BaseFragment {
                                         } else {
                                             nextPage.setVisibility(View.GONE);
                                         }
-                                        backButtonBottom.setVisibility(View.VISIBLE);
 
                                         pageCount.setText("");
                                     }
@@ -264,23 +267,15 @@ public class EquipInRecFragment extends BaseFragment {
                                     erlist.add(equipInRecord);
                                 }
 
-                                getActivity().runOnUiThread(new Runnable() {
+                                runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressBar.setVisibility(View.GONE);
                                         textNotExist.setVisibility(View.GONE);
-                                        backButton.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        EquipInRecordAdapter equipInRecordAdapter = new EquipInRecordAdapter(erlist);
-                                        recyclerView.swapAdapter(equipInRecordAdapter, true);
-                                        equipInRecordAdapter.setFooterView(pageController);
-                                        equipInRecordAdapter.setOnItemClickListener(new EquipInRecordAdapter.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(View view2, int position) {
-
-                                            }
-                                        });
+                                        equipInRecordAdapter.notifyDataSetChanged();
+                                        recyclerView.scrollToPosition(0);
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -292,7 +287,6 @@ public class EquipInRecFragment extends BaseFragment {
                                         } else {
                                             nextPage.setVisibility(View.GONE);
                                         }
-                                        backButtonBottom.setVisibility(View.VISIBLE);
 
                                         pageCount.setText(MatStorageFragment.getPageCountStr(previousUrl, nextUrl, allNum, pageSize));
                                     }
@@ -307,14 +301,13 @@ public class EquipInRecFragment extends BaseFragment {
                     public void onFailure(Call call, IOException e) {
                         e.printStackTrace();
                         LogUtil.d("Get Equip In Rec Page", "failed");
-                        getActivity().runOnUiThread(new Runnable() {
+                        runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
-                                backButton.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EquipInRecActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -324,29 +317,5 @@ public class EquipInRecFragment extends BaseFragment {
 
         previousPage.setOnClickListener(pageListener);
         nextPage.setOnClickListener(pageListener);
-
-        backButtonBottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view1) {
-                EquipDetailFragment equipDetailFragment = new EquipDetailFragment();
-                Bundle args = new Bundle();
-                args.putSerializable("stock", equipStock);
-                equipDetailFragment.setArguments(args);
-                replaceFragment(equipDetailFragment);
-            }
-        });
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view1) {
-                EquipDetailFragment equipDetailFragment = new EquipDetailFragment();
-                Bundle args = new Bundle();
-                args.putSerializable("stock", equipStock);
-                equipDetailFragment.setArguments(args);
-                replaceFragment(equipDetailFragment);
-            }
-        });
-
-        return view;
     }
 }

@@ -1,5 +1,6 @@
 package com.rinc.imsys;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,6 +54,10 @@ public class EquipStorageFragment extends BaseFragment {
 
     private int pageSize;
 
+    private int lastClick = 0;
+
+    private EquipStockAdapter equipStockAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,8 +79,6 @@ public class EquipStorageFragment extends BaseFragment {
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
-
-        SearchRecord.lastFrag = SearchRecord.FRAGLABEL_STORAGE;
 
         HttpUtil.getEquipStorage(new okhttp3.Callback() {
             @Override
@@ -145,7 +148,7 @@ public class EquipStorageFragment extends BaseFragment {
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
 
-                                EquipStockAdapter equipStockAdapter = new EquipStockAdapter(mlist);
+                                equipStockAdapter = new EquipStockAdapter(mlist);
                                 recyclerView.setAdapter(equipStockAdapter);
                                 equipStockAdapter.setFooterView(pageController);
                                 equipStockAdapter.setOnItemClickListener(new EquipStockAdapter.OnItemClickListener() {
@@ -153,12 +156,11 @@ public class EquipStorageFragment extends BaseFragment {
                                     public void onItemClick(View view1, int position) {
                                         if (position != mlist.size()) {
                                             //传递对象
-                                            EquipDetailFragment equipDetailFragment = new EquipDetailFragment();
+                                            lastClick = position;
                                             EquipStock equipStock = mlist.get(position);
-                                            Bundle args = new Bundle();
-                                            args.putSerializable("stock", equipStock);
-                                            equipDetailFragment.setArguments(args);
-                                            replaceFragment(equipDetailFragment);
+                                            Intent intent = new Intent(getActivity(), EquipDetailActivity.class);
+                                            intent.putExtra("stock", equipStock);
+                                            startActivityForResult(intent, 1);
                                         }
                                     }
                                 });
@@ -250,9 +252,7 @@ public class EquipStorageFragment extends BaseFragment {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        EquipStockAdapter equipStockAdapter = new EquipStockAdapter(mlist);
-                                        recyclerView.swapAdapter(equipStockAdapter, true);
-                                        equipStockAdapter.setFooterView(pageController);
+                                        equipStockAdapter.notifyDataSetChanged();
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -313,23 +313,8 @@ public class EquipStorageFragment extends BaseFragment {
                                         textNotExist.setVisibility(View.GONE);
                                         recyclerView.setVisibility(View.VISIBLE);
 
-                                        EquipStockAdapter equipStockAdapter = new EquipStockAdapter(mlist);
-                                        recyclerView.swapAdapter(equipStockAdapter, true);
-                                        equipStockAdapter.setFooterView(pageController);
-                                        equipStockAdapter.setOnItemClickListener(new EquipStockAdapter.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(View view2, int position) {
-                                                if (position != mlist.size()) {
-                                                    //传递对象
-                                                    EquipDetailFragment equipDetailFragment = new EquipDetailFragment();
-                                                    EquipStock equipStock = mlist.get(position);
-                                                    Bundle args = new Bundle();
-                                                    args.putSerializable("stock", equipStock);
-                                                    equipDetailFragment.setArguments(args);
-                                                    replaceFragment(equipDetailFragment);
-                                                }
-                                            }
-                                        });
+                                        equipStockAdapter.notifyDataSetChanged();
+                                        recyclerView.scrollToPosition(0);
 
                                         if (previousUrl.length() != 0) {
                                             previousPage.setVisibility(View.VISIBLE);
@@ -373,5 +358,23 @@ public class EquipStorageFragment extends BaseFragment {
         nextPage.setOnClickListener(pageListener);
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == SearchRecord.RESULT_MODIFY) {
+                    EquipStock equipStock = (EquipStock) data.getSerializableExtra("stock");
+                    mlist.remove(lastClick);
+                    mlist.add(lastClick, equipStock);
+                    equipStockAdapter.notifyItemChanged(lastClick);
+                } else if (resultCode == SearchRecord.RESULT_DELETE) {
+                    mlist.remove(lastClick);
+                    equipStockAdapter.notifyDataSetChanged();
+                }
+                break;
+            default:
+        }
     }
 }

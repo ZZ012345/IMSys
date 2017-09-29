@@ -131,6 +131,36 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".EquipDetailActivity"
+            android:label="整机详细信息"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".ModifyEquipDetailActivity"
+            android:label="修改整机详细信息"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".EquipInRecActivity"
+            android:label="整机入库记录"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".EquipOutRecActivity"
+            android:label="整机出库记录"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".EquipSearchResultActivity"
+            android:label="查找结果"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

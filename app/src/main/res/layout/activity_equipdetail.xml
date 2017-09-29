@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_equipdetail"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -349,31 +358,10 @@
             </LinearLayout>
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_back_equipdetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="15dp"
-                android:text="返回" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_modify_equipdetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="修改" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_delete_equipdetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="删除" />
-
-            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_in_equipdetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="15dp"
                 android:text="入库记录" />
 

@@ -516,24 +516,6 @@ public class MainActivity extends BaseActivity {
         //super.onBackPressed();
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers();
-        } else {
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
-            if (fragment instanceof EquipDetailFragment) {
-                Button button = (Button) findViewById(R.id.button_back_equipdetail);
-                button.performClick();
-            } else if (fragment instanceof ModifyEquipDetailFragment) {
-                Button button = (Button) findViewById(R.id.button_cancel_equipdetail_modify);
-                button.performClick();
-            } else if (fragment instanceof EquipInRecFragment) {
-                Button button = (Button) findViewById(R.id.button_back_equipinrec);
-                button.performClick();
-            } else if (fragment instanceof EquipOutRecFragment) {
-                Button button = (Button) findViewById(R.id.button_back_equipoutrec);
-                button.performClick();
-            } else if (fragment instanceof EquipSearchResultFragment) {
-                Button button = (Button) findViewById(R.id.button_back_equipsearchresult);
-                button.performClick();
-            }
         }
     }
 
