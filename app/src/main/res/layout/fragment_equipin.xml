@@ -182,7 +182,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="状态" />
+                    android:hint="状况" />
 
             </android.support.design.widget.TextInputLayout>
 

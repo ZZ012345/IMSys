@@ -171,6 +171,7 @@ public class QRMakeFragment extends BaseFragment {
                     wrapperMachineBand.setVisibility(View.GONE);
                     wrapperCondition.setVisibility(View.GONE);
                     wrapperVulnerability.setVisibility(View.GONE);
+                    wrapperState.setHint("状态");
                 } else if (i == 1) {
                     //备件库
                     wrapperHour.setVisibility(View.GONE);
@@ -181,6 +182,7 @@ public class QRMakeFragment extends BaseFragment {
                     wrapperMachineBand.setVisibility(View.VISIBLE);
                     wrapperCondition.setVisibility(View.VISIBLE);
                     wrapperVulnerability.setVisibility(View.VISIBLE);
+                    wrapperState.setHint("状态");
                 } else {
                     //整机库
                     wrapperHour.setVisibility(View.VISIBLE);
@@ -191,6 +193,7 @@ public class QRMakeFragment extends BaseFragment {
                     wrapperMachineBand.setVisibility(View.GONE);
                     wrapperCondition.setVisibility(View.GONE);
                     wrapperVulnerability.setVisibility(View.GONE);
+                    wrapperState.setHint("状况");
                 }
             }
 

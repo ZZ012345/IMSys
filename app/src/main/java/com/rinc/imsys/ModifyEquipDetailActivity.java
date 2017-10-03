@@ -207,7 +207,7 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                 final TextInputLayout wrapperYear = (TextInputLayout) findViewById(R.id.wrapper_year_equipdetail_modify);
                 wrapperYear.setErrorEnabled(false);
 
-                //检查状态是否合法
+                //检查状况是否合法
                 TextInputLayout wrapperState = (TextInputLayout) findViewById(R.id.wrapper_state_equipdetail_modify);
                 final String state = textState.getText().toString();
                 LogUtil.d("Equip Detail Modify state", state);
