@@ -11,29 +11,6 @@
             android:title="个人信息" />
 
         <item
-            android:id="@+id/menu_mat"
-            android:icon="@drawable/menu_mat"
-            app:actionLayout="@layout/custom_menu_mat"
-            android:checkable="false"
-            android:title="材料库" />
-
-        <item
-            android:id="@+id/menu_matsto"
-            android:title="库存品信息" />
-
-        <item
-            android:id="@+id/menu_matin"
-            android:title="入库" />
-
-        <item
-            android:id="@+id/menu_matout"
-            android:title="出库" />
-
-        <item
-            android:id="@+id/menu_matsearch"
-            android:title="查找" />
-
-        <item
             android:id="@+id/menu_part"
             android:icon="@drawable/menu_part"
             app:actionLayout="@layout/custom_menu_part"
@@ -77,6 +54,29 @@
 
         <item
             android:id="@+id/menu_equipsearch"
+            android:title="查找" />
+
+        <item
+            android:id="@+id/menu_mat"
+            android:icon="@drawable/menu_mat"
+            app:actionLayout="@layout/custom_menu_mat"
+            android:checkable="false"
+            android:title="材料库" />
+
+        <item
+            android:id="@+id/menu_matsto"
+            android:title="库存品信息" />
+
+        <item
+            android:id="@+id/menu_matin"
+            android:title="入库" />
+
+        <item
+            android:id="@+id/menu_matout"
+            android:title="出库" />
+
+        <item
+            android:id="@+id/menu_matsearch"
             android:title="查找" />
 
         <item

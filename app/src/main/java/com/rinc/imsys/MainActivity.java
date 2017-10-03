@@ -104,27 +104,27 @@ public class MainActivity extends BaseActivity {
 
         menu = navView.getMenu();
 
-        menuMat = menu.getItem(1);
-        menuMatsto = menu.getItem(2);
-        menuMatin = menu.getItem(3);
-        menuMatout = menu.getItem(4);
-        menuMatsearch = menu.getItem(5);
+        menuMat = menu.getItem(11);
+        menuMatsto = menu.getItem(12);
+        menuMatin = menu.getItem(13);
+        menuMatout = menu.getItem(14);
+        menuMatsearch = menu.getItem(15);
         View viewMat = menuMat.getActionView();
         imageMat = (ImageView) viewMat.findViewById(R.id.image_menu_mat);
 
-        menuPart = menu.getItem(6);
-        menuPartsto = menu.getItem(7);
-        menuPartin = menu.getItem(8);
-        menuPartout = menu.getItem(9);
-        menuPartsearch = menu.getItem(10);
+        menuPart = menu.getItem(1);
+        menuPartsto = menu.getItem(2);
+        menuPartin = menu.getItem(3);
+        menuPartout = menu.getItem(4);
+        menuPartsearch = menu.getItem(5);
         View viewPart = menuPart.getActionView();
         imagePart = (ImageView) viewPart.findViewById(R.id.image_menu_part);
 
-        menuEquip = menu.getItem(11);
-        menuEquipsto = menu.getItem(12);
-        menuEquipin = menu.getItem(13);
-        menuEquipout = menu.getItem(14);
-        menuEquipsearch = menu.getItem(15);
+        menuEquip = menu.getItem(6);
+        menuEquipsto = menu.getItem(7);
+        menuEquipin = menu.getItem(8);
+        menuEquipout = menu.getItem(9);
+        menuEquipsearch = menu.getItem(10);
         View viewEquip = menuEquip.getActionView();
         imageEquip = (ImageView) viewEquip.findViewById(R.id.image_menu_equip);
 
