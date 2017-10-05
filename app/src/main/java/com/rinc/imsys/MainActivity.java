@@ -20,10 +20,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -80,6 +82,36 @@ public class MainActivity extends BaseActivity {
 
     private int lastClickOn = 0; //用于标记上次点击的菜单位置
 
+    private Fragment currentFrag;
+
+    private UserinfoFragment userinfoFragment = new UserinfoFragment();
+
+    private PartStorageFragment partStorageFragment = new PartStorageFragment();
+
+    private PartInFragment partInFragment = new PartInFragment();
+
+    private PartOutFragment partOutFragment = new PartOutFragment();
+
+    private PartSearchFragment partSearchFragment = new PartSearchFragment();
+
+    private EquipStorageFragment equipStorageFragment = new EquipStorageFragment();
+
+    private EquipInFragment equipInFragment = new EquipInFragment();
+
+    private EquipOutFragment equipOutFragment = new EquipOutFragment();
+
+    private EquipSearchFragment equipSearchFragment = new EquipSearchFragment();
+
+    private MatStorageFragment matStorageFragment = new MatStorageFragment();
+
+    private MatInFragment matInFragment = new MatInFragment();
+
+    private MatOutFragment matOutFragment = new MatOutFragment();
+
+    private MatSearchFragment matSearchFragment = new MatSearchFragment();
+
+    private QRMakeFragment qrMakeFragment = new QRMakeFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +165,7 @@ public class MainActivity extends BaseActivity {
         setPartMenuVisible(false);
         setEquipMenuVisible(false);
 
-        replaceFragment(new UserinfoFragment()); //加载个人信息碎片
+        replaceFragmentWithoutRefresh(userinfoFragment); //加载个人信息碎片
 
         navView.setCheckedItem(R.id.menu_userinfo);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -143,7 +175,8 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_userinfo:
                         scanItem.setVisible(false);
                         lastClickOn = 0;
-                        replaceFragment(new UserinfoFragment());
+                        toolbar.setTitle("个人信息");
+                        replaceFragmentWithoutRefresh(userinfoFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_mat:
@@ -153,25 +186,29 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_matsto:
                         scanItem.setVisible(false);
                         lastClickOn = 1;
-                        replaceFragment(new MatStorageFragment());
+                        toolbar.setTitle("材料库库存品信息");
+                        replaceFragmentWithoutRefresh(matStorageFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matin:
                         scanItem.setVisible(true);
                         lastClickOn = 2;
-                        replaceFragment(new MatInFragment());
+                        toolbar.setTitle("材料入库");
+                        replaceFragmentWithoutRefresh(matInFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matout:
                         scanItem.setVisible(true);
                         lastClickOn = 3;
-                        replaceFragment(new MatOutFragment());
+                        toolbar.setTitle("材料出库");
+                        replaceFragmentWithoutRefresh(matOutFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matsearch:
                         scanItem.setVisible(false);
                         lastClickOn = 4;
-                        replaceFragment(new MatSearchFragment());
+                        toolbar.setTitle("材料查找");
+                        replaceFragmentWithoutRefresh(matSearchFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_part:
@@ -181,25 +218,29 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_partsto:
                         scanItem.setVisible(false);
                         lastClickOn = 5;
-                        replaceFragment(new PartStorageFragment());
+                        toolbar.setTitle("备件库库存品信息");
+                        replaceFragmentWithoutRefresh(partStorageFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_partin:
                         scanItem.setVisible(true);
                         lastClickOn = 6;
-                        replaceFragment(new PartInFragment());
+                        toolbar.setTitle("备件入库");
+                        replaceFragmentWithoutRefresh(partInFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_partout:
                         scanItem.setVisible(true);
                         lastClickOn = 7;
-                        replaceFragment(new PartOutFragment());
+                        toolbar.setTitle("备件出库");
+                        replaceFragmentWithoutRefresh(partOutFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_partsearch:
                         scanItem.setVisible(false);
                         lastClickOn = 8;
-                        replaceFragment(new PartSearchFragment());
+                        toolbar.setTitle("备件查找");
+                        replaceFragmentWithoutRefresh(partSearchFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_equip:
@@ -209,31 +250,36 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_equipsto:
                         scanItem.setVisible(false);
                         lastClickOn = 9;
-                        replaceFragment(new EquipStorageFragment());
+                        toolbar.setTitle("整机库库存品信息");
+                        replaceFragmentWithoutRefresh(equipStorageFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_equipin:
                         scanItem.setVisible(true);
                         lastClickOn = 10;
-                        replaceFragment(new EquipInFragment());
+                        toolbar.setTitle("整机入库");
+                        replaceFragmentWithoutRefresh(equipInFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_equipout:
                         scanItem.setVisible(true);
                         lastClickOn = 11;
-                        replaceFragment(new EquipOutFragment());
+                        toolbar.setTitle("整机出库");
+                        replaceFragmentWithoutRefresh(equipOutFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_equipsearch:
                         scanItem.setVisible(false);
                         lastClickOn = 12;
-                        replaceFragment(new EquipSearchFragment());
+                        toolbar.setTitle("整机查找");
+                        replaceFragmentWithoutRefresh(equipSearchFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_qrmake:
                         scanItem.setVisible(false);
                         lastClickOn = 13;
-                        replaceFragment(new QRMakeFragment());
+                        toolbar.setTitle("生成二维码");
+                        replaceFragmentWithoutRefresh(qrMakeFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_logout:
@@ -479,31 +525,219 @@ public class MainActivity extends BaseActivity {
                     Bundle args = new Bundle();
                     args.putString("info", returnData);
 
-                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
+                    Fragment fragment = getCurrentFragment();
+                    if (fragment == null) {
+                        LogUtil.d("QR current fragment", "null");
+                    } else {
+                        LogUtil.d("QR current fragment", fragment.getClass().getSimpleName());
+                    }
                     if (fragment instanceof MatInFragment) {
-                        MatInFragment matInFragment = new MatInFragment();
-                        matInFragment.setArguments(args);
-                        replaceFragment(matInFragment);
+                        //材料入库
+                        EditText textId = (EditText) findViewById(R.id.input_id_matin);
+                        EditText textType = (EditText) findViewById(R.id.input_type_matin);
+                        EditText textMark = (EditText) findViewById(R.id.input_mark_matin);
+                        EditText textBand = (EditText) findViewById(R.id.input_band_matin);
+                        EditText textOriginal = (EditText) findViewById(R.id.input_original_matin);
+                        EditText textYear = (EditText) findViewById(R.id.input_year_matin);
+                        EditText textState = (EditText) findViewById(R.id.input_state_matin);
+                        EditText textPosition = (EditText) findViewById(R.id.input_position_matin);
+                        EditText textUnit = (EditText) findViewById(R.id.input_unit_matin);
+                        EditText textDescription = (EditText) findViewById(R.id.input_description_matin);
+                        try {
+                            JSONObject jsonObject = new JSONObject(returnData);
+                            String stockType = jsonObject.getString("stockType");
+                            String idScan = jsonObject.getString("id");
+                            String typeScan = jsonObject.getString("type");
+                            String markScan = jsonObject.getString("mark");
+                            String bandScan = jsonObject.getString("band");
+                            String originalScan = jsonObject.getString("original");
+                            String yearScan = jsonObject.getString("year");
+                            String stateScan = jsonObject.getString("state");
+                            String positionScan = jsonObject.getString("position");
+                            String unitScan = jsonObject.getString("unit");
+                            String descriptionScan = jsonObject.getString("description");
+
+                            if (stockType.equals("material")) {
+                                textId.setText(idScan);
+                                textType.setText(typeScan);
+                                textMark.setText(markScan);
+                                textBand.setText(bandScan);
+                                textOriginal.setText(originalScan);
+                                textYear.setText(yearScan);
+                                textState.setText(stateScan);
+                                textPosition.setText(positionScan);
+                                textUnit.setText(unitScan);
+                                textDescription.setText(descriptionScan);
+                            } else {
+                                Toast.makeText(MainActivity.this, "非材料库二维码！", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (fragment instanceof MatOutFragment) {
-                        MatOutFragment matOutFragment = new MatOutFragment();
-                        matOutFragment.setArguments(args);
-                        replaceFragment(matOutFragment);
+                        //材料出库
+                        EditText textId = (EditText) findViewById(R.id.input_id_matout);
+                        try {
+                            JSONObject jsonObject = new JSONObject(returnData);
+                            String stockType = jsonObject.getString("stockType");
+                            String idScan = jsonObject.getString("id");
+
+                            if (stockType.equals("material")) {
+                                textId.setText(idScan);
+                            } else {
+                                Toast.makeText(MainActivity.this, "非材料库二维码！", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (fragment instanceof PartInFragment) {
-                        PartInFragment partInFragment = new PartInFragment();
-                        partInFragment.setArguments(args);
-                        replaceFragment(partInFragment);
+                        //备件入库
+                        EditText textId = (EditText) findViewById(R.id.input_id_partin);
+                        EditText textType = (EditText) findViewById(R.id.input_type_partin);
+                        EditText textMark = (EditText) findViewById(R.id.input_mark_partin);
+                        EditText textBand = (EditText) findViewById(R.id.input_band_partin);
+                        EditText textOriginal = (EditText) findViewById(R.id.input_original_partin);
+                        EditText textYear = (EditText) findViewById(R.id.input_year_partin);
+                        EditText textState = (EditText) findViewById(R.id.input_state_partin);
+                        EditText textPosition = (EditText) findViewById(R.id.input_position_partin);
+                        EditText textUnit = (EditText) findViewById(R.id.input_unit_partin);
+                        EditText textName = (EditText) findViewById(R.id.input_name_partin);
+                        EditText textCompany = (EditText) findViewById(R.id.input_company_partin);
+                        EditText textMachineName = (EditText) findViewById(R.id.input_machinename_partin);
+                        EditText textMachineType = (EditText) findViewById(R.id.input_machinetype_partin);
+                        EditText textMachineBand = (EditText) findViewById(R.id.input_machineband_partin);
+                        EditText textCondition = (EditText) findViewById(R.id.input_condition_partin);
+                        EditText textVulnerability = (EditText) findViewById(R.id.input_vul_partin);
+                        EditText textDescription = (EditText) findViewById(R.id.input_description_partin);
+                        try {
+                            JSONObject jsonObject = new JSONObject(returnData);
+                            String stockType = jsonObject.getString("stockType");
+                            String idScan = jsonObject.getString("id");
+                            String typeScan = jsonObject.getString("type");
+                            String markScan = jsonObject.getString("mark");
+                            String bandScan = jsonObject.getString("band");
+                            String originalScan = jsonObject.getString("original");
+                            String yearScan = jsonObject.getString("year");
+                            String stateScan = jsonObject.getString("state");
+                            String positionScan = jsonObject.getString("position");
+                            String unitScan = jsonObject.getString("unit");
+                            String nameScan = jsonObject.getString("name");
+                            String companyScan = jsonObject.getString("company");
+                            String machineNameScan = jsonObject.getString("machineName");
+                            String machineTypeScan = jsonObject.getString("machineType");
+                            String machineBandScan = jsonObject.getString("machineBand");
+                            String conditionScan = jsonObject.getString("condition");
+                            String vulnerabilityScan = jsonObject.getString("vulnerability");
+                            String descriptionScan = jsonObject.getString("description");
+
+                            if (stockType.equals("part")) {
+                                textId.setText(idScan);
+                                textType.setText(typeScan);
+                                textMark.setText(markScan);
+                                textBand.setText(bandScan);
+                                textOriginal.setText(originalScan);
+                                textYear.setText(yearScan);
+                                textState.setText(stateScan);
+                                textPosition.setText(positionScan);
+                                textUnit.setText(unitScan);
+                                textName.setText(nameScan);
+                                textCompany.setText(companyScan);
+                                textMachineName.setText(machineNameScan);
+                                textMachineType.setText(machineTypeScan);
+                                textMachineBand.setText(machineBandScan);
+                                textCondition.setText(conditionScan);
+                                textVulnerability.setText(vulnerabilityScan);
+                                textDescription.setText(descriptionScan);
+                            } else {
+                                Toast.makeText(MainActivity.this, "非备件库二维码！", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (fragment instanceof PartOutFragment) {
-                        PartOutFragment partOutFragment = new PartOutFragment();
-                        partOutFragment.setArguments(args);
-                        replaceFragment(partOutFragment);
+                        //备件出库
+                        EditText textId = (EditText) findViewById(R.id.input_id_partout);
+                        try {
+                            JSONObject jsonObject = new JSONObject(returnData);
+                            String stockType = jsonObject.getString("stockType");
+                            String idScan = jsonObject.getString("id");
+
+                            if (stockType.equals("part")) {
+                                textId.setText(idScan);
+                            } else {
+                                Toast.makeText(MainActivity.this, "非备件库二维码！", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (fragment instanceof EquipInFragment) {
-                        EquipInFragment equipInFragment = new EquipInFragment();
-                        equipInFragment.setArguments(args);
-                        replaceFragment(equipInFragment);
+                        //整机入库
+                        EditText textId = (EditText) findViewById(R.id.input_id_equipin);
+                        EditText textType = (EditText) findViewById(R.id.input_type_equipin);
+                        EditText textMark = (EditText) findViewById(R.id.input_mark_equipin);
+                        EditText textHour = (EditText) findViewById(R.id.input_hour_equipin);
+                        EditText textBand = (EditText) findViewById(R.id.input_band_equipin);
+                        EditText textOriginal = (EditText) findViewById(R.id.input_original_equipin);
+                        EditText textYear = (EditText) findViewById(R.id.input_year_equipin);
+                        EditText textState = (EditText) findViewById(R.id.input_state_equipin);
+                        EditText textPosition = (EditText) findViewById(R.id.input_position_equipin);
+                        EditText textUnit = (EditText) findViewById(R.id.input_unit_equipin);
+                        EditText textDescription = (EditText) findViewById(R.id.input_description_equipin);
+                        try {
+                            JSONObject jsonObject = new JSONObject(returnData);
+                            String stockType = jsonObject.getString("stockType");
+                            String idScan = jsonObject.getString("id");
+                            String typeScan = jsonObject.getString("type");
+                            String markScan = jsonObject.getString("mark");
+                            String hourScan = jsonObject.getString("hour");
+                            String bandScan = jsonObject.getString("band");
+                            String originalScan = jsonObject.getString("original");
+                            String yearScan = jsonObject.getString("year");
+                            String stateScan = jsonObject.getString("state");
+                            String positionScan = jsonObject.getString("position");
+                            String unitScan = jsonObject.getString("unit");
+                            String descriptionScan = jsonObject.getString("description");
+
+                            if (stockType.equals("equipment")) {
+                                textId.setText(idScan);
+                                textType.setText(typeScan);
+                                textMark.setText(markScan);
+                                textHour.setText(hourScan);
+                                textBand.setText(bandScan);
+                                textOriginal.setText(originalScan);
+                                textYear.setText(yearScan);
+                                textState.setText(stateScan);
+                                textPosition.setText(positionScan);
+                                textUnit.setText(unitScan);
+                                textDescription.setText(descriptionScan);
+                            } else {
+                                Toast.makeText(MainActivity.this, "非整机库二维码！", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                        }
                     } else if (fragment instanceof EquipOutFragment) {
-                        EquipOutFragment equipOutFragment = new EquipOutFragment();
-                        equipOutFragment.setArguments(args);
-                        replaceFragment(equipOutFragment);
+                        //整机出库
+                        EditText textId = (EditText) findViewById(R.id.input_id_equipout);
+                        try {
+                            JSONObject jsonObject = new JSONObject(returnData);
+                            String stockType = jsonObject.getString("stockType");
+                            String idScan = jsonObject.getString("id");
+
+                            if (stockType.equals("equipment")) {
+                                textId.setText(idScan);
+                            } else {
+                                Toast.makeText(MainActivity.this, "非整机库二维码！", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
                 break;
@@ -519,32 +753,23 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragmentWithoutRefresh(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commitAllowingStateLoss();
-        /*
-        FragmentManager fragmentManager =  getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (currentFrag == null) {
             transaction.add(R.id.frame_main, fragment);
-            //transaction.addToBackStack(null);
-            transaction.commitAllowingStateLoss();
+            transaction.commit();
             currentFrag = fragment;
-        }
-        if (currentFrag != fragment) {
+        } else if (currentFrag != fragment) {
             if (!fragment.isAdded()) {
                 transaction.hide(currentFrag).add(R.id.frame_main, fragment);
-                //transaction.addToBackStack(null);
-                transaction.commitAllowingStateLoss();
+                transaction.commit();
             } else {
                 transaction.hide(currentFrag).show(fragment);
-                transaction.commitAllowingStateLoss();
+                transaction.commit();
             }
             currentFrag = fragment;
         }
-        */
     }
 
     @Override
@@ -557,6 +782,40 @@ public class MainActivity extends BaseActivity {
                 } else {
                     Toast.makeText(this, "请授予相机权限以使用二维码扫描", Toast.LENGTH_SHORT).show();
                 }
+        }
+    }
+
+    private Fragment getCurrentFragment() {
+        if (userinfoFragment != null && userinfoFragment.isVisible()) {
+            return userinfoFragment;
+        } else if (partStorageFragment != null && partStorageFragment.isVisible()) {
+            return partStorageFragment;
+        } else if (partInFragment != null && partInFragment.isVisible()) {
+            return partInFragment;
+        } else if (partOutFragment != null && partOutFragment.isVisible()) {
+            return partOutFragment;
+        } else if (partSearchFragment != null && partSearchFragment.isVisible()) {
+            return partSearchFragment;
+        } else if (equipStorageFragment != null && equipStorageFragment.isVisible()) {
+            return equipStorageFragment;
+        } else if (equipInFragment != null && equipInFragment.isVisible()) {
+            return equipInFragment;
+        } else if (equipOutFragment != null && equipOutFragment.isVisible()) {
+            return equipOutFragment;
+        } else if (equipSearchFragment != null && equipSearchFragment.isVisible()) {
+            return equipSearchFragment;
+        } else if (matStorageFragment != null && matStorageFragment.isVisible()) {
+            return matStorageFragment;
+        } else if (matInFragment != null && matInFragment.isVisible()) {
+            return matInFragment;
+        } else if (matOutFragment != null && matOutFragment.isVisible()) {
+            return matOutFragment;
+        } else if (matSearchFragment != null && matSearchFragment.isVisible()) {
+            return matSearchFragment;
+        } else if (qrMakeFragment != null && qrMakeFragment.isVisible()) {
+            return qrMakeFragment;
+        } else {
+            return null;
         }
     }
 }

@@ -4,7 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:fitsSystemWindows="true">
@@ -262,5 +267,7 @@
         </LinearLayout>
 
     </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

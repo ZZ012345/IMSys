@@ -77,25 +77,6 @@ public class EquipOutFragment extends BaseFragment {
         String today = year + "-" + month + "-" + day;
         textDateTime.setText(today);
 
-        if (getArguments() != null) {
-            //从扫描二维码界面返回
-            String info = getArguments().getString("info");
-            try {
-                JSONObject jsonObject = new JSONObject(info);
-                String stockType = jsonObject.getString("stockType");
-                String idScan = jsonObject.getString("id");
-
-                if (stockType.equals("equipment")) {
-                    textId.setText(idScan);
-                } else {
-                    Toast.makeText(getActivity(), "非整机库二维码！", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(getActivity(), "二维码格式错误！", Toast.LENGTH_SHORT).show();
-            }
-        }
-
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -195,7 +176,11 @@ public class EquipOutFragment extends BaseFragment {
                                             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    replaceFragment(new EquipOutFragment());
+                                                    //清空出库信息，只保留出库时间和操作人员
+                                                    textId.setText("");
+                                                    textUser.setText("");
+                                                    textNum.setText("");
+                                                    textDescription.setText("");
                                                 }
                                             });
                                             builder.show();
@@ -218,7 +203,11 @@ public class EquipOutFragment extends BaseFragment {
                                                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                                                        //清空出库信息，只保留出库时间和操作人员
+                                                        textId.setText("");
+                                                        textUser.setText("");
+                                                        textNum.setText("");
+                                                        textDescription.setText("");
                                                     }
                                                 });
                                                 builder.show();
@@ -239,7 +228,7 @@ public class EquipOutFragment extends BaseFragment {
                                                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                                                        textNum.setText("");
                                                     }
                                                 });
                                                 builder.show();

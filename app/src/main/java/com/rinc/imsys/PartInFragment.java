@@ -126,57 +126,6 @@ public class PartInFragment extends BaseFragment {
         String today = year + "-" + month + "-" + day;
         textDateTime.setText(today);
 
-        if (getArguments() != null) {
-            //从扫描二维码界面返回
-            String info = getArguments().getString("info");
-            try {
-                JSONObject jsonObject = new JSONObject(info);
-                String stockType = jsonObject.getString("stockType");
-                String idScan = jsonObject.getString("id");
-                String typeScan = jsonObject.getString("type");
-                String markScan = jsonObject.getString("mark");
-                String bandScan = jsonObject.getString("band");
-                String originalScan = jsonObject.getString("original");
-                String yearScan = jsonObject.getString("year");
-                String stateScan = jsonObject.getString("state");
-                String positionScan = jsonObject.getString("position");
-                String unitScan = jsonObject.getString("unit");
-                String nameScan = jsonObject.getString("name");
-                String companyScan = jsonObject.getString("company");
-                String machineNameScan = jsonObject.getString("machineName");
-                String machineTypeScan = jsonObject.getString("machineType");
-                String machineBandScan = jsonObject.getString("machineBand");
-                String conditionScan = jsonObject.getString("condition");
-                String vulnerabilityScan = jsonObject.getString("vulnerability");
-                String descriptionScan = jsonObject.getString("description");
-
-                if (stockType.equals("part")) {
-                    textId.setText(idScan);
-                    textType.setText(typeScan);
-                    textMark.setText(markScan);
-                    textBand.setText(bandScan);
-                    textOriginal.setText(originalScan);
-                    textYear.setText(yearScan);
-                    textState.setText(stateScan);
-                    textPosition.setText(positionScan);
-                    textUnit.setText(unitScan);
-                    textName.setText(nameScan);
-                    textCompany.setText(companyScan);
-                    textMachineName.setText(machineNameScan);
-                    textMachineType.setText(machineTypeScan);
-                    textMachineBand.setText(machineBandScan);
-                    textCondition.setText(conditionScan);
-                    textVulnerability.setText(vulnerabilityScan);
-                    textDescription.setText(descriptionScan);
-                } else {
-                    Toast.makeText(getActivity(), "非备件库二维码！", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(getActivity(), "二维码格式错误！", Toast.LENGTH_SHORT).show();
-            }
-        }
-
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -445,7 +394,27 @@ public class PartInFragment extends BaseFragment {
                                                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                                            replaceFragment(new PartInFragment());
+                                                            //清空入库信息，只保留入库时间和操作人员
+                                                            textId.setText("");
+                                                            textType.setText("");
+                                                            stateSpinner.setSelection(0);
+                                                            textMark.setText("");
+                                                            textBand.setText("");
+                                                            textOriginal.setText("");
+                                                            textYear.setText("");
+                                                            textState.setText("");
+                                                            textPosition.setText("");
+                                                            textUnit.setText("");
+                                                            textName.setText("");
+                                                            textCompany.setText("");
+                                                            textMachineName.setText("");
+                                                            textMachineType.setText("");
+                                                            textMachineBand.setText("");
+                                                            textCondition.setText("");
+                                                            textVulnerability.setText("");
+                                                            textDescription.setText("");
+                                                            textNum.setText("");
+                                                            textInputDescription.setText("");
                                                         }
                                                     });
                                                     builder.show();

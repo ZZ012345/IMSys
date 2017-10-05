@@ -152,16 +152,16 @@ public class QRMakeFragment extends BaseFragment {
         toolbar.setTitle("生成二维码");
 
         //初始化下拉列表
-        stockList.add("材料库");
         stockList.add("备件库");
         stockList.add("整机库");
+        stockList.add("材料库");
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnertext_item, stockList);
         adapter.setDropDownViewResource(R.layout.spinnerdropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view1, int i, long l) {
-                if (i == 0) {
+                if (i == 2) {
                     //材料库
                     wrapperHour.setVisibility(View.GONE);
                     wrapperName.setVisibility(View.GONE);
@@ -172,7 +172,7 @@ public class QRMakeFragment extends BaseFragment {
                     wrapperCondition.setVisibility(View.GONE);
                     wrapperVulnerability.setVisibility(View.GONE);
                     wrapperState.setHint("状态");
-                } else if (i == 1) {
+                } else if (i == 0) {
                     //备件库
                     wrapperHour.setVisibility(View.GONE);
                     wrapperName.setVisibility(View.VISIBLE);
@@ -298,7 +298,7 @@ public class QRMakeFragment extends BaseFragment {
 
                 if (idValid && typeValid && markValid && bandValid && originalValid && stateValid && positionValid) {
                     int stockType = spinner.getSelectedItemPosition();
-                    if (stockType == 0) {
+                    if (stockType == 2) {
                         //材料库
                         JSONObject jsonObject = new JSONObject();
                         try {
@@ -328,7 +328,7 @@ public class QRMakeFragment extends BaseFragment {
                         Intent intent = new Intent(getActivity(), QRCodeActivity.class);
                         intent.putExtra("info", infoStr);
                         getActivity().startActivity(intent);
-                    } else if (stockType == 1) {
+                    } else if (stockType == 0) {
                         //备件库
                         boolean nameValid = false;
                         boolean companyValid = false;

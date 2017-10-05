@@ -31,6 +31,12 @@ public class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        LogUtil.d("BaseFragment Resume", getClass().getSimpleName());
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         LogUtil.d("BaseFragment DestroyView", getClass().getSimpleName());
@@ -40,13 +46,6 @@ public class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         LogUtil.d("BaseFragment Destroy", getClass().getSimpleName());
-    }
-
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
     }
 
     public void hideKeyboard() { //隐藏虚拟键盘
