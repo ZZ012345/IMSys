@@ -230,7 +230,7 @@ public class ModifyPartDetailActivity extends BaseActivity {
                 final TextInputLayout wrapperYear = (TextInputLayout) findViewById(R.id.wrapper_year_partdetail_modify);
                 wrapperYear.setErrorEnabled(false);
 
-                //检查状态是否合法
+                //检查状况是否合法
                 TextInputLayout wrapperState = (TextInputLayout) findViewById(R.id.wrapper_state_partdetail_modify);
                 final String state = textState.getText().toString();
                 LogUtil.d("Part Detail Modify state", state);

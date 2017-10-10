@@ -211,7 +211,7 @@ public class PartInFragment extends BaseFragment {
                 final TextInputLayout wrapperYear = (TextInputLayout) view.findViewById(R.id.wrapper_year_partin);
                 wrapperYear.setErrorEnabled(false);
 
-                //检查状态是否合法
+                //检查状况是否合法
                 TextInputLayout wrapperState = (TextInputLayout) view.findViewById(R.id.wrapper_state_partin);
                 String state = textState.getText().toString();
                 LogUtil.d("Part in state", state);
