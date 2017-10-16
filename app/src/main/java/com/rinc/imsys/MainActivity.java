@@ -780,7 +780,7 @@ public class MainActivity extends BaseActivity {
                     Intent intent = new Intent(this, SimpleScannerActivity.class);
                     startActivityForResult(intent, 1);
                 } else {
-                    Toast.makeText(this, "请授予相机权限以使用二维码扫描", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "请授予相机权限以使用扫描二维码功能", Toast.LENGTH_SHORT).show();
                 }
         }
     }
