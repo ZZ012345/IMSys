@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">库存管理系统</string>
+    <string name="app_name">蓝猫</string>
     <array name="state">
         <item>在用</item>
         <item>闲置可用</item>

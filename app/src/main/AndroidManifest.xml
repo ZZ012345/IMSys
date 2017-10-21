@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="库存管理"
+            android:label="蓝猫"
             android:launchMode="standard"
             android:screenOrientation="portrait">
             <intent-filter>

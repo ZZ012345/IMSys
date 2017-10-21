@@ -101,7 +101,7 @@ public class QRCodeActivity extends BaseActivity {
     }
 
     private void saveImage() {
-        String storePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "IMSys";
+        String storePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "BlueCatFiles";
         File appDir = new File(storePath);
         if (!appDir.exists()) {
             appDir.mkdir();
@@ -114,7 +114,7 @@ public class QRCodeActivity extends BaseActivity {
             fos.flush();
             fos.close();
             if (isSuccess) {
-                Toast.makeText(QRCodeActivity.this, "保存成功！图片已保存至根目录下的\"IMSys\"文件夹中", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QRCodeActivity.this, "保存成功！图片已保存至根目录下的\"BlueCatFiles\"文件夹中", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(QRCodeActivity.this, "保存失败！", Toast.LENGTH_SHORT).show();
             }
