@@ -14,7 +14,8 @@ import okhttp3.MediaType;
 
 public class HttpUtil {
 
-    public static final String serverAddr = "http://118.89.20.122:8888/";
+    //http://118.89.20.122:8888/"
+    public static final String serverAddr = "http://101.132.104.112:8080/";
 
     public static String header;
 
