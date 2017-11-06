@@ -200,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:digits="0123456789."
-                    android:hint="单位原值" />
+                    android:hint="单位原值*" />
 
             </android.support.design.widget.TextInputLayout>
 

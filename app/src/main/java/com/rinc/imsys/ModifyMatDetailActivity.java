@@ -221,8 +221,12 @@ public class ModifyMatDetailActivity extends BaseActivity {
                 final TextInputLayout wrapperUnit = (TextInputLayout) findViewById(R.id.wrapper_unit_matdetail_modify);
                 final String unit = textUnit.getText().toString();
                 LogUtil.d("Mat Detail Modify unit", unit);
-                wrapperUnit.setErrorEnabled(false);
-                unitValid = true;
+                if (unit.length() == 0) {
+                    wrapperUnit.setError("不能为空！");
+                } else {
+                    wrapperUnit.setErrorEnabled(false);
+                    unitValid = true;
+                }
 
                 if (!(idValid && typeValid && markValid && bandValid && originalValid &&
                         stateValid && positionValid && unitValid)) {
