@@ -112,6 +112,8 @@ public class MainActivity extends BaseActivity {
 
     private QRMakeFragment qrMakeFragment = new QRMakeFragment();
 
+    private SettingsFragment settingsFragment = new SettingsFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,7 +123,7 @@ public class MainActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         navView = (NavigationView) findViewById(R.id.nav_view_main);
 
-        toolbar.setTitle("个人信息");
+        toolbar.setTitle(getString(R.string.user_info));
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -175,7 +177,7 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_userinfo:
                         scanItem.setVisible(false);
                         lastClickOn = 0;
-                        toolbar.setTitle("个人信息");
+                        toolbar.setTitle(getString(R.string.user_info));
                         replaceFragmentWithoutRefresh(userinfoFragment);
                         drawerLayout.closeDrawers();
                         break;
@@ -186,28 +188,28 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_matsto:
                         scanItem.setVisible(false);
                         lastClickOn = 1;
-                        toolbar.setTitle("材料库库存品信息");
+                        toolbar.setTitle(getString(R.string.material_storage_info));
                         replaceFragmentWithoutRefresh(matStorageFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matin:
                         scanItem.setVisible(true);
                         lastClickOn = 2;
-                        toolbar.setTitle("材料入库");
+                        toolbar.setTitle(getString(R.string.material_in));
                         replaceFragmentWithoutRefresh(matInFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matout:
                         scanItem.setVisible(true);
                         lastClickOn = 3;
-                        toolbar.setTitle("材料出库");
+                        toolbar.setTitle(getString(R.string.material_out));
                         replaceFragmentWithoutRefresh(matOutFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_matsearch:
                         scanItem.setVisible(false);
                         lastClickOn = 4;
-                        toolbar.setTitle("材料查找");
+                        toolbar.setTitle(getString(R.string.material_search));
                         replaceFragmentWithoutRefresh(matSearchFragment);
                         drawerLayout.closeDrawers();
                         break;
@@ -218,28 +220,28 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_partsto:
                         scanItem.setVisible(false);
                         lastClickOn = 5;
-                        toolbar.setTitle("备件库库存品信息");
+                        toolbar.setTitle(getString(R.string.part_storage_info));
                         replaceFragmentWithoutRefresh(partStorageFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_partin:
                         scanItem.setVisible(true);
                         lastClickOn = 6;
-                        toolbar.setTitle("备件入库");
+                        toolbar.setTitle(getString(R.string.part_in));
                         replaceFragmentWithoutRefresh(partInFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_partout:
                         scanItem.setVisible(true);
                         lastClickOn = 7;
-                        toolbar.setTitle("备件出库");
+                        toolbar.setTitle(getString(R.string.part_out));
                         replaceFragmentWithoutRefresh(partOutFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_partsearch:
                         scanItem.setVisible(false);
                         lastClickOn = 8;
-                        toolbar.setTitle("备件查找");
+                        toolbar.setTitle(getString(R.string.part_search));
                         replaceFragmentWithoutRefresh(partSearchFragment);
                         drawerLayout.closeDrawers();
                         break;
@@ -250,44 +252,51 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_equipsto:
                         scanItem.setVisible(false);
                         lastClickOn = 9;
-                        toolbar.setTitle("整机库库存品信息");
+                        toolbar.setTitle(getString(R.string.machine_storage_info));
                         replaceFragmentWithoutRefresh(equipStorageFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_equipin:
                         scanItem.setVisible(true);
                         lastClickOn = 10;
-                        toolbar.setTitle("整机入库");
+                        toolbar.setTitle(getString(R.string.machine_in));
                         replaceFragmentWithoutRefresh(equipInFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_equipout:
                         scanItem.setVisible(true);
                         lastClickOn = 11;
-                        toolbar.setTitle("整机出库");
+                        toolbar.setTitle(getString(R.string.machine_out));
                         replaceFragmentWithoutRefresh(equipOutFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_equipsearch:
                         scanItem.setVisible(false);
                         lastClickOn = 12;
-                        toolbar.setTitle("整机查找");
+                        toolbar.setTitle(getString(R.string.machine_search));
                         replaceFragmentWithoutRefresh(equipSearchFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_qrmake:
                         scanItem.setVisible(false);
                         lastClickOn = 13;
-                        toolbar.setTitle("生成二维码");
+                        toolbar.setTitle(getString(R.string.qr_make));
                         replaceFragmentWithoutRefresh(qrMakeFragment);
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.menu_settings:
+                        scanItem.setVisible(false);
+                        lastClickOn = 14;
+                        toolbar.setTitle(getString(R.string.settings));
+                        replaceFragmentWithoutRefresh(settingsFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.menu_logout:
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                        dialog.setTitle("提示");
-                        dialog.setMessage("确定登出吗？");
+                        dialog.setTitle(getString(R.string.hint));
+                        dialog.setMessage(getString(R.string.sure_to_sign_out));
                         dialog.setCancelable(false);
-                        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        dialog.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //登出
@@ -317,7 +326,7 @@ public class MainActivity extends BaseActivity {
                                 });
                             }
                         });
-                        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        dialog.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -424,6 +433,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 13:
                         navView.setCheckedItem(R.id.menu_qrmake);
+                        break;
+                    case 14:
+                        navView.setCheckedItem(R.id.menu_settings);
                         break;
                     default:
                 }
@@ -569,11 +581,11 @@ public class MainActivity extends BaseActivity {
                                 textUnit.setText(unitScan);
                                 textDescription.setText(descriptionScan);
                             } else {
-                                Toast.makeText(MainActivity.this, "非材料库二维码！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.not_material_qr), Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.qrcode_format_error), Toast.LENGTH_SHORT).show();
                         }
                     } else if (fragment instanceof MatOutFragment) {
                         //材料出库
@@ -586,11 +598,11 @@ public class MainActivity extends BaseActivity {
                             if (stockType.equals("material")) {
                                 textId.setText(idScan);
                             } else {
-                                Toast.makeText(MainActivity.this, "非材料库二维码！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.not_material_qr), Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.qrcode_format_error), Toast.LENGTH_SHORT).show();
                         }
                     } else if (fragment instanceof PartInFragment) {
                         //备件入库
@@ -651,11 +663,11 @@ public class MainActivity extends BaseActivity {
                                 textVulnerability.setText(vulnerabilityScan);
                                 textDescription.setText(descriptionScan);
                             } else {
-                                Toast.makeText(MainActivity.this, "非备件库二维码！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.not_part_qr), Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.qrcode_format_error), Toast.LENGTH_SHORT).show();
                         }
                     } else if (fragment instanceof PartOutFragment) {
                         //备件出库
@@ -668,11 +680,11 @@ public class MainActivity extends BaseActivity {
                             if (stockType.equals("part")) {
                                 textId.setText(idScan);
                             } else {
-                                Toast.makeText(MainActivity.this, "非备件库二维码！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.not_part_qr), Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.qrcode_format_error), Toast.LENGTH_SHORT).show();
                         }
                     } else if (fragment instanceof EquipInFragment) {
                         //整机入库
@@ -715,11 +727,11 @@ public class MainActivity extends BaseActivity {
                                 textUnit.setText(unitScan);
                                 textDescription.setText(descriptionScan);
                             } else {
-                                Toast.makeText(MainActivity.this, "非整机库二维码！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.not_machine_qr), Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.qrcode_format_error), Toast.LENGTH_SHORT).show();
                         }
                     } else if (fragment instanceof EquipOutFragment) {
                         //整机出库
@@ -732,11 +744,11 @@ public class MainActivity extends BaseActivity {
                             if (stockType.equals("equipment")) {
                                 textId.setText(idScan);
                             } else {
-                                Toast.makeText(MainActivity.this, "非整机库二维码！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.not_machine_qr), Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "二维码格式错误！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.qrcode_format_error), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -780,7 +792,7 @@ public class MainActivity extends BaseActivity {
                     Intent intent = new Intent(this, SimpleScannerActivity.class);
                     startActivityForResult(intent, 1);
                 } else {
-                    Toast.makeText(this, "请授予相机权限以使用扫描二维码功能", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.camera_access), Toast.LENGTH_SHORT).show();
                 }
         }
     }
@@ -814,6 +826,8 @@ public class MainActivity extends BaseActivity {
             return matSearchFragment;
         } else if (qrMakeFragment != null && qrMakeFragment.isVisible()) {
             return qrMakeFragment;
+        } else if (settingsFragment != null && settingsFragment.isVisible()) {
+            return settingsFragment;
         } else {
             return null;
         }

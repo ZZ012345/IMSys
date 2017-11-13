@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="电话" />
+                    android:hint="@string/phone" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="公司" />
+                    android:hint="@string/company" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="地址" />
+                    android:hint="@string/address" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -96,7 +96,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:padding="12dp"
-                android:text="提交" />
+                android:text="@string/submit" />
 
         </LinearLayout>
 

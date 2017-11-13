@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="请填写出库信息"
+                android:text="@string/fill_out_info"
                 android:textSize="25dip"
                 android:textColor="@color/black" />
 
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="整机标号*" />
+                    android:hint="@string/machine_id_star" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:digits="0123456789-"
-                    android:hint="出库时间*" />
+                    android:hint="@string/out_date_star" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="整机去向*" />
+                    android:hint="@string/machine_user_star" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="操作人员*" />
+                    android:hint="@string/operator_star" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:digits="0123456789"
-                    android:hint="出库量*" />
+                    android:hint="@string/out_quantity_star" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -125,7 +125,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="出库备注" />
+                    android:hint="@string/out_remarks" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:padding="12dp"
-                android:text="出库" />
+                android:text="@string/stock_out" />
 
         </LinearLayout>
 

@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="入库时间" />
+            android:text="@string/in_date" />
 
         <TextView
             android:id="@+id/text_datatime_partinrec"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="操作人员" />
+            android:text="@string/operator" />
 
         <TextView
             android:id="@+id/text_operator_partinrec"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="入库数量" />
+            android:text="@string/in_quantity" />
 
         <TextView
             android:id="@+id/text_num_partinrec"
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="入库备注" />
+            android:text="@string/in_remarks" />
 
         <TextView
             android:id="@+id/text_description_partinrec"

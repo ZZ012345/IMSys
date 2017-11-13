@@ -86,10 +86,10 @@ public class EquipDetailActivity extends BaseActivity {
                 break;
             case R.id.delete:
                 AlertDialog.Builder builder = new AlertDialog.Builder(EquipDetailActivity.this);
-                builder.setTitle("警告");
-                builder.setMessage("确定删除该库存品吗？");
+                builder.setTitle(getString(R.string.warning));
+                builder.setMessage(getString(R.string.delete_stock));
                 builder.setCancelable(true);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         HttpUtil.deleteEquipDetail(String.valueOf(equipStock.getDatabaseid()), new okhttp3.Callback() {
@@ -99,10 +99,10 @@ public class EquipDetailActivity extends BaseActivity {
                                     @Override
                                     public void run() {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(EquipDetailActivity.this);
-                                        builder.setTitle("提示");
-                                        builder.setMessage("删除成功！");
+                                        builder.setTitle(getString(R.string.hint));
+                                        builder.setMessage(getString(R.string.delete_successful));
                                         builder.setCancelable(false);
-                                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 deleteOrNot = true;
@@ -121,14 +121,14 @@ public class EquipDetailActivity extends BaseActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(EquipDetailActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EquipDetailActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
                         });
                     }
                 });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -147,6 +147,7 @@ public class EquipDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_equipdetail);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_equipdetail);
+        toolbar.setTitle(getString(R.string.machine_detail));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -181,7 +182,16 @@ public class EquipDetailActivity extends BaseActivity {
         textId.setText(equipStock.getId());
         textType.setText(equipStock.getType());
         textNum.setText(equipStock.getNum());
-        textStorestate.setText(equipStock.getStorestate());
+        String storeState = equipStock.getStorestate();
+        if (storeState.equals("在用")) {
+            textStorestate.setText(getString(R.string.in_use));
+        } else if (storeState.equals("闲置可用")) {
+            textStorestate.setText(getString(R.string.for_use));
+        } else if (storeState.equals("闲置可租")) {
+            textStorestate.setText(getString(R.string.for_rent));
+        } else {
+            textStorestate.setText(getString(R.string.for_sale));
+        }
         textMark.setText(equipStock.getMark());
         textHour.setText(equipStock.getHour());
         textBand.setText(equipStock.getBand());
@@ -221,7 +231,16 @@ public class EquipDetailActivity extends BaseActivity {
                     textId.setText(equipStock.getId());
                     textType.setText(equipStock.getType());
                     textNum.setText(equipStock.getNum());
-                    textStorestate.setText(equipStock.getStorestate());
+                    String storeState = equipStock.getStorestate();
+                    if (storeState.equals("在用")) {
+                        textStorestate.setText(getString(R.string.in_use));
+                    } else if (storeState.equals("闲置可用")) {
+                        textStorestate.setText(getString(R.string.for_use));
+                    } else if (storeState.equals("闲置可租")) {
+                        textStorestate.setText(getString(R.string.for_rent));
+                    } else {
+                        textStorestate.setText(getString(R.string.for_sale));
+                    }
                     textMark.setText(equipStock.getMark());
                     textHour.setText(equipStock.getHour());
                     textBand.setText(equipStock.getBand());

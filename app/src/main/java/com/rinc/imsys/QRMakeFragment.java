@@ -149,12 +149,12 @@ public class QRMakeFragment extends BaseFragment {
         button = (Button) view.findViewById(R.id.button_qrmake);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("生成二维码");
+        toolbar.setTitle(getString(R.string.qr_make));
 
         //初始化下拉列表
-        stockList.add("备件库");
-        stockList.add("整机库");
-        stockList.add("材料库");
+        stockList.add(getString(R.string.part_choose));
+        stockList.add(getString(R.string.machine_choose));
+        stockList.add(getString(R.string.material_choose));
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnertext_item, stockList);
         adapter.setDropDownViewResource(R.layout.spinnerdropdown_item);
         spinner.setAdapter(adapter);
@@ -171,7 +171,7 @@ public class QRMakeFragment extends BaseFragment {
                     wrapperMachineBand.setVisibility(View.GONE);
                     wrapperCondition.setVisibility(View.GONE);
                     wrapperVulnerability.setVisibility(View.GONE);
-                    wrapperState.setHint("状态");
+                    wrapperState.setHint(getString(R.string.status_2));
                 } else if (i == 0) {
                     //备件库
                     wrapperHour.setVisibility(View.GONE);
@@ -182,7 +182,7 @@ public class QRMakeFragment extends BaseFragment {
                     wrapperMachineBand.setVisibility(View.VISIBLE);
                     wrapperCondition.setVisibility(View.VISIBLE);
                     wrapperVulnerability.setVisibility(View.VISIBLE);
-                    wrapperState.setHint("状况");
+                    wrapperState.setHint(getString(R.string.status_1));
                 } else {
                     //整机库
                     wrapperHour.setVisibility(View.VISIBLE);
@@ -193,7 +193,7 @@ public class QRMakeFragment extends BaseFragment {
                     wrapperMachineBand.setVisibility(View.GONE);
                     wrapperCondition.setVisibility(View.GONE);
                     wrapperVulnerability.setVisibility(View.GONE);
-                    wrapperState.setHint("状况");
+                    wrapperState.setHint(getString(R.string.status_1));
                 }
             }
 
@@ -220,9 +220,9 @@ public class QRMakeFragment extends BaseFragment {
                 String id = textId.getText().toString();
                 LogUtil.d("QR Make id", id);
                 if (id.length() == 0) {
-                    wrapperId.setError("不能为空！");
+                    wrapperId.setError(getString(R.string.not_empty));
                 } else if (id.length() > 100) {
-                    wrapperId.setError("长度不能超过100个字符！");
+                    wrapperId.setError(getString(R.string.too_long));
                 } else {
                     wrapperId.setErrorEnabled(false);
                     idValid = true;
@@ -232,7 +232,7 @@ public class QRMakeFragment extends BaseFragment {
                 String type = textType.getText().toString();
                 LogUtil.d("QR Make type", type);
                 if (type.length() > 100) {
-                    wrapperType.setError("长度不能超过100个字符！");
+                    wrapperType.setError(getString(R.string.too_long));
                 } else {
                     wrapperType.setErrorEnabled(false);
                     typeValid = true;
@@ -242,7 +242,7 @@ public class QRMakeFragment extends BaseFragment {
                 String mark = textMark.getText().toString();
                 LogUtil.d("QR Make mark", mark);
                 if (mark.length() > 100) {
-                    wrapperMark.setError("长度不能超过100个字符！");
+                    wrapperMark.setError(getString(R.string.too_long));
                 } else {
                     wrapperMark.setErrorEnabled(false);
                     markValid = true;
@@ -252,7 +252,7 @@ public class QRMakeFragment extends BaseFragment {
                 String band = textBand.getText().toString();
                 LogUtil.d("QR Make band", band);
                 if (band.length() > 100) {
-                    wrapperBand.setError("长度不能超过100个字符！");
+                    wrapperBand.setError(getString(R.string.too_long));
                 } else {
                     wrapperBand.setErrorEnabled(false);
                     bandValid = true;
@@ -262,7 +262,7 @@ public class QRMakeFragment extends BaseFragment {
                 String original = textOriginal.getText().toString();
                 LogUtil.d("QR Make original", original);
                 if (original.length() > 100) {
-                    wrapperOriginal.setError("长度不能超过100个字符！");
+                    wrapperOriginal.setError(getString(R.string.too_long));
                 } else {
                     wrapperOriginal.setErrorEnabled(false);
                     originalValid = true;
@@ -272,7 +272,7 @@ public class QRMakeFragment extends BaseFragment {
                 String state = textState.getText().toString();
                 LogUtil.d("QR Make state", state);
                 if (state.length() > 100) {
-                    wrapperState.setError("长度不能超过100个字符！");
+                    wrapperState.setError(getString(R.string.too_long));
                 } else {
                     wrapperState.setErrorEnabled(false);
                     stateValid = true;
@@ -282,7 +282,7 @@ public class QRMakeFragment extends BaseFragment {
                 String position = textPosition.getText().toString();
                 LogUtil.d("QR Make position", position);
                 if (position.length() > 100) {
-                    wrapperPosition.setError("长度不能超过100个字符！");
+                    wrapperPosition.setError(getString(R.string.too_long));
                 } else {
                     wrapperPosition.setErrorEnabled(false);
                     positionValid = true;
@@ -293,7 +293,7 @@ public class QRMakeFragment extends BaseFragment {
                 String description = textDescription.getText().toString();
 
                 if (!(idValid && typeValid && markValid && bandValid && originalValid && stateValid && positionValid)) {
-                    Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.check_and_modify), Toast.LENGTH_SHORT).show();
                 }
 
                 if (idValid && typeValid && markValid && bandValid && originalValid && stateValid && positionValid) {
@@ -342,7 +342,7 @@ public class QRMakeFragment extends BaseFragment {
                         String name = textName.getText().toString();
                         LogUtil.d("QR Make name", name);
                         if (name.length() > 100) {
-                            wrapperName.setError("长度不能超过100个字符！");
+                            wrapperName.setError(getString(R.string.too_long));
                         } else {
                             wrapperName.setErrorEnabled(false);
                             nameValid = true;
@@ -352,7 +352,7 @@ public class QRMakeFragment extends BaseFragment {
                         String company = textCompany.getText().toString();
                         LogUtil.d("QR Make company", company);
                         if (company.length() > 100) {
-                            wrapperCompany.setError("长度不能超过100个字符！");
+                            wrapperCompany.setError(getString(R.string.too_long));
                         } else {
                             wrapperCompany.setErrorEnabled(false);
                             companyValid = true;
@@ -362,7 +362,7 @@ public class QRMakeFragment extends BaseFragment {
                         String machineName = textMachineName.getText().toString();
                         LogUtil.d("QR Make machineName", machineName);
                         if (machineName.length() > 100) {
-                            wrapperMachineName.setError("长度不能超过100个字符！");
+                            wrapperMachineName.setError(getString(R.string.too_long));
                         } else {
                             wrapperMachineName.setErrorEnabled(false);
                             machineNameValid = true;
@@ -372,7 +372,7 @@ public class QRMakeFragment extends BaseFragment {
                         String machineType = textMachineType.getText().toString();
                         LogUtil.d("QR Make machineType", machineType);
                         if (machineType.length() > 100) {
-                            wrapperMachineType.setError("长度不能超过100个字符！");
+                            wrapperMachineType.setError(getString(R.string.too_long));
                         } else {
                             wrapperMachineType.setErrorEnabled(false);
                             machineTypeValid = true;
@@ -382,7 +382,7 @@ public class QRMakeFragment extends BaseFragment {
                         String machineBand = textMachineBand.getText().toString();
                         LogUtil.d("QR Make machineBand", machineBand);
                         if (machineBand.length() > 100) {
-                            wrapperMachineBand.setError("长度不能超过100个字符！");
+                            wrapperMachineBand.setError(getString(R.string.too_long));
                         } else {
                             wrapperMachineBand.setErrorEnabled(false);
                             machineBandValid = true;
@@ -392,7 +392,7 @@ public class QRMakeFragment extends BaseFragment {
                         String condition = textCondition.getText().toString();
                         LogUtil.d("QR Make condition", condition);
                         if (condition.length() > 100) {
-                            wrapperCondition.setError("长度不能超过100个字符！");
+                            wrapperCondition.setError(getString(R.string.too_long));
                         } else {
                             wrapperCondition.setErrorEnabled(false);
                             conditionValid = true;
@@ -402,7 +402,7 @@ public class QRMakeFragment extends BaseFragment {
                         String vulnerability = textVulnerability.getText().toString();
                         LogUtil.d("QR Make vulnerability", vulnerability);
                         if (vulnerability.length() > 100) {
-                            wrapperVulnerability.setError("长度不能超过100个字符！");
+                            wrapperVulnerability.setError(getString(R.string.too_long));
                         } else {
                             wrapperVulnerability.setErrorEnabled(false);
                             vulnerabilityValid = true;
@@ -410,7 +410,7 @@ public class QRMakeFragment extends BaseFragment {
 
                         if (!(nameValid && companyValid && machineNameValid && machineTypeValid &&
                                 machineBandValid && conditionValid && vulnerabilityValid)) {
-                            Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getString(R.string.check_and_modify), Toast.LENGTH_SHORT).show();
                         } else {
                             JSONObject jsonObject = new JSONObject();
                             try {

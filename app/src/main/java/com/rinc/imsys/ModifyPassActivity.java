@@ -55,6 +55,7 @@ public class ModifyPassActivity extends BaseActivity {
         setContentView(R.layout.activity_modifypass);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_modifypass);
+        toolbar.setTitle(getString(R.string.modify_password));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -84,7 +85,7 @@ public class ModifyPassActivity extends BaseActivity {
                 final String oldpassword = textOldPassword.getText().toString();
                 LogUtil.d("Modify old password", oldpassword);
                 if (oldpassword.length() == 0) {
-                    wrapperOldPassword.setError("密码不能为空！");
+                    wrapperOldPassword.setError(getString(R.string.password_not_empty));
                 } else {
                     wrapperOldPassword.setErrorEnabled(false);
                     oldpasswordValid = true;
@@ -95,11 +96,11 @@ public class ModifyPassActivity extends BaseActivity {
                 String password1 = textPassword1.getText().toString();
                 LogUtil.d("Modify password1", password1);
                 if (password1.length() == 0) {
-                    wrapperPassword1.setError("密码不能为空！");
+                    wrapperPassword1.setError(getString(R.string.password_not_empty));
                 } else if (password1.length() < 8) {
-                    wrapperPassword1.setError("密码至少需要包含8个字符！");
+                    wrapperPassword1.setError(getString(R.string.password_too_short));
                 } else if (!RegisterActivity.checkNotAllNum(password1)) {
-                    wrapperPassword1.setError("密码必须包含非数字字符！");
+                    wrapperPassword1.setError(getString(R.string.password_all_number));
                 } else {
                     wrapperPassword1.setErrorEnabled(false);
                     password1Valid = true;
@@ -110,11 +111,11 @@ public class ModifyPassActivity extends BaseActivity {
                 String password2 = textPassword2.getText().toString();
                 LogUtil.d("Modify password2", password2);
                 if (password2.length() == 0) {
-                    wrapperPassword2.setError("密码不能为空！");
+                    wrapperPassword2.setError(getString(R.string.password_not_empty));
                 } else if (password2.length() < 8) {
-                    wrapperPassword2.setError("密码至少需要包含8个字符！");
+                    wrapperPassword2.setError(getString(R.string.password_too_short));
                 } else if (!RegisterActivity.checkNotAllNum(password2)) {
-                    wrapperPassword2.setError("密码必须包含非数字字符！");
+                    wrapperPassword2.setError(getString(R.string.password_all_number));
                 } else {
                     wrapperPassword2.setErrorEnabled(false);
                     password2Valid = true;
@@ -122,7 +123,7 @@ public class ModifyPassActivity extends BaseActivity {
 
                 if (oldpasswordValid && password1Valid && password2Valid) {
                     if (!password1.equals(password2)) {
-                        wrapperPassword2.setError("前后密码不一致！");
+                        wrapperPassword2.setError(getString(R.string.password_different));
                     } else {
                         submitButton.setVisibility(View.GONE); //隐藏提交按钮
                         progressBar.setVisibility(View.VISIBLE); //显示进度条
@@ -145,10 +146,10 @@ public class ModifyPassActivity extends BaseActivity {
                                                     submitButton.setVisibility(View.VISIBLE);
                                                     progressBar.setVisibility(View.GONE);
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(ModifyPassActivity.this);
-                                                    builder.setTitle("提示");
-                                                    builder.setMessage("修改密码成功，请重新登录！");
+                                                    builder.setTitle(getString(R.string.hint));
+                                                    builder.setMessage(getString(R.string.modify_pass_successful));
                                                     builder.setCancelable(false);
-                                                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                    builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             User.clear();
@@ -178,7 +179,7 @@ public class ModifyPassActivity extends BaseActivity {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                wrapperOldPassword.setError("原密码错误！");
+                                                wrapperOldPassword.setError(getString(R.string.old_pass_invalid));
                                                 submitButton.setVisibility(View.VISIBLE);
                                                 progressBar.setVisibility(View.GONE);
                                             }
@@ -188,7 +189,7 @@ public class ModifyPassActivity extends BaseActivity {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                wrapperPassword2.setError("新密码太简单！");
+                                                wrapperPassword2.setError(getString(R.string.new_pass_too_simple));
                                                 submitButton.setVisibility(View.VISIBLE);
                                                 progressBar.setVisibility(View.GONE);
                                             }
@@ -208,7 +209,7 @@ public class ModifyPassActivity extends BaseActivity {
                                     public void run() {
                                         progressBar.setVisibility(View.GONE); //隐藏进度条
                                         submitButton.setVisibility(View.VISIBLE); //显示提交按钮
-                                        Toast.makeText(ModifyPassActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ModifyPassActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }

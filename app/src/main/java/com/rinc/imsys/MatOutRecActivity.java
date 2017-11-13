@@ -75,6 +75,7 @@ public class MatOutRecActivity extends BaseActivity {
         setContentView(R.layout.activity_matoutrec);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_matoutrec);
+        toolbar.setTitle(getString(R.string.material_out_record));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -181,7 +182,7 @@ public class MatOutRecActivity extends BaseActivity {
                         progressBar.setVisibility(View.GONE);
                         textNotExist.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.GONE);
-                        Toast.makeText(MatOutRecActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MatOutRecActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -311,7 +312,7 @@ public class MatOutRecActivity extends BaseActivity {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(MatOutRecActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MatOutRecActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

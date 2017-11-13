@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="标号"
+                    android:text="@string/id"
                     android:textSize="20dip" />
 
                 <TextView
@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="类型"
+                    android:text="@string/type"
                     android:textSize="20dip" />
 
                 <TextView
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="数量"
+                    android:text="@string/quantity"
                     android:textSize="20dip" />
 
                 <TextView
@@ -120,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="库存状态"
+                    android:text="@string/storage_state"
                     android:textSize="20dip" />
 
                 <TextView
@@ -144,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="型号"
+                    android:text="@string/mark"
                     android:textSize="20dip" />
 
                 <TextView
@@ -168,7 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="品牌"
+                    android:text="@string/band"
                     android:textSize="20dip" />
 
                 <TextView
@@ -192,7 +192,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="原产地"
+                    android:text="@string/origin"
                     android:textSize="20dip" />
 
                 <TextView
@@ -216,7 +216,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="年份"
+                    android:text="@string/year"
                     android:textSize="20dip" />
 
                 <TextView
@@ -240,7 +240,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="状态"
+                    android:text="@string/status_2"
                     android:textSize="20dip" />
 
                 <TextView
@@ -264,7 +264,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="位置"
+                    android:text="@string/location"
                     android:textSize="20dip" />
 
                 <TextView
@@ -288,7 +288,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="单位原值"
+                    android:text="@string/unit"
                     android:textSize="20dip" />
 
                 <TextView
@@ -312,7 +312,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="备注"
+                    android:text="@string/remarks"
                     android:textSize="20dip" />
 
                 <TextView
@@ -339,14 +339,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="15dp"
-                android:text="入库记录" />
+                android:text="@string/in_record" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_out_matdetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:text="出库记录" />
+                android:text="@string/out_record" />
 
         </LinearLayout>
 

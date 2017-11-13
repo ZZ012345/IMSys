@@ -75,6 +75,7 @@ public class ModifyEquipDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_modifyequipdetail);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_modifyequipdetail);
+        toolbar.setTitle(getString(R.string.modify_machine_detail));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -144,9 +145,9 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                 final String id = textId.getText().toString();
                 LogUtil.d("Equip Detail Modify id", id);
                 if (id.length() == 0) {
-                    wrapperId.setError("不能为空！");
+                    wrapperId.setError(getString(R.string.not_empty));
                 } else if (id.length() > 100) {
-                    wrapperId.setError("长度不能超过100个字符！");
+                    wrapperId.setError(getString(R.string.too_long));
                 } else {
                     wrapperId.setErrorEnabled(false);
                     idValid = true;
@@ -157,7 +158,7 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                 final String type = textType.getText().toString();
                 LogUtil.d("Equip Detail Modify type", type);
                 if (type.length() > 100) {
-                    wrapperType.setError("长度不能超过100个字符！");
+                    wrapperType.setError(getString(R.string.too_long));
                 } else {
                     wrapperType.setErrorEnabled(false);
                     typeValid = true;
@@ -168,7 +169,7 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                 final String mark = textMark.getText().toString();
                 LogUtil.d("Equip Detail Modify mark", mark);
                 if (mark.length() > 100) {
-                    wrapperMark.setError("长度不能超过100个字符！");
+                    wrapperMark.setError(getString(R.string.too_long));
                 } else {
                     wrapperMark.setErrorEnabled(false);
                     markValid = true;
@@ -186,7 +187,7 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                 final String band = textBand.getText().toString();
                 LogUtil.d("Equip Detail Modify band", band);
                 if (band.length() > 100) {
-                    wrapperBand.setError("长度不能超过100个字符！");
+                    wrapperBand.setError(getString(R.string.too_long));
                 } else {
                     wrapperBand.setErrorEnabled(false);
                     bandValid = true;
@@ -197,7 +198,7 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                 final String original = textOriginal.getText().toString();
                 LogUtil.d("Equip Detail Modify original", original);
                 if (original.length() > 100) {
-                    wrapperOriginal.setError("长度不能超过100个字符！");
+                    wrapperOriginal.setError(getString(R.string.too_long));
                 } else {
                     wrapperOriginal.setErrorEnabled(false);
                     originalValid = true;
@@ -212,7 +213,7 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                 final String state = textState.getText().toString();
                 LogUtil.d("Equip Detail Modify state", state);
                 if (state.length() > 100) {
-                    wrapperState.setError("长度不能超过100个字符！");
+                    wrapperState.setError(getString(R.string.too_long));
                 } else {
                     wrapperState.setErrorEnabled(false);
                     stateValid = true;
@@ -223,7 +224,7 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                 final String position = textPosition.getText().toString();
                 LogUtil.d("Equip Detail Modify position", position);
                 if (position.length() > 100) {
-                    wrapperPosition.setError("长度不能超过100个字符！");
+                    wrapperPosition.setError(getString(R.string.too_long));
                 } else {
                     wrapperPosition.setErrorEnabled(false);
                     positionValid = true;
@@ -238,7 +239,7 @@ public class ModifyEquipDetailActivity extends BaseActivity {
 
                 if (!(idValid && typeValid && markValid && hourValid && bandValid && originalValid &&
                         stateValid && positionValid && unitValid)) {
-                    Toast.makeText(ModifyEquipDetailActivity.this, "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ModifyEquipDetailActivity.this, getString(R.string.check_and_modify), Toast.LENGTH_SHORT).show();
                 }
 
                 if (idValid && typeValid && markValid && hourValid && bandValid && originalValid &&
@@ -246,7 +247,17 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                     submitButton.setVisibility(View.GONE); //隐藏提交按钮
                     progressBar.setVisibility(View.VISIBLE); //显示进度条
 
-                    final String storestate = (String) spinnerStorestate.getSelectedItem();
+                    final String storestate;
+                    int positionSelected = spinnerStorestate.getSelectedItemPosition();
+                    if (positionSelected == 0) {
+                        storestate = "在用";
+                    } else if (positionSelected == 1) {
+                        storestate = "闲置可用";
+                    } else if (positionSelected == 2) {
+                        storestate = "闲置可租";
+                    } else {
+                        storestate = "闲置可售";
+                    }
                     final String year = textYear.getText().toString();
                     final String description = textDescription.getText().toString();
 
@@ -266,10 +277,10 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(ModifyEquipDetailActivity.this);
-                                                    builder.setTitle("提示");
-                                                    builder.setMessage("修改成功！");
+                                                    builder.setTitle(getString(R.string.hint));
+                                                    builder.setMessage(getString(R.string.modify_successful));
                                                     builder.setCancelable(false);
-                                                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                    builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             //回到库存品详细信息碎片
@@ -292,10 +303,10 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(ModifyEquipDetailActivity.this);
-                                                    builder.setTitle("提示");
-                                                    builder.setMessage("修改的整机标号与数据库中有重复！");
+                                                    builder.setTitle(getString(R.string.hint));
+                                                    builder.setMessage(getString(R.string.machine_id_exist));
                                                     builder.setCancelable(false);
-                                                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                    builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -312,10 +323,10 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(ModifyEquipDetailActivity.this);
-                                                    builder.setTitle("提示");
-                                                    builder.setMessage("没有找到相关记录！");
+                                                    builder.setTitle(getString(R.string.hint));
+                                                    builder.setMessage(getString(R.string.no_related_info_found));
                                                     builder.setCancelable(false);
-                                                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                    builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             Intent intent1 = new Intent();
@@ -377,29 +388,29 @@ public class ModifyEquipDetailActivity extends BaseActivity {
 
                                                     if (errorType.size() == 0) {
                                                         //发生未预计到的错误
-                                                        Toast.makeText(ModifyEquipDetailActivity.this, "修改失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(ModifyEquipDetailActivity.this, getString(R.string.modify_failed), Toast.LENGTH_SHORT).show();
                                                     } else {
-                                                        Toast.makeText(ModifyEquipDetailActivity.this, "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(ModifyEquipDetailActivity.this, getString(R.string.check_and_modify), Toast.LENGTH_SHORT).show();
                                                         if (errorType.contains(1)) {
-                                                            wrapperUnit.setError("该输入非数字！");
+                                                            wrapperUnit.setError(getString(R.string.not_number));
                                                         }
                                                         if (errorType.contains(2) || errorType.contains(5)) {
-                                                            wrapperUnit.setError("数字不能超过8位！");
+                                                            wrapperUnit.setError(getString(R.string.num_too_long_8));
                                                         }
                                                         if (errorType.contains(3)) {
-                                                            wrapperUnit.setError("小数点前不能超过6位！");
+                                                            wrapperUnit.setError(getString(R.string.decimal_6));
                                                         }
                                                         if (errorType.contains(4)) {
-                                                            wrapperUnit.setError("小数点后不能超过2位！");
+                                                            wrapperUnit.setError(getString(R.string.decimal_2));
                                                         }
                                                         if (errorType.contains(6)) {
-                                                            wrapperYear.setError("格式错误，正确格式如2000-01-01！");
+                                                            wrapperYear.setError(getString(R.string.year_format_error));
                                                         }
                                                         if (errorType.contains(7)) {
-                                                            wrapperHour.setError("该输入非整数！");
+                                                            wrapperHour.setError(getString(R.string.not_integer));
                                                         }
                                                         if (errorType.contains(8)) {
-                                                            wrapperHour.setError("数字不能大于2147483647！");
+                                                            wrapperHour.setError(getString(R.string.large_than_num));
                                                         }
                                                     }
                                                 }
@@ -419,7 +430,7 @@ public class ModifyEquipDetailActivity extends BaseActivity {
                                         public void run() {
                                             progressBar.setVisibility(View.GONE);
                                             submitButton.setVisibility(View.VISIBLE);
-                                            Toast.makeText(ModifyEquipDetailActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ModifyEquipDetailActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }

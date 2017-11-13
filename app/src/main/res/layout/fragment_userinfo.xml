@@ -54,7 +54,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="用户名"
+                        android:text="@string/user_name"
                         android:textSize="20dip" />
 
                 </LinearLayout>
@@ -95,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="邮箱"
+                        android:text="@string/email"
                         android:textSize="20dip" />
 
                 </LinearLayout>
@@ -136,7 +136,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="电话"
+                        android:text="@string/phone"
                         android:textSize="20dip" />
 
                 </LinearLayout>
@@ -177,7 +177,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="公司"
+                        android:text="@string/company"
                         android:textSize="20dip" />
 
                 </LinearLayout>
@@ -218,7 +218,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="地址"
+                        android:text="@string/address"
                         android:textSize="20dip" />
 
                 </LinearLayout>
@@ -252,7 +252,7 @@
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
-                android:text="修改个人信息" />
+                android:text="@string/modify_userinfo" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_modify_pass"
@@ -262,7 +262,7 @@
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
-                android:text="修改密码" />
+                android:text="@string/modify_password" />
 
         </LinearLayout>
 

@@ -80,7 +80,7 @@ public class PartStorageFragment extends BaseFragment {
         pageCount = (TextView) pageController.findViewById(R.id.page_count);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("备件库库存品信息");
+        toolbar.setTitle(getString(R.string.part_storage_info));
 
         progressBar.setVisibility(View.VISIBLE);
         textNotExist.setVisibility(View.GONE);
@@ -201,7 +201,7 @@ public class PartStorageFragment extends BaseFragment {
                         progressBar.setVisibility(View.GONE);
                         textNotExist.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -357,7 +357,7 @@ public class PartStorageFragment extends BaseFragment {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -498,7 +498,7 @@ public class PartStorageFragment extends BaseFragment {
                                     progressBar.setVisibility(View.GONE);
                                     textNotExist.setVisibility(View.GONE);
                                     recyclerView.setVisibility(View.GONE);
-                                    Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -643,7 +643,7 @@ public class PartStorageFragment extends BaseFragment {
                                     progressBar.setVisibility(View.GONE);
                                     textNotExist.setVisibility(View.GONE);
                                     recyclerView.setVisibility(View.GONE);
-                                    Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

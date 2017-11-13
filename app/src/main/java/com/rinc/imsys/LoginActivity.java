@@ -50,7 +50,7 @@ public class LoginActivity extends BaseActivity {
         loginButton = (Button) findViewById(R.id.button_login);
         registerLink = (TextView) findViewById(R.id.link_register);
 
-        toolbar.setTitle("登录");
+        toolbar.setTitle(getString(R.string.sign_in));
         setSupportActionBar(toolbar);
 
         if (progressBar.getVisibility() == View.VISIBLE) {
@@ -81,7 +81,7 @@ public class LoginActivity extends BaseActivity {
                 final String username = textUsername.getText().toString();
                 LogUtil.d("Login username", username);
                 if (username.length() == 0) {
-                    wrapperUsername.setError("用户名不能为空！");
+                    wrapperUsername.setError(getString(R.string.username_not_empty));
                 } else {
                     wrapperUsername.setErrorEnabled(false);
                     usernameValid = true;
@@ -92,7 +92,7 @@ public class LoginActivity extends BaseActivity {
                 final String password = textPassword.getText().toString();
                 LogUtil.d("Login password", password);
                 if (password.length() == 0) {
-                    wrapperPassword.setError("密码不能为空！");
+                    wrapperPassword.setError(getString(R.string.password_not_empty));
                 } else {
                     wrapperPassword.setErrorEnabled(false);
                     passwordValid = true;
@@ -137,7 +137,7 @@ public class LoginActivity extends BaseActivity {
                                             progressBar.setVisibility(View.GONE); //隐藏进度条
                                             loginButton.setVisibility(View.VISIBLE); //显示登录按钮
                                             registerLink.setVisibility(View.VISIBLE); //显示注册链接
-                                            Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, getString(R.string.sign_in_fail), Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 } else {
@@ -158,7 +158,7 @@ public class LoginActivity extends BaseActivity {
                                     progressBar.setVisibility(View.GONE); //隐藏进度条
                                     loginButton.setVisibility(View.VISIBLE); //显示登录按钮
                                     registerLink.setVisibility(View.VISIBLE); //显示注册链接
-                                    Toast.makeText(LoginActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

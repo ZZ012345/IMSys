@@ -90,7 +90,7 @@ public class MatInFragment extends BaseFragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar_matin);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("材料入库");
+        toolbar.setTitle(getString(R.string.material_in));
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
@@ -127,9 +127,9 @@ public class MatInFragment extends BaseFragment {
                 String id = textId.getText().toString();
                 LogUtil.d("Mat in id", id);
                 if (id.length() == 0) {
-                    wrapperId.setError("不能为空！");
+                    wrapperId.setError(getString(R.string.not_empty));
                 } else if (id.length() > 100) {
-                    wrapperId.setError("长度不能超过100个字符！");
+                    wrapperId.setError(getString(R.string.too_long));
                 } else {
                     wrapperId.setErrorEnabled(false);
                     idValid = true;
@@ -140,7 +140,7 @@ public class MatInFragment extends BaseFragment {
                 String type = textType.getText().toString();
                 LogUtil.d("Mat in type", type);
                 if (type.length() > 100) {
-                    wrapperType.setError("长度不能超过100个字符！");
+                    wrapperType.setError(getString(R.string.too_long));
                 } else {
                     wrapperType.setErrorEnabled(false);
                     typeValid = true;
@@ -151,7 +151,7 @@ public class MatInFragment extends BaseFragment {
                 String mark = textMark.getText().toString();
                 LogUtil.d("Mat in mark", mark);
                 if (mark.length() > 100) {
-                    wrapperMark.setError("长度不能超过100个字符！");
+                    wrapperMark.setError(getString(R.string.too_long));
                 } else {
                     wrapperMark.setErrorEnabled(false);
                     markValid = true;
@@ -162,7 +162,7 @@ public class MatInFragment extends BaseFragment {
                 String band = textBand.getText().toString();
                 LogUtil.d("Mat in band", band);
                 if (band.length() > 100) {
-                    wrapperBand.setError("长度不能超过100个字符！");
+                    wrapperBand.setError(getString(R.string.too_long));
                 } else {
                     wrapperBand.setErrorEnabled(false);
                     bandValid = true;
@@ -173,7 +173,7 @@ public class MatInFragment extends BaseFragment {
                 String original = textOriginal.getText().toString();
                 LogUtil.d("Mat in original", original);
                 if (original.length() > 100) {
-                    wrapperOriginal.setError("长度不能超过100个字符！");
+                    wrapperOriginal.setError(getString(R.string.too_long));
                 } else {
                     wrapperOriginal.setErrorEnabled(false);
                     originalValid = true;
@@ -188,7 +188,7 @@ public class MatInFragment extends BaseFragment {
                 String state = textState.getText().toString();
                 LogUtil.d("Mat in state", state);
                 if (state.length() > 100) {
-                    wrapperState.setError("长度不能超过100个字符！");
+                    wrapperState.setError(getString(R.string.too_long));
                 } else {
                     wrapperState.setErrorEnabled(false);
                     stateValid = true;
@@ -199,7 +199,7 @@ public class MatInFragment extends BaseFragment {
                 String position = textPosition.getText().toString();
                 LogUtil.d("Mat in position", position);
                 if (position.length() > 100) {
-                    wrapperPosition.setError("长度不能超过100个字符！");
+                    wrapperPosition.setError(getString(R.string.too_long));
                 } else {
                     wrapperPosition.setErrorEnabled(false);
                     positionValid = true;
@@ -210,7 +210,7 @@ public class MatInFragment extends BaseFragment {
                 final String unit = textUnit.getText().toString();
                 LogUtil.d("Mat in unit", unit);
                 if (unit.length() == 0) {
-                    wrapperUnit.setError("不能为空！");
+                    wrapperUnit.setError(getString(R.string.not_empty));
                 } else {
                     wrapperUnit.setErrorEnabled(false);
                     unitValid = true;
@@ -221,7 +221,7 @@ public class MatInFragment extends BaseFragment {
                 String datetime = textDateTime.getText().toString();
                 LogUtil.d("Mat in datetime", datetime);
                 if (datetime.length() == 0) {
-                    wrapperDatetime.setError("不能为空！");
+                    wrapperDatetime.setError(getString(R.string.not_empty));
                 } else {
                     wrapperDatetime.setErrorEnabled(false);
                     datetimeValid = true;
@@ -232,9 +232,9 @@ public class MatInFragment extends BaseFragment {
                 String operator = textOperator.getText().toString();
                 LogUtil.d("Mat in operator", operator);
                 if (operator.length() == 0) {
-                    wrapperOperator.setError("不能为空！");
+                    wrapperOperator.setError(getString(R.string.not_empty));
                 } else if (operator.length() > 100) {
-                    wrapperOperator.setError("长度不能超过100个字符！");
+                    wrapperOperator.setError(getString(R.string.too_long));
                 } else {
                     wrapperOperator.setErrorEnabled(false);
                     operatorValid = true;
@@ -245,7 +245,7 @@ public class MatInFragment extends BaseFragment {
                 String num = textNum.getText().toString();
                 LogUtil.d("Mat in num", num);
                 if (num.length() == 0) {
-                    wrapperNum.setError("不能为空！");
+                    wrapperNum.setError(getString(R.string.not_empty));
                 } else {
                     wrapperNum.setErrorEnabled(false);
                     numValid = true;
@@ -253,7 +253,7 @@ public class MatInFragment extends BaseFragment {
 
                 if (!(idValid && typeValid && markValid && bandValid && originalValid && stateValid &&
                         positionValid && unitValid && datetimeValid && operatorValid && numValid)) {
-                    Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.check_and_modify), Toast.LENGTH_SHORT).show();
                 }
 
                 if (idValid && typeValid && markValid && bandValid && originalValid && stateValid &&
@@ -261,7 +261,17 @@ public class MatInFragment extends BaseFragment {
                     submitButton.setVisibility(View.GONE); //隐藏入库按钮
                     progressBar.setVisibility(View.VISIBLE); //显示进度条
 
-                    String storestate = (String) stateSpinner.getSelectedItem();
+                    String storestate;
+                    int positionSelected = stateSpinner.getSelectedItemPosition();
+                    if (positionSelected == 0) {
+                        storestate = "在用";
+                    } else if (positionSelected == 1) {
+                        storestate = "闲置可用";
+                    } else if (positionSelected == 2) {
+                        storestate = "闲置可租";
+                    } else {
+                        storestate = "闲置可售";
+                    }
                     String year = textYear.getText().toString();
                     String description = textDescription.getText().toString();
                     String inputDescription = textInputDescription.getText().toString();
@@ -282,10 +292,10 @@ public class MatInFragment extends BaseFragment {
                                                     progressBar.setVisibility(View.GONE);
                                                     submitButton.setVisibility(View.VISIBLE);
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                                    builder.setTitle("提示");
-                                                    builder.setMessage("入库成功！");
+                                                    builder.setTitle(getString(R.string.hint));
+                                                    builder.setMessage(getString(R.string.stock_in_successful));
                                                     builder.setCancelable(false);
-                                                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                    builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             //清空入库信息，只保留入库时间和操作人员
@@ -380,38 +390,38 @@ public class MatInFragment extends BaseFragment {
 
                                                     if (errorType.size() == 0) {
                                                         //发生未预计到的错误
-                                                        Toast.makeText(getActivity(), "入库失败，请修改后重新尝试", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(getActivity(), getString(R.string.stock_in_failed), Toast.LENGTH_SHORT).show();
                                                     } else {
-                                                        Toast.makeText(getActivity(), "有字段填写错误，请检查并修改", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(getActivity(), getString(R.string.check_and_modify), Toast.LENGTH_SHORT).show();
                                                         if (errorType.contains(1)) {
-                                                            wrapperYear.setError("格式错误，正确格式如2000-01-01！");
+                                                            wrapperYear.setError(getString(R.string.year_format_error));
                                                         }
                                                         if (errorType.contains(2)) {
-                                                            wrapperUnit.setError("该输入非数字！");
+                                                            wrapperUnit.setError(getString(R.string.not_number));
                                                         }
                                                         if (errorType.contains(3) || errorType.contains(6)) {
-                                                            wrapperUnit.setError("数字不能超过8位！");
+                                                            wrapperUnit.setError(getString(R.string.num_too_long_8));
                                                         }
                                                         if (errorType.contains(4)) {
-                                                            wrapperUnit.setError("小数点前不能超过6位！");
+                                                            wrapperUnit.setError(getString(R.string.decimal_6));
                                                         }
                                                         if (errorType.contains(5)) {
-                                                            wrapperUnit.setError("小数点后不能超过2位！");
+                                                            wrapperUnit.setError(getString(R.string.decimal_2));
                                                         }
                                                         if (errorType.contains(7)) {
-                                                            wrapperDatetime.setError("格式错误，正确格式如2000-01-01!");
+                                                            wrapperDatetime.setError(getString(R.string.year_format_error));
                                                         }
                                                         if (errorType.contains(8)) {
-                                                            wrapperNum.setError("该输入非数字！");
+                                                            wrapperNum.setError(getString(R.string.not_number));
                                                         }
                                                         if (errorType.contains(9) || errorType.contains(12)) {
-                                                            wrapperNum.setError("数字不能超过8位！");
+                                                            wrapperNum.setError(getString(R.string.num_too_long_8));
                                                         }
                                                         if (errorType.contains(10)) {
-                                                            wrapperNum.setError("小数点前不能超过6位！");
+                                                            wrapperNum.setError(getString(R.string.decimal_6));
                                                         }
                                                         if (errorType.contains(11)) {
-                                                            wrapperNum.setError("小数点后不能超过2位！");
+                                                            wrapperNum.setError(getString(R.string.decimal_2));
                                                         }
                                                     }
                                                 }
@@ -431,7 +441,7 @@ public class MatInFragment extends BaseFragment {
                                         public void run() {
                                             progressBar.setVisibility(View.GONE); //隐藏进度条
                                             submitButton.setVisibility(View.VISIBLE); //显示入库按钮
-                                            Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }

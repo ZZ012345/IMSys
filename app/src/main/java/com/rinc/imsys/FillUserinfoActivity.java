@@ -38,6 +38,7 @@ public class FillUserinfoActivity extends BaseActivity {
         setContentView(R.layout.activity_filluserinfo);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_filluserinfo);
+        toolbar.setTitle(getString(R.string.fill_userinfo));
         setSupportActionBar(toolbar);
 
         textTelephone = (EditText) findViewById(R.id.input_tel_fill);
@@ -62,11 +63,11 @@ public class FillUserinfoActivity extends BaseActivity {
                 String tel = textTelephone.getText().toString();
                 LogUtil.d("Userinfo Fill tel", tel);
                 if (tel.length() == 0) {
-                    wrapperTel.setError("电话不能为空！");
+                    wrapperTel.setError(getString(R.string.phone_not_empty));
                 } else if (tel.length() > 20) {
-                    wrapperTel.setError("电话长度不能超过20个字符！");
+                    wrapperTel.setError(getString(R.string.phone_too_long));
                 } else if (RegisterActivity.checkNotAllNum(tel)) {
-                    wrapperTel.setError("电话不能包含非数字字符！");
+                    wrapperTel.setError(getString(R.string.phone_all_number));
                 } else {
                     wrapperTel.setErrorEnabled(false);
                     telephoneValid = true;
@@ -77,9 +78,9 @@ public class FillUserinfoActivity extends BaseActivity {
                 String company = textCompany.getText().toString();
                 LogUtil.d("Userinfo Fill company", company);
                 if (company.length() == 0) {
-                    wrapperCompany.setError("公司不能为空！");
+                    wrapperCompany.setError(getString(R.string.company_not_empty));
                 } else if (company.length() > 100) {
-                    wrapperCompany.setError("公司长度不能超过100个字符！");
+                    wrapperCompany.setError(getString(R.string.company_too_long));
                 } else {
                     wrapperCompany.setErrorEnabled(false);
                     companyValid = true;
@@ -90,9 +91,9 @@ public class FillUserinfoActivity extends BaseActivity {
                 String address = textAddress.getText().toString();
                 LogUtil.d("Userinfo Fill address", address);
                 if (address.length() == 0) {
-                    wrapperAddress.setError("地址不能为空！");
+                    wrapperAddress.setError(getString(R.string.address_not_empty));
                 } else if (address.length() > 100) {
-                    wrapperAddress.setError("地址长度不能超过100个字符！");
+                    wrapperAddress.setError(getString(R.string.address_too_long));
                 } else {
                     wrapperAddress.setErrorEnabled(false);
                     addressValid = true;
@@ -127,7 +128,7 @@ public class FillUserinfoActivity extends BaseActivity {
                                 public void run() {
                                     progressBar.setVisibility(View.GONE); //隐藏进度条
                                     submitButton.setVisibility(View.VISIBLE); //显示提交按钮
-                                    Toast.makeText(FillUserinfoActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FillUserinfoActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

@@ -66,7 +66,7 @@ public class UserinfoFragment extends BaseFragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_userinfo);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("个人信息");
+        toolbar.setTitle(getString(R.string.user_info));
 
         progressBar.setVisibility(View.VISIBLE); //显示进度条
         wrapperInfo.setVisibility(View.GONE); //隐藏个人信息
@@ -145,7 +145,7 @@ public class UserinfoFragment extends BaseFragment {
                         wrapperInfo.setVisibility(View.VISIBLE); //显示个人信息
                         modifyInfoButton.setVisibility(View.VISIBLE); //显示修改个人信息按钮
                         modifyPassButton.setVisibility(View.VISIBLE); //显示修改密码按钮
-                        Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -249,7 +249,7 @@ public class UserinfoFragment extends BaseFragment {
                                 wrapperInfo.setVisibility(View.VISIBLE); //显示个人信息
                                 modifyInfoButton.setVisibility(View.VISIBLE); //显示修改个人信息按钮
                                 modifyPassButton.setVisibility(View.VISIBLE); //显示修改密码按钮
-                                Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -350,7 +350,7 @@ public class UserinfoFragment extends BaseFragment {
                                     wrapperInfo.setVisibility(View.VISIBLE); //显示个人信息
                                     modifyInfoButton.setVisibility(View.VISIBLE); //显示修改个人信息按钮
                                     modifyPassButton.setVisibility(View.VISIBLE); //显示修改密码按钮
-                                    Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

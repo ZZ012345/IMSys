@@ -7,4 +7,4 @@
     android:singleLine="true"
     android:textAlignment="inherit"
     android:textColor="@color/black"
-    android:textSize="24dip" />
+    android:textSize="18dip" />

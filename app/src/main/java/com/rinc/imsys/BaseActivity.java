@@ -56,10 +56,10 @@ public class BaseActivity extends AppCompatActivity {
         @Override
         public void onReceive(final Context context, Intent intent) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("提示");
-            builder.setMessage("该账号已被强制登出，请重新登录！");
+            builder.setTitle(getString(R.string.hint));
+            builder.setMessage(getString(R.string.force_offline));
             builder.setCancelable(false);
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     User.clear();

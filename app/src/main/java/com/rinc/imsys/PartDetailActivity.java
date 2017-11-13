@@ -98,10 +98,10 @@ public class PartDetailActivity extends BaseActivity {
                 break;
             case R.id.delete:
                 AlertDialog.Builder builder = new AlertDialog.Builder(PartDetailActivity.this);
-                builder.setTitle("警告");
-                builder.setMessage("确定删除该库存品吗？");
+                builder.setTitle(getString(R.string.warning));
+                builder.setMessage(getString(R.string.delete_stock));
                 builder.setCancelable(true);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         HttpUtil.deletePartDetail(String.valueOf(partStock.getDatabaseid()), new okhttp3.Callback() {
@@ -111,10 +111,10 @@ public class PartDetailActivity extends BaseActivity {
                                     @Override
                                     public void run() {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(PartDetailActivity.this);
-                                        builder.setTitle("提示");
-                                        builder.setMessage("删除成功！");
+                                        builder.setTitle(getString(R.string.hint));
+                                        builder.setMessage(getString(R.string.delete_successful));
                                         builder.setCancelable(false);
-                                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 deleteOrNot = true;
@@ -133,14 +133,14 @@ public class PartDetailActivity extends BaseActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(PartDetailActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PartDetailActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
                         });
                     }
                 });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -159,6 +159,7 @@ public class PartDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_partdetail);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_partdetail);
+        toolbar.setTitle(getString(R.string.part_detail));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -200,7 +201,16 @@ public class PartDetailActivity extends BaseActivity {
         textId.setText(partStock.getId());
         textType.setText(partStock.getType());
         textNum.setText(partStock.getNum());
-        textStorestate.setText(partStock.getStorestate());
+        String storeState = partStock.getStorestate();
+        if (storeState.equals("在用")) {
+            textStorestate.setText(getString(R.string.in_use));
+        } else if (storeState.equals("闲置可用")) {
+            textStorestate.setText(getString(R.string.for_use));
+        } else if (storeState.equals("闲置可租")) {
+            textStorestate.setText(getString(R.string.for_rent));
+        } else {
+            textStorestate.setText(getString(R.string.for_sale));
+        }
         textMark.setText(partStock.getMark());
         textBand.setText(partStock.getBand());
         textOriginal.setText(partStock.getOriginal());
@@ -246,7 +256,16 @@ public class PartDetailActivity extends BaseActivity {
                     textId.setText(partStock.getId());
                     textType.setText(partStock.getType());
                     textNum.setText(partStock.getNum());
-                    textStorestate.setText(partStock.getStorestate());
+                    String storeState = partStock.getStorestate();
+                    if (storeState.equals("在用")) {
+                        textStorestate.setText(getString(R.string.in_use));
+                    } else if (storeState.equals("闲置可用")) {
+                        textStorestate.setText(getString(R.string.for_use));
+                    } else if (storeState.equals("闲置可租")) {
+                        textStorestate.setText(getString(R.string.for_rent));
+                    } else {
+                        textStorestate.setText(getString(R.string.for_sale));
+                    }
                     textMark.setText(partStock.getMark());
                     textBand.setText(partStock.getBand());
                     textOriginal.setText(partStock.getOriginal());

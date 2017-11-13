@@ -8,86 +8,91 @@
         <item
             android:id="@+id/menu_userinfo"
             android:icon="@drawable/menu_user"
-            android:title="个人信息" />
+            android:title="@string/user_info" />
 
         <item
             android:id="@+id/menu_part"
             android:icon="@drawable/menu_part"
             app:actionLayout="@layout/custom_menu_part"
             android:checkable="false"
-            android:title="备件库" />
+            android:title="@string/part_stock" />
 
         <item
             android:id="@+id/menu_partsto"
-            android:title="库存品信息" />
+            android:title="@string/storage_info" />
 
         <item
             android:id="@+id/menu_partin"
-            android:title="入库" />
+            android:title="@string/stock_in" />
 
         <item
             android:id="@+id/menu_partout"
-            android:title="出库" />
+            android:title="@string/stock_out" />
 
         <item
             android:id="@+id/menu_partsearch"
-            android:title="查找" />
+            android:title="@string/search" />
 
         <item
             android:id="@+id/menu_equip"
             android:icon="@drawable/menu_equip"
             app:actionLayout="@layout/custom_menu_equip"
             android:checkable="false"
-            android:title="整机库" />
+            android:title="@string/machine_stock" />
 
         <item
             android:id="@+id/menu_equipsto"
-            android:title="库存品信息" />
+            android:title="@string/storage_info" />
 
         <item
             android:id="@+id/menu_equipin"
-            android:title="入库" />
+            android:title="@string/stock_in" />
 
         <item
             android:id="@+id/menu_equipout"
-            android:title="出库" />
+            android:title="@string/stock_out" />
 
         <item
             android:id="@+id/menu_equipsearch"
-            android:title="查找" />
+            android:title="@string/search" />
 
         <item
             android:id="@+id/menu_mat"
             android:icon="@drawable/menu_mat"
             app:actionLayout="@layout/custom_menu_mat"
             android:checkable="false"
-            android:title="材料库" />
+            android:title="@string/material_stock" />
 
         <item
             android:id="@+id/menu_matsto"
-            android:title="库存品信息" />
+            android:title="@string/storage_info" />
 
         <item
             android:id="@+id/menu_matin"
-            android:title="入库" />
+            android:title="@string/stock_in" />
 
         <item
             android:id="@+id/menu_matout"
-            android:title="出库" />
+            android:title="@string/stock_out" />
 
         <item
             android:id="@+id/menu_matsearch"
-            android:title="查找" />
+            android:title="@string/search" />
 
         <item
             android:id="@+id/menu_qrmake"
             android:icon="@drawable/menu_qr"
-            android:title="生成二维码" />
+            android:title="@string/qr_make" />
+
+        <item
+            android:id="@+id/menu_settings"
+            android:icon="@drawable/settings"
+            android:title="@string/settings" />
 
         <item
             android:id="@+id/menu_logout"
             android:icon="@drawable/menu_logout"
-            android:title="登出" />
+            android:title="@string/sign_out" />
 
     </group>
 

@@ -62,7 +62,7 @@ public class EquipOutFragment extends BaseFragment {
         submitButton = (Button) view.findViewById(R.id.button_submit_equipout);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("整机出库");
+        toolbar.setTitle(getString(R.string.machine_out));
 
         progressBar.setVisibility(View.GONE);
         submitButton.setVisibility(View.VISIBLE);
@@ -93,9 +93,9 @@ public class EquipOutFragment extends BaseFragment {
                 String id = textId.getText().toString();
                 LogUtil.d("Equip out id", id);
                 if (id.length() == 0) {
-                    wrapperId.setError("不能为空！");
+                    wrapperId.setError(getString(R.string.not_empty));
                 } else if (id.length() > 100) {
-                    wrapperId.setError("长度不能超过100个字符！");
+                    wrapperId.setError(getString(R.string.too_long));
                 } else {
                     wrapperId.setErrorEnabled(false);
                     idValid = true;
@@ -106,7 +106,7 @@ public class EquipOutFragment extends BaseFragment {
                 String datetime = textDateTime.getText().toString();
                 LogUtil.d("Equip out datetime", datetime);
                 if (datetime.length() == 0) {
-                    wrapperDatetime.setError("不能为空！");
+                    wrapperDatetime.setError(getString(R.string.not_empty));
                 } else {
                     wrapperDatetime.setErrorEnabled(false);
                     datetimeValid = true;
@@ -117,9 +117,9 @@ public class EquipOutFragment extends BaseFragment {
                 String user = textUser.getText().toString();
                 LogUtil.d("Equip out user", user);
                 if (user.length() == 0) {
-                    wrapperUser.setError("不能为空！");
+                    wrapperUser.setError(getString(R.string.not_empty));
                 } else if (user.length() > 100) {
-                    wrapperUser.setError("长度不能超过100个字符！");
+                    wrapperUser.setError(getString(R.string.too_long));
                 } else {
                     wrapperUser.setErrorEnabled(false);
                     userValid = true;
@@ -130,9 +130,9 @@ public class EquipOutFragment extends BaseFragment {
                 String operator = textOperator.getText().toString();
                 LogUtil.d("Equip out operator", operator);
                 if (operator.length() == 0) {
-                    wrapperOperator.setError("不能为空！");
+                    wrapperOperator.setError(getString(R.string.not_empty));
                 } else if (operator.length() > 100) {
-                    wrapperOperator.setError("长度不能超过100个字符！");
+                    wrapperOperator.setError(getString(R.string.too_long));
                 } else {
                     wrapperOperator.setErrorEnabled(false);
                     operatorValid = true;
@@ -143,7 +143,7 @@ public class EquipOutFragment extends BaseFragment {
                 String num = textNum.getText().toString();
                 LogUtil.d("Equip out num", num);
                 if (num.length() == 0) {
-                    wrapperNum.setError("不能为空！");
+                    wrapperNum.setError(getString(R.string.not_empty));
                 } else {
                     wrapperNum.setErrorEnabled(false);
                     numValid = true;
@@ -170,10 +170,10 @@ public class EquipOutFragment extends BaseFragment {
                                             progressBar.setVisibility(View.GONE);
                                             submitButton.setVisibility(View.VISIBLE);
                                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                            builder.setTitle("提示");
-                                            builder.setMessage("出库成功！");
+                                            builder.setTitle(getString(R.string.hint));
+                                            builder.setMessage(getString(R.string.stock_out_successful));
                                             builder.setCancelable(false);
-                                            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
                                                     //清空出库信息，只保留出库时间和操作人员
@@ -197,10 +197,10 @@ public class EquipOutFragment extends BaseFragment {
                                                 progressBar.setVisibility(View.GONE);
                                                 submitButton.setVisibility(View.VISIBLE);
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                                builder.setTitle("提示");
-                                                builder.setMessage("出库失败，该整机不存在！");
+                                                builder.setTitle(getString(R.string.hint));
+                                                builder.setMessage(getString(R.string.machine_not_exist));
                                                 builder.setCancelable(false);
-                                                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialogInterface, int i) {
                                                         //清空出库信息，只保留出库时间和操作人员
@@ -222,10 +222,10 @@ public class EquipOutFragment extends BaseFragment {
                                                 progressBar.setVisibility(View.GONE);
                                                 submitButton.setVisibility(View.VISIBLE);
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                                builder.setTitle("提示");
-                                                builder.setMessage("出库失败，库存余量不足！");
+                                                builder.setTitle(getString(R.string.hint));
+                                                builder.setMessage(getString(R.string.no_enough_storage));
                                                 builder.setCancelable(false);
-                                                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialogInterface, int i) {
                                                         textNum.setText("");
@@ -260,13 +260,13 @@ public class EquipOutFragment extends BaseFragment {
                                             submitButton.setVisibility(View.VISIBLE);
 
                                             if (errorType.contains(1)) {
-                                                wrapperDatetime.setError("格式错误，正确格式如2000-01-01！");
+                                                wrapperDatetime.setError(getString(R.string.year_format_error));
                                             }
                                             if (errorType.contains(2)) {
-                                                wrapperNum.setError("该输入非整数！");
+                                                wrapperNum.setError(getString(R.string.not_integer));
                                             }
                                             if (errorType.contains(3)) {
-                                                wrapperNum.setError("数字不能大于2147483647！");
+                                                wrapperNum.setError(getString(R.string.large_than_num));
                                             }
                                         }
                                     });
@@ -285,7 +285,7 @@ public class EquipOutFragment extends BaseFragment {
                                 public void run() {
                                     progressBar.setVisibility(View.GONE); //隐藏进度条
                                     submitButton.setVisibility(View.VISIBLE); //显示出库按钮
-                                    Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

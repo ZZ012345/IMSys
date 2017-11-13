@@ -75,6 +75,7 @@ public class PartOutRecActivity extends BaseActivity {
         setContentView(R.layout.activity_partoutrec);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_partoutrec);
+        toolbar.setTitle(getString(R.string.part_out_record));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -181,7 +182,7 @@ public class PartOutRecActivity extends BaseActivity {
                         progressBar.setVisibility(View.GONE);
                         textNotExist.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.GONE);
-                        Toast.makeText(PartOutRecActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PartOutRecActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -311,7 +312,7 @@ public class PartOutRecActivity extends BaseActivity {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(PartOutRecActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PartOutRecActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

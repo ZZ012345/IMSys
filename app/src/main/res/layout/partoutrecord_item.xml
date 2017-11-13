@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="出库时间" />
+            android:text="@string/out_date" />
 
         <TextView
             android:id="@+id/text_datatime_partoutrec"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="备件去向" />
+            android:text="@string/part_out_user" />
 
         <TextView
             android:id="@+id/text_user_partoutrec"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="操作人员" />
+            android:text="@string/operator" />
 
         <TextView
             android:id="@+id/text_operator_partoutrec"
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="出库数量" />
+            android:text="@string/out_quantity" />
 
         <TextView
             android:id="@+id/text_num_partoutrec"
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="剩余数量" />
+            android:text="@string/remain" />
 
         <TextView
             android:id="@+id/text_leftnum_partoutrec"
@@ -115,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dip"
-            android:text="出库备注" />
+            android:text="@string/out_remarks" />
 
         <TextView
             android:id="@+id/text_description_partoutrec"

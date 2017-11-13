@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="蓝猫"
+            android:label="@string/app_name"
             android:launchMode="standard"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -28,137 +28,137 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="注册"
+            android:label="@string/sign_up"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="主页"
+            android:label="@string/homepage"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity
             android:name=".FillUserinfoActivity"
-            android:label="填写个人信息"
+            android:label="@string/fill_userinfo"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity
             android:name=".ModifyUserInfoActivity"
-            android:label="修改个人信息"
+            android:label="@string/modify_userinfo"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity
             android:name=".ModifyPassActivity"
-            android:label="修改密码"
+            android:label="@string/modify_password"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".SimpleScannerActivity"
-            android:label="扫描二维码"
+            android:label="@string/scan_qrcode"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".QRCodeActivity"
-            android:label="生成二维码结果"
+            android:label="@string/qrcode_result"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".MatDetailActivity"
-            android:label="材料详细信息"
+            android:label="@string/material_detail"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".ModifyMatDetailActivity"
-            android:label="修改材料详细信息"
+            android:label="@string/modify_material_detail"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".MatInRecActivity"
-            android:label="材料入库记录"
+            android:label="@string/material_in_record"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".MatOutRecActivity"
-            android:label="材料出库记录"
+            android:label="@string/material_out_record"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".MatSearchResultActivity"
-            android:label="查找结果"
+            android:label="@string/search_result"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".PartDetailActivity"
-            android:label="备件详细信息"
+            android:label="@string/part_detail"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".ModifyPartDetailActivity"
-            android:label="修改备件详细信息"
+            android:label="@string/modify_part_detail"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".PartInRecActivity"
-            android:label="备件入库记录"
+            android:label="@string/part_in_record"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".PartOutRecActivity"
-            android:label="备件出库记录"
+            android:label="@string/part_out_record"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".PartSearchResultActivity"
-            android:label="查找结果"
+            android:label="@string/search_result"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".EquipDetailActivity"
-            android:label="整机详细信息"
+            android:label="@string/machine_detail"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".ModifyEquipDetailActivity"
-            android:label="修改整机详细信息"
+            android:label="@string/modify_machine_detail"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".EquipInRecActivity"
-            android:label="整机入库记录"
+            android:label="@string/machine_in_record"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".EquipOutRecActivity"
-            android:label="整机出库记录"
+            android:label="@string/machine_out_record"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".EquipSearchResultActivity"
-            android:label="查找结果"
+            android:label="@string/search_result"
             android:launchMode="standard"
             android:screenOrientation="portrait">
 

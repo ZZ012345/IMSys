@@ -75,6 +75,7 @@ public class EquipSearchResultActivity extends BaseActivity {
         setContentView(R.layout.activity_equipsearchresult);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_equipsearchresult);
+        toolbar.setTitle(getString(R.string.search_result));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -209,7 +210,7 @@ public class EquipSearchResultActivity extends BaseActivity {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(EquipSearchResultActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EquipSearchResultActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -362,7 +363,7 @@ public class EquipSearchResultActivity extends BaseActivity {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(EquipSearchResultActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EquipSearchResultActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

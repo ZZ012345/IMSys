@@ -84,10 +84,10 @@ public class MatDetailActivity extends BaseActivity {
                 break;
             case R.id.delete:
                 AlertDialog.Builder builder = new AlertDialog.Builder(MatDetailActivity.this);
-                builder.setTitle("警告");
-                builder.setMessage("确定删除该库存品吗？");
+                builder.setTitle(getString(R.string.warning));
+                builder.setMessage(getString(R.string.delete_stock));
                 builder.setCancelable(true);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         HttpUtil.deleteMatDetail(String.valueOf(materialStock.getDatabaseid()), new okhttp3.Callback() {
@@ -97,10 +97,10 @@ public class MatDetailActivity extends BaseActivity {
                                     @Override
                                     public void run() {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(MatDetailActivity.this);
-                                        builder.setTitle("提示");
-                                        builder.setMessage("删除成功！");
+                                        builder.setTitle(getString(R.string.hint));
+                                        builder.setMessage(getString(R.string.delete_successful));
                                         builder.setCancelable(false);
-                                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        builder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 deleteOrNot = true;
@@ -119,14 +119,14 @@ public class MatDetailActivity extends BaseActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(MatDetailActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MatDetailActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
                         });
                     }
                 });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -145,6 +145,7 @@ public class MatDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_matdetail);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_matdetail);
+        toolbar.setTitle(getString(R.string.material_detail));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -179,7 +180,16 @@ public class MatDetailActivity extends BaseActivity {
         textId.setText(materialStock.getId());
         textType.setText(materialStock.getType());
         textNum.setText(materialStock.getNum());
-        textStorestate.setText(materialStock.getStorestate());
+        String storeState = materialStock.getStorestate();
+        if (storeState.equals("在用")) {
+            textStorestate.setText(getString(R.string.in_use));
+        } else if (storeState.equals("闲置可用")) {
+            textStorestate.setText(getString(R.string.for_use));
+        } else if (storeState.equals("闲置可租")) {
+            textStorestate.setText(getString(R.string.for_rent));
+        } else {
+            textStorestate.setText(getString(R.string.for_sale));
+        }
         textMark.setText(materialStock.getMark());
         textBand.setText(materialStock.getBand());
         textOriginal.setText(materialStock.getOriginal());
@@ -218,7 +228,16 @@ public class MatDetailActivity extends BaseActivity {
                     textId.setText(materialStock.getId());
                     textType.setText(materialStock.getType());
                     textNum.setText(materialStock.getNum());
-                    textStorestate.setText(materialStock.getStorestate());
+                    String storeState = materialStock.getStorestate();
+                    if (storeState.equals("在用")) {
+                        textStorestate.setText(getString(R.string.in_use));
+                    } else if (storeState.equals("闲置可用")) {
+                        textStorestate.setText(getString(R.string.for_use));
+                    } else if (storeState.equals("闲置可租")) {
+                        textStorestate.setText(getString(R.string.for_rent));
+                    } else {
+                        textStorestate.setText(getString(R.string.for_sale));
+                    }
                     textMark.setText(materialStock.getMark());
                     textBand.setText(materialStock.getBand());
                     textOriginal.setText(materialStock.getOriginal());

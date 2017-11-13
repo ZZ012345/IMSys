@@ -57,7 +57,7 @@ public class MatSearchFragment extends BaseFragment {
         searchButton = view.findViewById(R.id.button_search_matsearch);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_main);
-        toolbar.setTitle("材料查找");
+        toolbar.setTitle(getString(R.string.material_search));
 
         progressBar.setVisibility(View.GONE);
         searchButton.setVisibility(View.VISIBLE);
@@ -86,7 +86,7 @@ public class MatSearchFragment extends BaseFragment {
 
                 if (id.length() == 0 && type.length() == 0 && band.length() == 0 && original.length() == 0 &&
                         position.length() == 0 && yearstart.length() == 0 && yearend.length() == 0) {
-                    Toast.makeText(getActivity(), "查找条件不能为空！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.search_condition_empty), Toast.LENGTH_SHORT).show();
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
                     searchButton.setVisibility(View.GONE);
@@ -106,7 +106,7 @@ public class MatSearchFragment extends BaseFragment {
                                     public void run() {
                                         progressBar.setVisibility(View.GONE);
                                         searchButton.setVisibility(View.VISIBLE);
-                                        Toast.makeText(getActivity(), "时间格式错误，正确格式如2000-01-01！", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), getString(R.string.year_format_error_2), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             } else {
@@ -131,7 +131,7 @@ public class MatSearchFragment extends BaseFragment {
                                 public void run() {
                                     progressBar.setVisibility(View.GONE);
                                     searchButton.setVisibility(View.VISIBLE);
-                                    Toast.makeText(getActivity(), "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

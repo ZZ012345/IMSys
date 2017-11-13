@@ -75,6 +75,7 @@ public class PartSearchResultActivity extends BaseActivity {
         setContentView(R.layout.activity_partsearchresult);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_partsearchresult);
+        toolbar.setTitle(getString(R.string.search_result));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -211,7 +212,7 @@ public class PartSearchResultActivity extends BaseActivity {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(PartSearchResultActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PartSearchResultActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -366,7 +367,7 @@ public class PartSearchResultActivity extends BaseActivity {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(PartSearchResultActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PartSearchResultActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

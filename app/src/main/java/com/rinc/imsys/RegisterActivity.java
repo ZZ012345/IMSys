@@ -66,6 +66,7 @@ public class RegisterActivity extends BaseActivity {
         registerButton = (Button) findViewById(R.id.button_register);
         loginLink = (TextView) findViewById(R.id.link_login);
 
+        toolbar.setTitle(getString(R.string.sign_up));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -90,11 +91,11 @@ public class RegisterActivity extends BaseActivity {
                 final String username = textUsername.getText().toString();
                 LogUtil.d("Register username", username);
                 if (username.length() == 0) {
-                    wrapperUsername.setError("用户名不能为空！");
+                    wrapperUsername.setError(getString(R.string.username_not_empty));
                 } else if (username.length() > 150) {
-                    wrapperUsername.setError("用户名长度不能超过150个字符！");
+                    wrapperUsername.setError(getString(R.string.username_too_long));
                 } else if (!checkUsername(username)) {
-                    wrapperUsername.setError("用户名格式错误！");
+                    wrapperUsername.setError(getString(R.string.username_format_error));
                 } else {
                     wrapperUsername.setErrorEnabled(false);
                     usernameValid = true;
@@ -105,9 +106,9 @@ public class RegisterActivity extends BaseActivity {
                 final String email = textEmail.getText().toString();
                 LogUtil.d("Register email", email);
                 if (email.length() == 0) {
-                    wrapperEmail.setError("邮箱不能为空！");
+                    wrapperEmail.setError(getString(R.string.email_not_empty));
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    wrapperEmail.setError("邮箱格式错误！");
+                    wrapperEmail.setError(getString(R.string.email_format_error));
                 } else {
                     wrapperEmail.setErrorEnabled(false);
                     emailValid = true;
@@ -118,11 +119,11 @@ public class RegisterActivity extends BaseActivity {
                 String password1 = textPassword1.getText().toString();
                 LogUtil.d("Register password1", password1);
                 if (password1.length() == 0) {
-                    wrapperPassword1.setError("密码不能为空！");
+                    wrapperPassword1.setError(getString(R.string.password_not_empty));
                 } else if (password1.length() < 8) {
-                    wrapperPassword1.setError("密码至少需要包含8个字符！");
+                    wrapperPassword1.setError(getString(R.string.password_too_short));
                 } else if (!checkNotAllNum(password1)) {
-                    wrapperPassword1.setError("密码必须包含非数字字符！");
+                    wrapperPassword1.setError(getString(R.string.password_all_number));
                 } else {
                     wrapperPassword1.setErrorEnabled(false);
                     password1Valid = true;
@@ -133,11 +134,11 @@ public class RegisterActivity extends BaseActivity {
                 String password2 = textPassword2.getText().toString();
                 LogUtil.d("Register password2", password2);
                 if (password2.length() == 0) {
-                    wrapperPassword2.setError("密码不能为空！");
+                    wrapperPassword2.setError(getString(R.string.password_not_empty));
                 } else if (password2.length() < 8) {
-                    wrapperPassword2.setError("密码至少需要包含8个字符！");
+                    wrapperPassword2.setError(getString(R.string.password_too_short));
                 } else if (!checkNotAllNum(password2)) {
-                    wrapperPassword2.setError("密码必须包含非数字字符！");
+                    wrapperPassword2.setError(getString(R.string.password_all_number));
                 } else {
                     wrapperPassword2.setErrorEnabled(false);
                     password2Valid = true;
@@ -145,7 +146,7 @@ public class RegisterActivity extends BaseActivity {
 
                 if (usernameValid && emailValid && password1Valid && password2Valid) {
                     if (!password1.equals(password2)) {
-                        wrapperPassword2.setError("前后密码不一致！");
+                        wrapperPassword2.setError(getString(R.string.password_different));
                     } else {
                         registerButton.setVisibility(View.GONE); //隐藏注册按钮
                         loginLink.setVisibility(View.GONE); //隐藏登录链接
@@ -198,19 +199,19 @@ public class RegisterActivity extends BaseActivity {
                                                 registerButton.setVisibility(View.VISIBLE); //显示注册按钮
                                                 loginLink.setVisibility(View.VISIBLE); //显示登录链接
                                                 if (errorType.size() == 0) { //发生未预计到的错误
-                                                    Toast.makeText(RegisterActivity.this, "注册失败，请修改后重新尝试", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(RegisterActivity.this, getString(R.string.sign_up_fail), Toast.LENGTH_SHORT).show();
                                                 } else {
                                                     if (errorType.contains(1)) {
-                                                        wrapperPassword2.setError("密码太简单！");
+                                                        wrapperPassword2.setError(getString(R.string.password_too_simple));
                                                     }
                                                     if (errorType.contains(2)) {
-                                                        wrapperEmail.setError("邮箱格式错误！");
+                                                        wrapperEmail.setError(getString(R.string.email_format_error));
                                                     }
                                                     if (errorType.contains(3)) {
-                                                        wrapperEmail.setError("该邮箱已被注册！");
+                                                        wrapperEmail.setError(getString(R.string.email_been_registered));
                                                     }
                                                     if (errorType.contains(4)) {
-                                                        wrapperUsername.setError("该用户名已被注册！");
+                                                        wrapperUsername.setError(getString(R.string.username_been_registered));
                                                     }
                                                 }
                                             }
@@ -231,7 +232,7 @@ public class RegisterActivity extends BaseActivity {
                                         progressBar.setVisibility(View.GONE); //隐藏进度条
                                         registerButton.setVisibility(View.VISIBLE); //显示注册按钮
                                         loginLink.setVisibility(View.VISIBLE); //显示登录链接
-                                        Toast.makeText(RegisterActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }

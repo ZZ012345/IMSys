@@ -75,6 +75,7 @@ public class EquipInRecActivity extends BaseActivity {
         setContentView(R.layout.activity_equipinrec);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_equipinrec);
+        toolbar.setTitle(getString(R.string.machine_in_record));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -179,7 +180,7 @@ public class EquipInRecActivity extends BaseActivity {
                         progressBar.setVisibility(View.GONE);
                         textNotExist.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.GONE);
-                        Toast.makeText(EquipInRecActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EquipInRecActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -307,7 +308,7 @@ public class EquipInRecActivity extends BaseActivity {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(EquipInRecActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EquipInRecActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

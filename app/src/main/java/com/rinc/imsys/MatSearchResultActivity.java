@@ -75,6 +75,7 @@ public class MatSearchResultActivity extends BaseActivity {
         setContentView(R.layout.activity_matsearchresult);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_matsearchresult);
+        toolbar.setTitle(getString(R.string.search_result));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -203,7 +204,7 @@ public class MatSearchResultActivity extends BaseActivity {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(MatSearchResultActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MatSearchResultActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -350,7 +351,7 @@ public class MatSearchResultActivity extends BaseActivity {
                                 progressBar.setVisibility(View.GONE);
                                 textNotExist.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
-                                Toast.makeText(MatSearchResultActivity.this, "网络连接失败，请重新尝试", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MatSearchResultActivity.this, getString(R.string.network_error), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

@@ -47,6 +47,7 @@ public class QRCodeActivity extends BaseActivity {
         button = (Button) findViewById(R.id.button_qrcode);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_qrcode);
+        toolbar.setTitle(getString(R.string.qrcode_result));
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -114,9 +115,9 @@ public class QRCodeActivity extends BaseActivity {
             fos.flush();
             fos.close();
             if (isSuccess) {
-                Toast.makeText(QRCodeActivity.this, "保存成功！图片已保存至根目录下的\"BlueCatFiles\"文件夹中", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QRCodeActivity.this, getString(R.string.save_successful), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(QRCodeActivity.this, "保存失败！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(QRCodeActivity.this, getString(R.string.save_failed), Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,7 +131,7 @@ public class QRCodeActivity extends BaseActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     saveImage();
                 } else {
-                    Toast.makeText(QRCodeActivity.this, "保存失败！请授予文件写入权限以使用保存二维码功能", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QRCodeActivity.this, getString(R.string.save_failed_and_need_permission), Toast.LENGTH_LONG).show();
                 }
         }
     }

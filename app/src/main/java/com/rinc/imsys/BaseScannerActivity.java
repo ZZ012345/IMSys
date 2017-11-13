@@ -7,6 +7,7 @@ import android.view.MenuItem;
 public class BaseScannerActivity extends BaseActivity {
     public void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_scanner);
+        toolbar.setTitle(getString(R.string.scan_qrcode));
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
         if(ab != null) {

@@ -26,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dip"
-                    android:text="标号" />
+                    android:text="@string/id" />
 
                 <TextView
                     android:id="@+id/matstock_text_id"
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dip"
-                    android:text="类型" />
+                    android:text="@string/type" />
 
                 <TextView
                     android:id="@+id/matstock_text_type"
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dip"
-                    android:text="数量" />
+                    android:text="@string/quantity" />
 
                 <TextView
                     android:id="@+id/matstock_text_num"
