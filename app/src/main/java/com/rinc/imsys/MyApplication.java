@@ -68,6 +68,14 @@ public class MyApplication extends Application {
             } else {
                 locale = Locale.ENGLISH;
             }
+        } else if (language.equals("Spanish")) {
+            //应用设置为西班牙语
+            LogUtil.d("Language Set", "to Spanish");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                configuration.setLocale(new Locale("es"));
+            } else {
+                locale = new Locale("es");
+            }
         }
         resources.updateConfiguration(configuration, displayMetrics); //更新语言
     }
