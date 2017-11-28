@@ -47,7 +47,7 @@ public class SettingsFragment extends BaseFragment {
         //初始化下拉列表
         languageList.add("简体中文");
         languageList.add("English");
-        //languageList.add("Español");
+        languageList.add("Español");
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinnertext_lan_item, languageList);
         adapter.setDropDownViewResource(R.layout.spinnerdropdown_lan_item);
         spinner.setAdapter(adapter);

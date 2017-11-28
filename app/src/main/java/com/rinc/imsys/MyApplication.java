@@ -44,8 +44,11 @@ public class MyApplication extends Application {
             if (locale.toString().equals(Locale.SIMPLIFIED_CHINESE.toString())) {
                 //如果系统默认语言为简体中文，则设置为简体中文
                 language = "Simplified Chinese";
+            } else if (locale.toString().equals(new Locale("es").toString())) {
+                //如果系统默认语言为西班牙语，则设置为西班牙语
+                language = "Spanish";
             } else {
-                //如果系统默认语言非简体中文，则设置为英语
+                //否则设置为英语
                 language = "English";
             }
             SharedPreferences.Editor editor = pref.edit();
