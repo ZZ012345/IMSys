@@ -202,4 +202,5 @@
     <string name="save_failed_and_need_permission">保存失败！请授予文件写入权限以使用保存二维码功能</string>
     <string name="language">语言</string>
     <string name="switch_language">确定要切换语言吗</string>
+    <string name="serial_num">编号</string>
 </resources>

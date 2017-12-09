@@ -202,4 +202,5 @@
     <string name="save_failed_and_need_permission">Save failed! Please grant file-writing permission to save qr code</string>
     <string name="language">Language</string>
     <string name="switch_language">Are you sure to change language?</string>
+    <string name="serial_num">Number</string>
 </resources>

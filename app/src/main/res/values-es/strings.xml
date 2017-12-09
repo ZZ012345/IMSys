@@ -202,4 +202,5 @@
     <string name="save_failed">Fracasó en guardarlo.</string>
     <string name="save_failed_and_need_permission">Fracasó en guardar el código QR. Conceda al archivo el poder de escritura para usar la función de guardar el código QR.</string>
     <string name="switch_language">¿Seguro que cambiará la lengua?</string>
+    <string name="serial_num">número</string>
 </resources>

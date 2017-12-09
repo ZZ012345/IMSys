@@ -46,7 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="@string/type" />
+                    android:hint="@string/serial_num" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="@string/band" />
+                    android:hint="@string/name" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:hint="@string/origin" />
+                    android:hint="@string/mark" />
 
             </android.support.design.widget.TextInputLayout>
 

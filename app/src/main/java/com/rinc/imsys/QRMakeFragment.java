@@ -182,7 +182,7 @@ public class QRMakeFragment extends BaseFragment {
                     wrapperMachineBand.setVisibility(View.VISIBLE);
                     wrapperCondition.setVisibility(View.VISIBLE);
                     wrapperVulnerability.setVisibility(View.VISIBLE);
-                    wrapperState.setHint(getString(R.string.status_1));
+                    wrapperState.setHint(getString(R.string.serial_num));
                 } else {
                     //整机库
                     wrapperHour.setVisibility(View.VISIBLE);
